@@ -1,0 +1,2355 @@
+[
+  {
+    "type": "BinaryLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Casting",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "DecimalLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Div",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "EscapedCharacter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "HexadecimalDigit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "Greater",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "HexadecimalLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "InvalidNumberLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Less",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Negate",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "OctalLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Optional",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Self",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "StringLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "EscapedCharacter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "access",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "additiveExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveOp",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "additiveOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Minus",
+          "named": true
+        },
+        {
+          "type": "Plus",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "andExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arrayLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "transfer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "baseType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "constantSizedType",
+          "named": true
+        },
+        {
+          "type": "dictionaryType",
+          "named": true
+        },
+        {
+          "type": "functionType",
+          "named": true
+        },
+        {
+          "type": "nominalType",
+          "named": true
+        },
+        {
+          "type": "variableSizedType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseAndExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseOrExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseShiftExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bitwiseShiftOp",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseShiftOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ShiftLeft",
+          "named": true
+        },
+        {
+          "type": "ShiftRight",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseXorExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "statements",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "booleanLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "False",
+          "named": true
+        },
+        {
+          "type": "True",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bracketExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "breakStatement",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "castingExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "castingOp",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "castingOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Casting",
+          "named": true
+        },
+        {
+          "type": "FailableCasting",
+          "named": true
+        },
+        {
+          "type": "ForceCasting",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "compositeDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "compositeKind",
+          "named": true
+        },
+        {
+          "type": "conformances",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "membersAndNestedDeclarations",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "compositeKind",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditionalExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
+          "named": true
+        },
+        {
+          "type": "eos",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conformances",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "nominalType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constantSizedType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fullType",
+          "named": true
+        },
+        {
+          "type": "integerLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "continueStatement",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "createExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "nominalType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "compositeDeclaration",
+          "named": true
+        },
+        {
+          "type": "eventDeclaration",
+          "named": true
+        },
+        {
+          "type": "functionDeclaration",
+          "named": true
+        },
+        {
+          "type": "importDeclaration",
+          "named": true
+        },
+        {
+          "type": "interfaceDeclaration",
+          "named": true
+        },
+        {
+          "type": "pragmaDeclaration",
+          "named": true
+        },
+        {
+          "type": "transactionDeclaration",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "destroyExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dictionaryEntry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dictionaryLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dictionaryEntry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dictionaryType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fullType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "emitStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eos",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "equalityExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "equalityOp",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "equalityOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Equal",
+          "named": true
+        },
+        {
+          "type": "Unequal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eventDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parameterList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "execute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpression",
+          "named": true
+        },
+        {
+          "type": "andExpression",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpression",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpression",
+          "named": true
+        },
+        {
+          "type": "bitwiseShiftExpression",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpression",
+          "named": true
+        },
+        {
+          "type": "castingExpression",
+          "named": true
+        },
+        {
+          "type": "conditionalExpression",
+          "named": true
+        },
+        {
+          "type": "equalityExpression",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpression",
+          "named": true
+        },
+        {
+          "type": "nilCoalescingExpression",
+          "named": true
+        },
+        {
+          "type": "orExpression",
+          "named": true
+        },
+        {
+          "type": "postfixExpression",
+          "named": true
+        },
+        {
+          "type": "primaryExpression",
+          "named": true
+        },
+        {
+          "type": "relationalExpression",
+          "named": true
+        },
+        {
+          "type": "unaryExpression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionAccess",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bracketExpression",
+          "named": true
+        },
+        {
+          "type": "memberAccess",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        },
+        {
+          "type": "variableKind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fields",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fixedPointLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Minus",
+          "named": true
+        },
+        {
+          "type": "PositiveFixedPointLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "forStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fullType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "innerType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionBlock",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "postConditions",
+          "named": true
+        },
+        {
+          "type": "preConditions",
+          "named": true
+        },
+        {
+          "type": "statements",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "functionBlock",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parameterList",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "Self",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "ifStatement",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "importDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "HexadecimalLiteral",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "stringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "innerType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "baseType",
+          "named": true
+        },
+        {
+          "type": "typeRestrictions",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "integerLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Minus",
+          "named": true
+        },
+        {
+          "type": "positiveIntegerLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaceDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "compositeKind",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "membersAndNestedDeclarations",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "invocation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "argument",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arrayLiteral",
+          "named": true
+        },
+        {
+          "type": "booleanLiteral",
+          "named": true
+        },
+        {
+          "type": "dictionaryLiteral",
+          "named": true
+        },
+        {
+          "type": "fixedPointLiteral",
+          "named": true
+        },
+        {
+          "type": "integerLiteral",
+          "named": true
+        },
+        {
+          "type": "nilLiteral",
+          "named": true
+        },
+        {
+          "type": "pathLiteral",
+          "named": true
+        },
+        {
+          "type": "stringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "memberAccess",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Optional",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "membersAndNestedDeclarations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "compositeDeclaration",
+          "named": true
+        },
+        {
+          "type": "eventDeclaration",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "functionDeclaration",
+          "named": true
+        },
+        {
+          "type": "interfaceDeclaration",
+          "named": true
+        },
+        {
+          "type": "pragmaDeclaration",
+          "named": true
+        },
+        {
+          "type": "specialFunctionDeclaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiplicativeExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "multiplicativeOp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiplicativeOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Div",
+          "named": true
+        },
+        {
+          "type": "Mod",
+          "named": true
+        },
+        {
+          "type": "Mul",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "nilCoalescingExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "NilCoalescing",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "nilLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "nominalType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "orExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameterList",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pathLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "positiveIntegerLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "BinaryLiteral",
+          "named": true
+        },
+        {
+          "type": "DecimalLiteral",
+          "named": true
+        },
+        {
+          "type": "HexadecimalLiteral",
+          "named": true
+        },
+        {
+          "type": "InvalidNumberLiteral",
+          "named": true
+        },
+        {
+          "type": "OctalLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "postConditions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "conditions",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "postfixExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expressionAccess",
+          "named": true
+        },
+        {
+          "type": "functionBlock",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameterList",
+          "named": true
+        },
+        {
+          "type": "postfixExpression",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pragmaDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preConditions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "conditions",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "prepare",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "specialFunctionDeclaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "primaryExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "createExpression",
+          "named": true
+        },
+        {
+          "type": "destroyExpression",
+          "named": true
+        },
+        {
+          "type": "referenceExpression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "referenceExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "fullType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relationalExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "relationalOp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relationalOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Greater",
+          "named": true
+        },
+        {
+          "type": "GreaterEqual",
+          "named": true
+        },
+        {
+          "type": "Less",
+          "named": true
+        },
+        {
+          "type": "LessEqual",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "returnStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "specialFunctionDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "functionBlock",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parameterList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "breakStatement",
+          "named": true
+        },
+        {
+          "type": "continueStatement",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "emitStatement",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "forStatement",
+          "named": true
+        },
+        {
+          "type": "ifStatement",
+          "named": true
+        },
+        {
+          "type": "returnStatement",
+          "named": true
+        },
+        {
+          "type": "swap",
+          "named": true
+        },
+        {
+          "type": "whileStatement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statements",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "eos",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "stringLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "StringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "swap",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transactionDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "execute",
+          "named": true
+        },
+        {
+          "type": "fields",
+          "named": true
+        },
+        {
+          "type": "parameterList",
+          "named": true
+        },
+        {
+          "type": "postConditions",
+          "named": true
+        },
+        {
+          "type": "preConditions",
+          "named": true
+        },
+        {
+          "type": "prepare",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transfer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "Move",
+          "named": true
+        },
+        {
+          "type": "MoveForced",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnnotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fullType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeRestrictions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "nominalType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unaryExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unaryOp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unaryOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Minus",
+          "named": true
+        },
+        {
+          "type": "Move",
+          "named": true
+        },
+        {
+          "type": "Negate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variableDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "transfer",
+          "named": true
+        },
+        {
+          "type": "typeAnnotation",
+          "named": true
+        },
+        {
+          "type": "variableKind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variableKind",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "variableSizedType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fullType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "whileStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "\r",
+    "named": false
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "&",
+    "named": false
+  },
+  {
+    "type": "&&",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*/",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "/*",
+    "named": false
+  },
+  {
+    "type": "//",
+    "named": false
+  },
+  {
+    "type": "0",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<->",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "Equal",
+    "named": true
+  },
+  {
+    "type": "FailableCasting",
+    "named": true
+  },
+  {
+    "type": "False",
+    "named": true
+  },
+  {
+    "type": "ForceCasting",
+    "named": true
+  },
+  {
+    "type": "GreaterEqual",
+    "named": true
+  },
+  {
+    "type": "HexadecimalDigit",
+    "named": true
+  },
+  {
+    "type": "LessEqual",
+    "named": true
+  },
+  {
+    "type": "Minus",
+    "named": true
+  },
+  {
+    "type": "Mod",
+    "named": true
+  },
+  {
+    "type": "Move",
+    "named": true
+  },
+  {
+    "type": "MoveForced",
+    "named": true
+  },
+  {
+    "type": "Mul",
+    "named": true
+  },
+  {
+    "type": "NilCoalescing",
+    "named": true
+  },
+  {
+    "type": "Plus",
+    "named": true
+  },
+  {
+    "type": "PositiveFixedPointLiteral",
+    "named": true
+  },
+  {
+    "type": "ShiftLeft",
+    "named": true
+  },
+  {
+    "type": "ShiftRight",
+    "named": true
+  },
+  {
+    "type": "True",
+    "named": true
+  },
+  {
+    "type": "Unequal",
+    "named": true
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "\\u",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "_",
+    "named": false
+  },
+  {
+    "type": "access",
+    "named": false
+  },
+  {
+    "type": "account",
+    "named": false
+  },
+  {
+    "type": "all",
+    "named": false
+  },
+  {
+    "type": "as",
+    "named": false
+  },
+  {
+    "type": "auth",
+    "named": false
+  },
+  {
+    "type": "break",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "continue",
+    "named": false
+  },
+  {
+    "type": "contract",
+    "named": false
+  },
+  {
+    "type": "create",
+    "named": false
+  },
+  {
+    "type": "destroy",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "emit",
+    "named": false
+  },
+  {
+    "type": "event",
+    "named": false
+  },
+  {
+    "type": "for",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "fun",
+    "named": false
+  },
+  {
+    "type": "if",
+    "named": false
+  },
+  {
+    "type": "import",
+    "named": false
+  },
+  {
+    "type": "in",
+    "named": false
+  },
+  {
+    "type": "interface",
+    "named": false
+  },
+  {
+    "type": "let",
+    "named": false
+  },
+  {
+    "type": "nil",
+    "named": false
+  },
+  {
+    "type": "post",
+    "named": false
+  },
+  {
+    "type": "pre",
+    "named": false
+  },
+  {
+    "type": "priv",
+    "named": false
+  },
+  {
+    "type": "pub",
+    "named": false
+  },
+  {
+    "type": "resource",
+    "named": false
+  },
+  {
+    "type": "return",
+    "named": false
+  },
+  {
+    "type": "self",
+    "named": false
+  },
+  {
+    "type": "set",
+    "named": false
+  },
+  {
+    "type": "struct",
+    "named": false
+  },
+  {
+    "type": "transaction",
+    "named": false
+  },
+  {
+    "type": "var",
+    "named": false
+  },
+  {
+    "type": "while",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "||",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]
