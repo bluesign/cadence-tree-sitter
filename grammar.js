@@ -12,10 +12,11 @@ module.exports = grammar({
 
     extras: $ => [
         //$.stringLiteral,
-        //$.lineComment,
+        $.lineComment,
+        $.blockComment,
         /[\s\uFEFF\u2060\u200B]/, //TODO:@bluesign check me
     ],
-    word: $=>$._identifier,
+    //word: $=>$._identifier,
     supertypes: $=>[$.expression, $.declaration],
     conflicts: $ => [
         [$.invokeExpression, $.bitwiseAndExpression, $.relationalExpression],
@@ -34,20 +35,39 @@ module.exports = grammar({
         [$.type],
         [$.dictionaryType, $.typeRestrictions],
 
-        [$._TypeHintOpen, $.Less]
+        [$.ifStatement],
+        [$._TypeHintOpen, $.Less],
+        [$.field],
+        [$.declaration, $.statement],
+        [$.nestedFunctionDeclaration, $.functionDeclaration],
+        [$.functionExpression],
+
+        [$.memberAccessExpression, $.bitwiseAndExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.bitwiseXorExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.bitwiseOrExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.nilCoalescingExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.bitwiseShiftExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.additiveExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.multiplicativeExpression, $.conditionalExpression],
+
+        [$.memberAccessExpression, $.andExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.equalityExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.relationalExpression, $.conditionalExpression],
+        [$.memberAccessExpression, $.orExpression, $.conditionalExpression],
+
+
     ],
     rules: {
 
         program: $ => $.declarations,
 
-        _eos: _ => choice("\n", "\r", ";"),
+        _eos: _ => choice(";"),
 
-        blockComment: _ => seq('/*', repeat(/./), '*/'),
-        lineComment: $ =>  prec(-1, seq(
-            '//', /.*/, $._eos
-        )),
+        blockComment: _ => /\/[*]+([^*]|([*][^/]))*[*]+\//,
+        lineComment: $ => /\/\/.*[\n\r]/,
 
-        _positiveFixedPointLiteral: _ => /[0-9]([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/,
+
+        _positiveFixedPointLiteral: _ => prec(2, /([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/),
         _decimalLiteral: _ => seq(/[0-9]/, /[0-9_]*/),
         _binaryLiteral: _ => seq(/'0b'/, /[01_]+/),
         _octalLiteral: _ => seq(/'0o'/, /[0-7_]+/),
@@ -56,16 +76,25 @@ module.exports = grammar({
         _hexadecimalDigit: _ => /[0-9a-fA-F]/,
         _quotedText: $ => choice($._escapedCharacter, /[^"\n\r\\]/, /\s/,/\//),
 
-        _hexadecimalLiteral: _ => seq(/'0x'/, /[0-9a-fA-F_]+/),
-        stringLiteral: $ =>  seq('"', repeat($._quotedText), token.immediate('"')),
+        _hexadecimalLiteral: _ => seq(/0x[0-9a-fA-F]+/),
+        //stringLiteral: $ =>  seq('"', repeat($._quotedText), token.immediate('"')),
+        stringLiteral: $ => seq(
+            '"',
+            repeat(choice(
+                token.immediate('/*'),
+                token.immediate(/[^\\"]+/),
+                $._quotedText
+            )),
+            token.immediate('"')
+        ),
 
-        declarations: $ => repeat1(choice(
-            $.lineComment,
+        declarations: $ => repeat1(seq(
             $.declaration,
+            optional($._eos),
         )),
 
         //Identifier
-        _identifier: $ => /[a-zA-Z_]([0-9a-zA-Z]*)?/,
+        _identifier: $ => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
         identifier: $ => $._identifier,
 
         //access
@@ -103,7 +132,15 @@ module.exports = grammar({
                 $.dictionaryType,
                 field("typeRestrictions", $.typeRestrictions),
             ),
-            field("optional",  optional($._Optional)),
+            //typehints
+            optional(
+                seq(
+                    $._TypeHintOpen,
+                    field("TypeHint",commaSep1($.typeAnnotation)),
+                    $._TypeHintClose
+                )
+            ),
+            field("optional",  repeat($._Optional)),
         ),
 
 
@@ -179,6 +216,18 @@ module.exports = grammar({
             $._CloseParen
         ),
 
+        nestedFunctionDeclaration: $ => prec.left( seq(
+            field("access", optional($.access)),
+            $._Fun,
+            field("identifier", $.identifier),
+            field("typeParameterList", optional($.typeParameterList)),
+            field("parameterList", $.parameterList),
+            field("returnTypeAnnotation", optional(
+                seq($._SemiColon, $.typeAnnotation )
+            )),
+            field("functionBlock", $.functionBlock)
+        )),
+
         functionDeclaration: $ => prec.left( seq(
             field("access", $.access),
             $._Fun,
@@ -193,15 +242,15 @@ module.exports = grammar({
 
 
         stringLocation: $ => $.stringLiteral,
-        addressLocation: $=> field("address", $._hexadecimalLiteral),
+        addressLocation: $=>  $._hexadecimalLiteral,
 
 
         importDeclaration: $ => seq(
-            'import',
+            $._Import,
             field("identifiers", optional(
                 seq(
                     commaSep1($.identifier),
-                    'from',
+                    $._From,
                 )
             )),
             field("location", choice(
@@ -250,11 +299,31 @@ module.exports = grammar({
             field("parameterList", $.parameterList)
         ),
 
+
+        enumDeclaration: $ => seq(
+            field("access", $.access),
+            'enum',
+            field("identifier", $.identifier),
+            $._SemiColon,
+            field("typeAnnotation",  $.nominalType),
+            '{',
+            field("cases", repeat($.enumCase)),
+            '}',
+        ),
+
+        enumCase: $ => seq(
+            field("access", $.access),
+            'case',
+            field("identifier", $.identifier),
+        ),
+
+
         prepare: $ => $.specialFunctionDeclaration,
         execute: $ => seq($.identifier, $.block),
 
         specialFunctionDeclaration: $ => seq(
-            field("name",$.identifier),
+            field("access", optional($.access)),
+            field("name", choice('prepare', 'init', 'destroy')),
             field("parameterList", $.parameterList),
             field("functionBlock", optional($.functionBlock))
         ),
@@ -296,6 +365,7 @@ module.exports = grammar({
             $.eventDeclaration,
             $.transactionDeclaration,
             $.pragmaDeclaration,
+            $.enumDeclaration,
         ),
 
 
@@ -303,15 +373,15 @@ module.exports = grammar({
             field("access", $.access),
             field("kind", optional($.variableKind)),
             field("identifier", $.identifier),
-            $._SemiColon, field("typeAnnotation", $.typeAnnotation)
+            $._SemiColon, field("typeAnnotation", $.typeAnnotation),
+            optional(';'),
         ),
 
         fields: $ => prec.right(repeat1(seq($.field, optional(';')))),
 
         membersAndNestedDeclarations: $ => repeat1($._memberOrNestedDeclaration),
-        _memberOrNestedDeclaration: $ => choice(
+        _memberOrNestedDeclaration: $ => seq(choice(
             $.lineComment,
-
             $.field,
             $.specialFunctionDeclaration,
             $.functionDeclaration,
@@ -319,7 +389,8 @@ module.exports = grammar({
             $.compositeDeclaration,
             $.eventDeclaration,
             $.pragmaDeclaration,
-        ),
+            $.enumDeclaration,
+        ), optional($._eos)),
 
 
 
@@ -379,13 +450,14 @@ module.exports = grammar({
 
         functionBlock: $ => seq(
             '{',
-                optional($.preConditions),
-                optional($.postConditions),
-                optional($.statements),
+                field("preConditions",optional($.preConditions)),
+                field("postConditions", optional($.postConditions)),
+                field("statements", optional($.statements)),
             '}'
         ),
 
         preConditions: $ => seq(
+            optional($.lineComment),
             'pre',
             '{',
                 $.conditions,
@@ -394,6 +466,7 @@ module.exports = grammar({
 
 
         postConditions: $ => seq(
+            optional($.lineComment),
             'post',
             '{',
                 $.conditions,
@@ -402,18 +475,21 @@ module.exports = grammar({
 
 
         conditions: $ => repeat1(seq(
-                $.condition,
-                $._eos
+                $.condition
             )
         ),
 
         condition: $ => seq(
-            $.expression,
+            field("statement", $.expression),
             optional(
                 seq(
-                    $._SemiColon, $.expression
+                    $._SemiColon,
+                    field("failExpression",choice($.expression)),
+                    optional('\n')
                 )
-            )
+            ),
+            optional($._eos),
+
         ),
 
         statements: $ => repeat1(
@@ -432,6 +508,7 @@ module.exports = grammar({
         ),
 
         statement: $ => choice(
+            $.nestedFunctionDeclaration,
             $.switchStatement,
             $.returnStatement,
             $.breakStatement,
@@ -455,12 +532,12 @@ module.exports = grammar({
 
         continueStatement: _ => 'continue',
 
-        ifStatement: $ => seq(
-            'if',
+        ifStatement: $ => prec(2000,seq(
+            $._If,
                 choice($.expression, $.variableDeclaration),
                 $.block,
-            optional(seq('else', choice($.ifStatement, $.block)))
-        ),
+            optional(seq(optional($.lineComment), 'else', choice($.ifStatement, $.block)))
+        )),
 
         whileStatement: $ => seq(
             'while',
@@ -470,7 +547,7 @@ module.exports = grammar({
 
         forStatement: $ => seq(
             'for',
-            field("identifier", $.identifier),
+            field("identifiers", commaSep1($.identifier)),
             'in',
             field("expression", $.expression),
             field("block", $.block)
@@ -478,7 +555,7 @@ module.exports = grammar({
 
         emitStatement: $ => seq(
             'emit',
-            field("eventName", $.identifier),
+            field("eventName", $.typeAnnotation),
             field("invocation",$.invocation)
         ),
 
@@ -497,9 +574,10 @@ module.exports = grammar({
 
 
 
-        identifierExpression: $=> prec(1,
+        identifierExpression: $=> prec(2000,
             field("identifier",
                 choice(
+                    $.stringLiteral,
                     $.identifier,
                     $.nilLiteral,
                     $.booleanLiteral,
@@ -519,7 +597,7 @@ module.exports = grammar({
         )),
 
         functionExpression: $ => prec(1070, seq(
-            $._OpenParen,
+            optional($._OpenParen),
             optional($._Fun),
             field("parameterList", $.parameterList),
             field("returnTypeAnnotation", optional(seq(
@@ -527,7 +605,7 @@ module.exports = grammar({
                 $.typeAnnotation,
             ))),
             $.functionBlock,
-            $._CloseParen,
+            optional($._CloseParen),
         )),
 
 
@@ -551,7 +629,7 @@ module.exports = grammar({
 
         //exprLeftBindingPowerAccess
 
-        memberAccessExpression: $ => prec(1000,seq(
+        memberAccessExpression: $ => prec(1002,seq(
             field("target", $.expression),
             optional($._Optional),
             '.',
@@ -560,14 +638,14 @@ module.exports = grammar({
 
         bracketExpression: $ => prec.left(1001,
             seq(
-                $.expression,
+                field("target", $.expression),
                 '[',
-                $.expression,
+                field("member", $.expression),
                 ']'
              )
         ),
 
-        invokeExpression: $ => prec(1002, seq(
+        invokeExpression: $ => prec(1000, seq(
             field("target", $.expression),
             field("invocation", $.invocation),
         )),
@@ -580,40 +658,40 @@ module.exports = grammar({
         forceExpression: $ => prec.left(990,
             seq(
                 field("expression", $.expression),
-                $._Negate,
+                token.immediate( '!' ),
             )
         ),
 
         //exprLeftBindingPowerUnaryPrefix
-        moveExpression: $ => prec.left(2980,
+        moveExpression: $ => prec(2980,
             seq(
                 $.Move,
                 field("expression", $.expression)
             )
         ),
 
-        negateExpression: $ => prec.left(2980,
+        negateExpression: $ => prec(1,
             seq(
-                $._Negate,
+                '!',
                 field("expression", $.expression)
             )
         ),
 
 
         //exprLeftBindingPowerCasting
-        castingExpression: $ => prec.left(970,
-            prec.left(seq(
+        castingExpression: $ => prec(970,
+            seq(
                 field("left", $.expression),
                 field("castingOp", $.castingOp),
                 field("typeAnnotation", $.typeAnnotation),
-            ))
+            )
         ),
 
-        referenceExpression: $ => prec.left(970-1, seq(
+        referenceExpression: $ => prec(971, seq(
             $.ReferenceAnnotation,
-            $.expression,
-            $._Casting,
-            $.type
+            field("expression", $.expression),
+            field("referenceOperator", choice($._Casting, $.ForceCasting, $.FailableCasting)),
+            field("type",$.type),
         )),
 
         //exprLeftBindingPowerMultiplication
@@ -646,7 +724,7 @@ module.exports = grammar({
 
         //exprLeftBindingPowerNilCoalescing
         nilCoalescingExpression: $ => prec.left(900,
-            seq($.expression, seq($.NilCoalescing, $.expression))
+            seq($.expression, $.NilCoalescing, $.expression)
         ),
 
         //exprLeftBindingPowerComparison
@@ -664,18 +742,19 @@ module.exports = grammar({
             seq($.expression, '&&', $.expression)
         ),
 
-        orExpression: $ => prec.left(870,
-            prec.left(seq($.expression, '||', $.expression))
+        orExpression: $ => prec.left(880,
+            seq($.expression, '||', $.expression)
         ),
 
         // exprLeftBindingPowerTernary
 
         conditionalExpression: $ => prec(870,
             seq(
+                field("condition", $.expression),
                 '?',
-                $.expression,
+                field("ifTrue",$.expression),
                 $._SemiColon,
-                $.expression
+                field("ifFalse",$.expression)
             )
         ),
 
@@ -823,20 +902,26 @@ module.exports = grammar({
                 )
             )
             ,
-            $._OpenParen, field("arguments", commaSep($.argument)), $._CloseParen
+            $._OpenParen,
+            field("arguments", commaSep($.argument)),
+            optional(','),
+            $._CloseParen
+
         )),
 
 
 
 
         argument: $=> seq(
+
             optional(
                 seq(
                     field("label", $.identifier),
                     $._SemiColon,
                 )
             ),
-            field("value", $.expression)
+            field("value", $.expression),
+
         ),
 
 
