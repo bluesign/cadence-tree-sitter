@@ -12,32 +12,32 @@ module.exports = grammar({
 
     extras: $ => [
         $.comment,
-        /[\s\p{Zs}\uFEFF\u2060\u200B]/,
+        /[\s\uFEFF\u2060\u200B]/, //TODO:@bluesign check me
     ],
 
     rules: {
 
         program: $ => $.declarations,
 
-        WS: $ => /[ \t\u000B\u000C\u0000]+/,
-        eos: $ => choice("\n", "\r", ";"),
+        WS: _ => /[ \t\u000B\u000C\u0000]+/,
+        eos: _ => choice("\n", "\r", ";"),
 
-        terminator:$ => /[\r\n\u2028\u2029]+/,
-        blockComment:$ => seq('/*', repeat(/./), '*/'),
-        lineComment:$ =>  seq('//', repeat(/./)) ,
+        terminator: _ => /[\r\n\u2028\u2029]+/,
+        blockComment: _ => seq('/*', repeat(/./), '*/'),
+        lineComment: _ =>  seq('//', repeat(/./)) ,
 
-        PositiveFixedPointLiteral: $ => /[0-9] ( [0-9_]* [0-9] )? '.' [0-9] ( [0-9_]* [0-9] )?/,
-        DecimalLiteral: $ => seq(/[0-9]/, /[0-9_]*/),
-        BinaryLiteral: $ => seq(/'0b'/, /[01_]+/),
-        OctalLiteral: $ => seq(/'0o'/, /[0-7_]+/),
+        PositiveFixedPointLiteral: _ => /[0-9] ( [0-9_]* [0-9] )? '.' [0-9] ( [0-9_]* [0-9] )?/,
+        DecimalLiteral: _ => seq(/[0-9]/, /[0-9_]*/),
+        BinaryLiteral: _ => seq(/'0b'/, /[01_]+/),
+        OctalLiteral: _ => seq(/'0o'/, /[0-7_]+/),
 
-        _escapedCharacter: $ => choice(seq('\\', /[0\tnr\"\']/), seq('\\u', '{', repeat1($._hexadecimalDigit), '}')),
-        _hexadecimalDigit: $ => /[0-9a-fA-F]/,
+        _escapedCharacter: $ => choice(seq('\\', /[0\tnr"']/), seq('\\u', '{', repeat1($._hexadecimalDigit), '}')),
+        _hexadecimalDigit: _ => /[0-9a-fA-F]/,
         _quotedText: $ => choice($._escapedCharacter, /[^"\n\r\\]/, /\s/,/\//),
 
-        comment: $ => /\/\/\/(.*)?\n/,
+        comment: _ => /\/\/\/(.*)?\n/,
 
-        hexadecimalLiteral: $ => seq(/'0x'/, /[0-9a-fA-F_]+/),
+        hexadecimalLiteral: _ => seq(/'0x'/, /[0-9a-fA-F_]+/),
         stringLiteral: $ => prec(1000, seq('"', repeat($._quotedText), '"')),
 
         declarations: $ => repeat1(choice(
@@ -47,7 +47,7 @@ module.exports = grammar({
         )),
 
         //Identifier
-        self: $ => 'self',
+        self: _ => 'self',
         identifier: $ => prec(-1, choice($._identifier, $.self)),
 
         _identifier: $ => seq(
@@ -55,18 +55,18 @@ module.exports = grammar({
             repeat($._identifierCharacter)
         ),
 
-        _identifierHead: $ => choice(
+        _identifierHead: _ => choice(
             /[a-zA-Z]/,
             '_'
         ),
 
-        _identifierCharacter: $ => token.immediate(choice(
+        _identifierCharacter: _ => token.immediate(choice(
             /[0-9a-zA-Z]/,
             '_'
         )),
 
         //access
-        access: $ => prec(1, choice(
+        access: _ => prec(1, choice(
             'priv',
             seq(
                 'pub',
@@ -98,14 +98,14 @@ module.exports = grammar({
             field("type", $.type)
         ),
 
-        variableKind: $ => choice(
+        variableKind: _ => choice(
             'let',
             'var'
         ),
 
-        Assign: $ => '=',
-        Move: $ => '<-',
-        MoveForced: $ => '<-!',
+        Assign: _ => '=',
+        Move: _ => '<-',
+        MoveForced: _ => '<-!',
 
         transfer: $ => choice(
             $.Assign,
@@ -189,7 +189,7 @@ module.exports = grammar({
             ))
         ),
 
-        compositeKind: $ => choice(
+        compositeKind: _ => choice(
             'struct',
             'resource',
             'contract',
@@ -316,13 +316,7 @@ module.exports = grammar({
         ),
 
         typeRestrictions: $ => seq(
-            '{',
-            optional($.nominalType),
-            repeat(seq(
-                ',',
-                $.nominalType
-            )),
-            '}'
+            '{', commaSep1($.nominalType), '}'
         ),
 
         nominalType: $ => prec.right(seq(
@@ -444,9 +438,9 @@ module.exports = grammar({
             field("value",optional($.expression))
         )),
 
-        breakStatement: $ => 'break',
+        breakStatement: _ => 'break',
 
-        continueStatement: $ => 'continue',
+        continueStatement: _ => 'continue',
 
         ifStatement: $ => seq(
             'if',
@@ -678,8 +672,8 @@ module.exports = grammar({
             $.Unequal
         ),
 
-        Equal: $ => '==',
-        Unequal: $ => '!=',
+        Equal: _ => '==',
+        Unequal: _ => '!=',
 
         relationalOp: $ => prec(1000, choice(
             $.Less,
@@ -688,26 +682,26 @@ module.exports = grammar({
             $.GreaterEqual,
         )),
 
-        Less: $ => '<',
-        Greater: $ => '>',
-        LessEqual: $ => '<=',
-        GreaterEqual: $ => '>=',
+        Less: _ => '<',
+        Greater: _ => '>',
+        LessEqual: _ => '<=',
+        GreaterEqual: _ => '>=',
 
         bitwiseShiftOp: $ => choice(
             $.ShiftLeft,
             $.ShiftRight
         ),
 
-        ShiftLeft: $ => '<<',
-        ShiftRight: $ => '>>',
+        ShiftLeft: _ => '<<',
+        ShiftRight: _ => '>>',
 
         additiveOp: $ => choice(
             $.Plus,
             $.Minus
         ),
 
-        Plus: $ => '+',
-        Minus: $ => '-',
+        Plus: _ => '+',
+        Minus: _ => '-',
 
         multiplicativeOp: $ => choice(
             $.Mul,
@@ -715,26 +709,26 @@ module.exports = grammar({
             $.Mod,
         ),
 
-        Mul: $ => '*',
-        Div: $ => '/',
-        Mod: $ => '%',
+        Mul: _ => '*',
+        Div: _ => '/',
+        Mod: _ => '%',
 
-        Auth: $ => 'auth',
-        Ampersand: $ => '&',
+        Auth: _ => 'auth',
+        Ampersand: _ => '&',
 
 
 
-        Negate: $ => '!',
+        Negate: _ => '!',
 
-        Optional: $ => '?',
+        Optional: _ => '?',
 
-        NilCoalescing: $ => '??',
+        NilCoalescing: _ => '??',
 
-        Casting: $ => 'as',
-        FailableCasting: $ => 'as?',
-        ForceCasting: $ => 'as!',
+        Casting: _ => 'as',
+        FailableCasting: _ => 'as?',
+        ForceCasting: _ => 'as!',
 
-        ResourceAnnotation: $ => '@',
+        ResourceAnnotation: _ => '@',
 
         castingOp: $ => choice(
             $.Casting,
@@ -748,29 +742,11 @@ module.exports = grammar({
             field("TypeHint",commaSep1($.typeAnnotation)),
             $.Greater
             ,
-            '(',
-            optional(
-                field("arguments", seq(
-                    $.argument,
-                    repeat(seq(
-                        ',',
-                        $.argument
-                    ))))
-            ),
-            ')'
+            '(', field("arguments", commaSep($.argument)), ')'
         ),
 
         invocation: $ => seq(
-            '(',
-            optional(
-                field("arguments", seq(
-                    $.argument,
-                    repeat(seq(
-                        ',',
-                        $.argument
-                    ))))
-            ),
-            ')'
+            '(', field("arguments", commaSep($.argument)), ')'
         ),
 
         argument: $ => seq(
@@ -797,7 +773,7 @@ module.exports = grammar({
             $.False
         ),
 
-        nilLiteral: $ => 'nil',
+        nilLiteral: _ => 'nil',
 
         pathLiteral: $ => seq(
             '/',
@@ -805,8 +781,6 @@ module.exports = grammar({
             token.immediate('/'),
             $.identifier
         ),
-
-//nstringLiteral: $=> $.StringLiteral,
 
         fixedPointLiteral: $ => seq(
             optional($.Minus),
@@ -826,26 +800,11 @@ module.exports = grammar({
         ),
 
         arrayLiteral: $ => seq(
-            '[',
-            optional(seq(
-                $.expression,
-                repeat(seq(
-                    ',',
-                    $.expression
-                ))
-            )),
-            ']'
+            '[', commaSep($.expression), ']'
         ),
 
         dictionaryLiteral: $ => seq(
-            '{',
-            optional(seq(
-                $.dictionaryEntry,
-                repeat(seq(
-                    ',',
-                    $.dictionaryEntry
-                )))),
-            '}'
+            '{', commaSep($.dictionaryEntry), '}'
         ),
 
         dictionaryEntry: $ => seq(
@@ -854,86 +813,60 @@ module.exports = grammar({
             $.expression
         ),
 
-        OpenParen: $ => '(',
-        CloseParen: $ => ')',
-
-
-        Struct: $ => 'struct',
-        Resource: $ => 'resource',
-        Contract: $ => 'contract',
-
-        Interface: $ => 'interface',
-
-        Fun: $ => 'fun',
-
-        Event: $ => 'event',
-        Emit: $ => 'emit',
-
-        Pre: $ => 'pre',
-        Post: $ => 'post',
-
-        Priv: $ => 'priv',
-        Pub: $ => 'pub',
-        Set: $ => 'set',
-
-        Access: $ => 'access',
-        All: $ => 'all',
-        Account: $ => 'account',
-
-        Return: $ => 'return',
-
-        Break: $ => 'break',
-        Continue: $ => 'continue',
-
-        Let: $ => 'let',
-        Var: $ => 'var',
-
-        If: $ => 'if',
-        Else: $ => 'else',
-
-        While: $ => 'while',
-
-        For: $ => 'for',
-        In: $ => 'in',
-
-        True: $ => 'true',
-        False: $ => 'false',
-
-        Nil: $ => 'nil',
-
-        Import: $ => 'import',
-        From: $ => 'from',
-
-        Create: $ => 'create',
-        Destroy: $ => 'destroy',
+        OpenParen: _ => '(',
+        CloseParen: _ => ')',
+        Struct: _ => 'struct',
+        Resource: _ => 'resource',
+        Contract: _ => 'contract',
+        Interface: _ => 'interface',
+        Fun: _ => 'fun',
+        Event: _ => 'event',
+        Emit: _ => 'emit',
+        Pre: _ => 'pre',
+        Post: _ => 'post',
+        Priv: _ => 'priv',
+        Pub: _ => 'pub',
+        Set: _ => 'set',
+        Access: _ => 'access',
+        All: _ => 'all',
+        Account: _ => 'account',
+        Return: _ => 'return',
+        Break: _ => 'break',
+        Continue: _ => 'continue',
+        Let: _ => 'let',
+        Var: _ => 'var',
+        If: _ => 'if',
+        Else: _ => 'else',
+        While: _ => 'while',
+        For: _ => 'for',
+        In: _ => 'in',
+        True: _ => 'true',
+        False: _ => 'false',
+        Nil: _ => 'nil',
+        Import: _ => 'import',
+        From: _ => 'from',
+        Create: _ => 'create',
+        Destroy: _ => 'destroy',
 
 
 
-
-
-
-
-    switchCase
-:
-$ => seq(
-    choice(
-        seq("case", $.expression),
-        "default"
+    switchCase: $ => seq(
+        choice(
+            seq("case", $.expression),
+            "default"
+        ),
+        ":",
+        optional($.statements)
     ),
-    ":",
-    optional($.statements)
-),
 
 
-    switchStatement
-:
-$ => seq(
-    "switch",
-    field("expression", $.expression),
-    "{",
-    field("cases", repeat($.switchCase)),
-    "}"
-),
+    switchStatement: $ => seq(
+        "switch",
+        field("expression", $.expression),
+        "{",
+        field("cases", repeat($.switchCase)),
+        "}"
+    ),
 
 
 
