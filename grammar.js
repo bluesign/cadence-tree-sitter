@@ -8,7 +8,7 @@ function commaSep(rule) {
 
 
 module.exports = grammar({
-    name: 'CADENCE',
+    name: 'cadence',
 
     extras: $ => [
         //$.stringLiteral,
