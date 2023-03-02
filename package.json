@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@onflow/cadence-parser": "^0.26.0",
+    "cadence-parser": "^1.0.1",
     "nan": "^2.17.0"
   },
   "devDependencies": {
