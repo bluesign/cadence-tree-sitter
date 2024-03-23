@@ -20,12 +20,12 @@ pub contract ExampleNFT: NonFungibleToken {
     pub let CollectionPublicPath: PublicPath
     pub let MinterStoragePath: StoragePath
 
-    /// The core resource that represents a Non Fungible Token. 
+    /// The core resource that represents a Non Fungible Token.
     /// New instances will be created using the NFTMinter resource
     /// and stored in the Collection resource
     ///
     pub resource NFT: NonFungibleToken.INFT, MetadataViews.Resolver {
-        
+
         /// The unique ID that each NFT has
         pub let id: UInt64
 
@@ -35,7 +35,7 @@ pub contract ExampleNFT: NonFungibleToken {
         pub let thumbnail: String
         access(self) let royalties: [MetadataViews.Royalty]
         access(self) let metadata: {String: AnyStruct}
-    
+
         init(
             id: UInt64,
             name: String,
@@ -145,7 +145,7 @@ pub contract ExampleNFT: NonFungibleToken {
                     let fooTraitRarity = MetadataViews.Rarity(score: 10.0, max: 100.0, description: "Common")
                     let fooTrait = MetadataViews.Trait(name: "foo", value: self.metadata["foo"], displayType: nil, rarity: fooTraitRarity)
                     traitsView.addTrait(fooTrait)
-                    
+
                     return traitsView
 
             }
@@ -196,7 +196,7 @@ pub contract ExampleNFT: NonFungibleToken {
         /// Adds an NFT to the collections dictionary and adds the ID to the id array
         ///
         /// @param token: The NFT resource to be included in the collection
-        /// 
+        ///
         pub fun deposit(token: @NonFungibleToken.NFT) {
             let token <- token as! @ExampleNFT.NFT
 
@@ -218,7 +218,7 @@ pub contract ExampleNFT: NonFungibleToken {
             return self.ownedNFTs.keys
         }
 
-        /// Gets a reference to an NFT in the collection so that 
+        /// Gets a reference to an NFT in the collection so that
         /// the caller can read its metadata and call its methods
         ///
         /// @param id: The ID of the wanted NFT
@@ -227,13 +227,13 @@ pub contract ExampleNFT: NonFungibleToken {
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
             return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
         }
- 
-        /// Gets a reference to an NFT in the collection so that 
+
+        /// Gets a reference to an NFT in the collection so that
         /// the caller can read its metadata and call its methods
         ///
         /// @param id: The ID of the wanted NFT
         /// @return A reference to the wanted NFT resource
-        ///        
+        ///
         pub fun borrowExampleNFT(id: UInt64): &ExampleNFT.NFT? {
             if self.ownedNFTs[id] != nil {
                 // Create an authorized reference to allow downcasting
@@ -250,7 +250,7 @@ pub contract ExampleNFT: NonFungibleToken {
         ///
         /// @param id: The ID of the wanted NFT
         /// @return The resource reference conforming to the Resolver interface
-        /// 
+        ///
         pub fun borrowViewResolver(id: UInt64): &AnyResource{MetadataViews.Resolver} {
             let nft = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
             let exampleNFT = nft as! &ExampleNFT.NFT
@@ -282,8 +282,8 @@ pub contract ExampleNFT: NonFungibleToken {
         /// @param name: The name for the NFT metadata
         /// @param description: The description for the NFT metadata
         /// @param thumbnail: The thumbnail for the NFT metadata
-        /// @param royalties: An array of Royalty structs, see MetadataViews docs 
-        ///     
+        /// @param royalties: An array of Royalty structs, see MetadataViews docs
+        ///
         pub fun mintNFT(
             recipient: &{NonFungibleToken.CollectionPublic},
             name: String,

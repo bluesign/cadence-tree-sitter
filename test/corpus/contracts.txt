@@ -1,0 +1,15 @@
+==================
+Contract
+==================
+
+access(all)
+contract SomeContract {
+}
+
+-----
+
+(Program
+      (CompositeDeclaration
+        (Access)
+        (CompositeKind)
+        (Identifier)))
