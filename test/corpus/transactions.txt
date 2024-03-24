@@ -23,7 +23,9 @@ transaction(amount: UFix64) {}
         (Identifier)
         (TypeAnnotation
         (NominalType
-            (TypeIdentifier))))))
+            (TypeIdentifier
+            (TypeBuiltin)))))))
+
 
 
 ==================

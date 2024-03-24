@@ -4,6 +4,7 @@
 ] @comment @spell
 
 (TypeIdentifier) @type
+(TypeBuiltin) @type.builtin
 (Identifier) @variable
 
 (SpecialFunctionDeclaration) @function.builtin

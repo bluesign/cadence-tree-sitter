@@ -242,9 +242,143 @@
       "type": "PATTERN",
       "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
     },
+    "TypeBuiltin": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Bool"
+        },
+        {
+          "type": "STRING",
+          "value": "String"
+        },
+        {
+          "type": "STRING",
+          "value": "Address"
+        },
+        {
+          "type": "STRING",
+          "value": "AnyStruct"
+        },
+        {
+          "type": "STRING",
+          "value": "AnyResource"
+        },
+        {
+          "type": "STRING",
+          "value": "Never"
+        },
+        {
+          "type": "STRING",
+          "value": "Character"
+        },
+        {
+          "type": "STRING",
+          "value": "Void"
+        },
+        {
+          "type": "STRING",
+          "value": "Int"
+        },
+        {
+          "type": "STRING",
+          "value": "Int8"
+        },
+        {
+          "type": "STRING",
+          "value": "Int16"
+        },
+        {
+          "type": "STRING",
+          "value": "Int32"
+        },
+        {
+          "type": "STRING",
+          "value": "Int64"
+        },
+        {
+          "type": "STRING",
+          "value": "Int128"
+        },
+        {
+          "type": "STRING",
+          "value": "Int256"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt8"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt16"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt32"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt64"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt128"
+        },
+        {
+          "type": "STRING",
+          "value": "UInt256"
+        },
+        {
+          "type": "STRING",
+          "value": "Word8"
+        },
+        {
+          "type": "STRING",
+          "value": "Word16"
+        },
+        {
+          "type": "STRING",
+          "value": "Word32"
+        },
+        {
+          "type": "STRING",
+          "value": "Word64"
+        },
+        {
+          "type": "STRING",
+          "value": "Word128"
+        },
+        {
+          "type": "STRING",
+          "value": "Word256"
+        },
+        {
+          "type": "STRING",
+          "value": "Fix64"
+        },
+        {
+          "type": "STRING",
+          "value": "UFix64"
+        }
+      ]
+    },
     "TypeIdentifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "TypeBuiltin"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+        }
+      ]
     },
     "Access": {
       "type": "CHOICE",

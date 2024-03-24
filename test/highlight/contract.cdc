@@ -11,26 +11,26 @@ contract HelloWorld : HelloWorld2 {
 //                    ^ type
 
     access(all) let greeting: String
+    // <- keyword
     //          ^ type.qualifier
     //              ^ variable
-    //                        ^ type
+    //                        ^ type.builtin
 
     access(all) resource SomeResource {
     //                   ^ type
         access(all) var someField: UFix64
         //              ^ variable
-        //                         ^ type
+        //                         ^ type.builtin
 
         init(someField: UFix64) {
         // <- function.builtin
         //   ^ variable.parameter
-        //              ^ type
+        //              ^ type.builtin
+
             self.someField = someField
         }
-
     }
 
-    // TODO: fix me! most of these are wrong!
     access(all)
     // <- keyword
     fun hello(someParameter: SomeResource): String {
@@ -38,13 +38,14 @@ contract HelloWorld : HelloWorld2 {
     //       ^ punctuation.bracket
     //        ^ variable.parameter
     //                       ^ type
-    //                                      ^ type
+    //                                      ^ type.builtin
         pre {
         // <- keyword
             self.greeting != "" : "greeting must not be empty"
             // <- variable
             //  ^ punctuation.delimiter
             //               ^ string
+            //                    ^ string
         }
 
         return self.greeting

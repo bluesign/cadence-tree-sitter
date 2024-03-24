@@ -3041,9 +3041,24 @@
     }
   },
   {
-    "type": "TypeIdentifier",
+    "type": "TypeBuiltin",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "TypeIdentifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "TypeBuiltin",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "UnaryMoveExpression",
@@ -3585,6 +3600,18 @@
     "named": false
   },
   {
+    "type": "Address",
+    "named": false
+  },
+  {
+    "type": "AnyResource",
+    "named": false
+  },
+  {
+    "type": "AnyStruct",
+    "named": false
+  },
+  {
     "type": "BitwiseOr",
     "named": true
   },
@@ -3593,8 +3620,16 @@
     "named": true
   },
   {
+    "type": "Bool",
+    "named": false
+  },
+  {
     "type": "Casting",
     "named": true
+  },
+  {
+    "type": "Character",
+    "named": false
   },
   {
     "type": "Equal",
@@ -3609,12 +3644,44 @@
     "named": true
   },
   {
+    "type": "Fix64",
+    "named": false
+  },
+  {
     "type": "ForceCasting",
     "named": true
   },
   {
     "type": "GreaterEqual",
     "named": true
+  },
+  {
+    "type": "Int",
+    "named": false
+  },
+  {
+    "type": "Int128",
+    "named": false
+  },
+  {
+    "type": "Int16",
+    "named": false
+  },
+  {
+    "type": "Int256",
+    "named": false
+  },
+  {
+    "type": "Int32",
+    "named": false
+  },
+  {
+    "type": "Int64",
+    "named": false
+  },
+  {
+    "type": "Int8",
+    "named": false
   },
   {
     "type": "LessEqual",
@@ -3645,6 +3712,10 @@
     "named": true
   },
   {
+    "type": "Never",
+    "named": false
+  },
+  {
     "type": "NilCoalescing",
     "named": true
   },
@@ -3669,6 +3740,10 @@
     "named": true
   },
   {
+    "type": "String",
+    "named": false
+  },
+  {
     "type": "TransferOperatioMoveForced",
     "named": true
   },
@@ -3681,8 +3756,68 @@
     "named": true
   },
   {
+    "type": "UFix64",
+    "named": false
+  },
+  {
+    "type": "UInt",
+    "named": false
+  },
+  {
+    "type": "UInt128",
+    "named": false
+  },
+  {
+    "type": "UInt16",
+    "named": false
+  },
+  {
+    "type": "UInt256",
+    "named": false
+  },
+  {
+    "type": "UInt32",
+    "named": false
+  },
+  {
+    "type": "UInt64",
+    "named": false
+  },
+  {
+    "type": "UInt8",
+    "named": false
+  },
+  {
     "type": "Unequal",
     "named": true
+  },
+  {
+    "type": "Void",
+    "named": false
+  },
+  {
+    "type": "Word128",
+    "named": false
+  },
+  {
+    "type": "Word16",
+    "named": false
+  },
+  {
+    "type": "Word256",
+    "named": false
+  },
+  {
+    "type": "Word32",
+    "named": false
+  },
+  {
+    "type": "Word64",
+    "named": false
+  },
+  {
+    "type": "Word8",
+    "named": false
   },
   {
     "type": "[",

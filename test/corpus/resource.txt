@@ -56,7 +56,8 @@ access(all) resource SomeResource {
         (Identifier)
         (TypeAnnotation
             (NominalType
-            (TypeIdentifier))))
+                (TypeIdentifier
+                  (TypeBuiltin)))))
         (SpecialFunctionDeclaration
         (FunctionDeclaration_
             (FunctionBlock))))))

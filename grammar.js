@@ -216,7 +216,21 @@ module.exports = grammar({
     _Declarations: ($) => repeat1(seq($.declaration, optional($._eos))),
 
     Identifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
-    TypeIdentifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+    TypeBuiltin: ($) => choice(
+      'Bool',
+      'String',
+      'Address',
+      'AnyStruct',
+      'AnyResource',
+      'Never',
+      'Character',
+      'Void',
+      'Int', 'Int8', 'Int16', 'Int32', 'Int64', 'Int128', 'Int256',
+      'UInt', 'UInt8', 'UInt16', 'UInt32', 'UInt64', 'UInt128', 'UInt256',
+      'Word8', 'Word16', 'Word32', 'Word64', 'Word128', 'Word256',
+      'Fix64', 'UFix64',
+    ),
+    TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
 
     // Access
     Access: ($) =>
