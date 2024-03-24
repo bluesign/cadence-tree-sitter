@@ -27,7 +27,7 @@ transaction(amount: UFix64) {}
             (Identifier)))))))
 
 ==================
-Transaction Phases (TODI: fix me)
+Transaction Phases (TODO: fix me)
 :error
 ==================
 

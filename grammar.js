@@ -1,7 +1,9 @@
+//
 function commaSep1(rule) {
-  return seq(rule, repeat(seq(",", rule)));
+  return seq(rule, repeat(seq(',', rule)));
 }
 
+//
 function commaSep(rule) {
   return optional(commaSep1(rule));
 }
@@ -19,7 +21,7 @@ const P = {
   precedenceLogicalAnd: 3,
   // precedenceComparison is the precedence of
   // - BinaryExpression, with OperationEqual, OperationNotEqual,
-  precedenceComparisonEqual: 4, //TODO:check
+  precedenceComparisonEqual: 4, // TODO:check
   //   OperationLessEqual, OperationLess,
   //   OperationGreater, or OperationGreaterEqual
   precedenceComparison: 5,
@@ -79,15 +81,15 @@ const P = {
 };
 
 module.exports = grammar({
-  name: "cadence",
+  name: 'cadence',
 
   extras: ($) => [
     $.LineComment,
     $.blockComment,
-    /[\s\uFEFF\u2060\u200B]/, //TODO:@bluesign check me
+    /[\s\uFEFF\u2060\u200B]/, // TODO:@bluesign check me
     /\n\t/,
   ],
-  //word: $=>$._identifier,
+  // word: $=>$._identifier,
   supertypes: ($) => [$.expression, $.declaration],
   conflicts: ($) => [
     [$.ConditionalExpression, $.MemberExpression, $.NegateExpression],
@@ -171,14 +173,14 @@ module.exports = grammar({
     [$.MemberExpression, $.BinaryExpressionRelational, $.ConditionalExpression],
   ],
   rules: {
-    Program: ($) => field("Declarations", $._Declarations),
+    Program: ($) => field('Declarations', $._Declarations),
 
-    _eos: (_) => repeat1(choice(";")),
+    _eos: (_) => repeat1(choice(';')),
 
     // blockComment: _ => /\/[*]+([^*]|([*][^/]))*[*]+\//,
     LineComment: ($) => /\/\/.*[\n\r]/,
 
-    blockComment: ($) => token(seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
+    blockComment: ($) => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
 
     _positiveFixedPointLiteral: (_) =>
       prec(2, /([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/),
@@ -188,8 +190,8 @@ module.exports = grammar({
 
     _escapedCharacter: ($) =>
       choice(
-        seq("\\", /[0\tnr"']/),
-        seq("\\u", "{", repeat1($._hexadecimalDigit), "}"),
+        seq('\\', /[0\tnr"']/),
+        seq('\\u', '{', repeat1($._hexadecimalDigit), '}'),
       ),
     _hexadecimalDigit: (_) => /[0-9a-fA-F]/,
     _quotedText: ($) => choice($._escapedCharacter, /[^"\n\r\\]/, /\s/, /\//),
@@ -199,10 +201,10 @@ module.exports = grammar({
       seq(
         '"',
         field(
-          "Value",
+          'Value',
           repeat(
             choice(
-              token.immediate("/*"),
+              token.immediate('/*'),
               token.immediate(/[^\\"]+/),
               $._quotedText,
             ),
@@ -213,31 +215,31 @@ module.exports = grammar({
 
     _Declarations: ($) => repeat1(seq($.declaration, optional($._eos))),
 
-    //Identifier
+    // Identifier
     Identifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
 
-    //Access
+    // Access
     Access: ($) =>
       choice(
-        "priv",
-        seq("pub", optional(seq($._OpenParen, "set", $._CloseParen))),
+        'priv',
+        seq('pub', optional(seq($._OpenParen, 'set', $._CloseParen))),
         seq(
-          "access",
+          'access',
           $._OpenParen,
-          choice("self", "contract", "account", "all"),
+          choice('self', 'contract', 'account', 'all'),
           $._CloseParen,
         ),
       ),
 
-    //type
+    // type
     // @bluesign: this one cannot contain @ prefix.
     ReferenceType: ($) =>
       prec(
         10,
         seq(
-          field("Authorized", optional("auth ")),
+          field('Authorized', optional('auth ')),
           $._ReferenceAnnotation,
-          field("ReferencedType", choice($._BasicType, $.RestrictedType)),
+          field('ReferencedType', choice($._BasicType, $.RestrictedType)),
         ),
       ),
 
@@ -250,18 +252,18 @@ module.exports = grammar({
 
     InstantiationType: ($) =>
       seq(
-        field("InstantiatedType", $.TypeAnnotation),
-        field("TypeArguments", $._TypeArguments),
+        field('InstantiatedType', $.TypeAnnotation),
+        field('TypeArguments', $._TypeArguments),
       ),
 
     RestrictedType: ($) =>
       seq(
-        field("RestrictedType", optional($._type)),
-        field("Restrictions", $._Restrictions),
+        field('RestrictedType', optional($._type)),
+        field('Restrictions', $._Restrictions),
       ),
 
     OptionalType: ($) =>
-      seq(field("ElementType", $._type), $.OptionalOperator_Immediate),
+      seq(field('ElementType', $._type), $.OptionalOperator_Immediate),
 
     _type: ($) =>
       choice(
@@ -281,48 +283,48 @@ module.exports = grammar({
         $.DictionaryType,
       ),
 
-    //type annotation
+    // type annotation
     TypeAnnotation: ($) =>
       choice(
         seq(
-          field("IsResource", $.ResourceAnnotation),
-          field("AnnotatedType", commaSep1($._type)),
+          field('IsResource', $.ResourceAnnotation),
+          field('AnnotatedType', commaSep1($._type)),
         ),
-        seq(field("AnnotatedType", commaSep1($._type))),
+        seq(field('AnnotatedType', commaSep1($._type))),
       ),
 
-    VariableKind: (_) => choice("let", "var"),
+    VariableKind: (_) => choice('let', 'var'),
 
-    TransferOperationCopy: (_) => "=",
-    TransferOperationMove: (_) => "<-",
-    TransferOperatioMoveForced: (_) => "<-!",
-    Move: (_) => "<-",
+    TransferOperationCopy: (_) => '=',
+    TransferOperationMove: (_) => '<-',
+    TransferOperatioMoveForced: (_) => '<-!',
+    Move: (_) => '<-',
 
     Transfer: ($) =>
       choice(
-        field("Operation", $.TransferOperationCopy),
-        field("Operation", $.TransferOperationMove),
-        field("Operation", $.TransferOperatioMoveForced),
+        field('Operation', $.TransferOperationCopy),
+        field('Operation', $.TransferOperationMove),
+        field('Operation', $.TransferOperatioMoveForced),
       ),
 
-    //variable declaration
+    // variable declaration
     VariableDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", optional($.Access)),
-          field("VariableKind", $.VariableKind),
-          field("Identifier", $.Identifier),
+          field('Access', optional($.Access)),
+          field('VariableKind', $.VariableKind),
+          field('Identifier', $.Identifier),
           optional(
-            seq($._SemiColon, field("TypeAnnotation", $.TypeAnnotation)),
+            seq($._SemiColon, field('TypeAnnotation', $.TypeAnnotation)),
           ),
-          field("Transfer", $.Transfer),
-          field("Value", $.expression),
+          field('Transfer', $.Transfer),
+          field('Value', $.expression),
           optional(
             seq(
-              //@bluesign: used in resource move only
-              field("SecondTransfer", $.Transfer),
-              field("SecondValue", $.expression),
+              // @bluesign: used in resource move only
+              field('SecondTransfer', $.Transfer),
+              field('SecondValue', $.expression),
             ),
           ),
         ),
@@ -332,22 +334,22 @@ module.exports = grammar({
       prec(
         10,
         seq(
-          field("Label", optional($.Identifier)),
-          field("Identifier", $.Identifier),
+          field('Label', optional($.Identifier)),
+          field('Identifier', $.Identifier),
           $._SemiColon,
-          field("TypeAnnotation", $.TypeAnnotation),
+          field('TypeAnnotation', $.TypeAnnotation),
         ),
       ),
 
-    _hiddenComma: (_) => ",",
-    //@bluesign: trailing comma is valid in parameter list
+    _hiddenComma: (_) => ',',
+    // @bluesign: trailing comma is valid in parameter list
     _Parameters: ($) =>
       prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma))),
 
     ParameterList: ($) =>
       seq(
         $._OpenParen,
-        field("Parameters", seq(optional($._Parameters))),
+        field('Parameters', seq(optional($._Parameters))),
         $._CloseParen,
       ),
 
@@ -355,35 +357,35 @@ module.exports = grammar({
       prec.left(
         P.precedenceDeclaration,
         seq(
-          field("Access", optional($.Access)),
+          field('Access', optional($.Access)),
           $._Fun,
-          field("Identifier", $.Identifier),
-          field("ParameterList", $.ParameterList),
+          field('Identifier', $.Identifier),
+          field('ParameterList', $.ParameterList),
           field(
-            "ReturnTypeAnnotation",
+            'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
           ),
-          field("FunctionBlock", $.FunctionBlock),
+          field('FunctionBlock', $.FunctionBlock),
         ),
       ),
 
     stringLocation: ($) => $.StringLiteral,
-    AddressLocation: ($) => seq(field("Address", $.HexadecimalLiteral)),
+    AddressLocation: ($) => seq(field('Address', $.HexadecimalLiteral)),
 
     ImportDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
           $._Import,
-          field("Identifiers", optional(seq(commaSep1($.Identifier), $._From))),
+          field('Identifiers', optional(seq(commaSep1($.Identifier), $._From))),
           field(
-            "Location",
+            'Location',
             choice($.stringLocation, $.AddressLocation, $.Identifier),
           ),
         ),
       ),
 
-    CompositeKind: (_) => choice("struct", "resource", "contract"),
+    CompositeKind: (_) => choice('struct', 'resource', 'contract'),
 
     _Conformances: ($) => commaSep1($.NominalType),
 
@@ -391,13 +393,13 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          field("CompositeKind", $.CompositeKind),
-          field("Identifier", $.Identifier),
+          field('Access', $.Access),
+          field('CompositeKind', $.CompositeKind),
+          field('Identifier', $.Identifier),
           optional($._SemiColon),
-          field("Conformances", optional($._Conformances)),
+          field('Conformances', optional($._Conformances)),
           $._OpenCurly,
-          field("Members", optional($.Members)),
+          field('Members', optional($.Members)),
           $._CloseCurly,
         ),
       ),
@@ -406,12 +408,12 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          field("CompositeKind", $.CompositeKind),
-          "interface",
-          field("Identifier", $.Identifier),
+          field('Access', $.Access),
+          field('CompositeKind', $.CompositeKind),
+          'interface',
+          field('Identifier', $.Identifier),
           $._OpenCurly,
-          field("Members", optional($.Members)),
+          field('Members', optional($.Members)),
           $._CloseCurly,
         ),
       ),
@@ -420,10 +422,10 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          "event",
-          field("Identifier", $.Identifier),
-          field("ParameterList", $.ParameterList),
+          field('Access', $.Access),
+          'event',
+          field('Identifier', $.Identifier),
+          field('ParameterList', $.ParameterList),
         ),
       ),
 
@@ -431,51 +433,51 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          "enum",
-          field("Identifier", $.Identifier),
+          field('Access', $.Access),
+          'enum',
+          field('Identifier', $.Identifier),
           $._SemiColon,
-          field("typeAnnotation", $.NominalType),
+          field('typeAnnotation', $.NominalType),
           $._OpenCurly,
-          field("Declarations", repeat($.EnumCaseDeclaration)),
+          field('Declarations', repeat($.EnumCaseDeclaration)),
           $._CloseCurly,
         ),
       ),
 
     EnumCaseDeclaration: ($) =>
-      seq(field("Access", $.Access), "case", field("Identifier", $.Identifier)),
+      seq(field('Access', $.Access), 'case', field('Identifier', $.Identifier)),
 
     prepare: ($) => $.SpecialFunctionDeclaration,
     execute: ($) => seq($.Identifier, $._OpenCurly, $.Block, $._CloseCurly),
 
     FunctionDeclaration_: ($) =>
       seq(
-        field("Access", optional($.Access)),
-        field("Identifier", choice("prepare", "init", "destroy")),
-        field("ParameterList", $.ParameterList),
-        field("FunctionBlock", optional($.FunctionBlock)),
+        field('Access', optional($.Access)),
+        field('Identifier', choice('prepare', 'init', 'destroy')),
+        field('ParameterList', $.ParameterList),
+        field('FunctionBlock', optional($.FunctionBlock)),
       ),
 
     SpecialFunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
-        seq(field("FunctionDeclaration", $.FunctionDeclaration_)),
+        seq(field('FunctionDeclaration', $.FunctionDeclaration_)),
       ),
 
     FunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          field("View", optional("view")),
+          field('Access', $.Access),
+          field('View', optional('view')),
           $._Fun,
-          field("Identifier", $.Identifier),
-          field("ParameterList", $.ParameterList),
+          field('Identifier', $.Identifier),
+          field('ParameterList', $.ParameterList),
           optional(
-            seq($._SemiColon, field("ReturnTypeAnnotation", $.TypeAnnotation)),
+            seq($._SemiColon, field('ReturnTypeAnnotation', $.TypeAnnotation)),
           ),
-          optional("\n"),
-          field("FunctionBlock", optional($.FunctionBlock)),
+          optional('\n'),
+          field('FunctionBlock', optional($.FunctionBlock)),
         ),
       ),
 
@@ -483,23 +485,23 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          "transaction",
-          field("ParameterList", optional($.ParameterList)),
+          'transaction',
+          field('ParameterList', optional($.ParameterList)),
           $._OpenCurly,
-          field("Fields", optional($.Fields)),
-          field("prepare", optional($.prepare)),
-          field("PreConditions", optional($.PreConditions)),
+          field('Fields', optional($.Fields)),
+          field('prepare', optional($.prepare)),
+          field('PreConditions', optional($.PreConditions)),
           optional(
             choice(
-              field("execute", $.execute),
+              field('execute', $.execute),
               seq(
-                field("execute", $.execute),
-                field("PostConditions", $._PostConditions),
+                field('execute', $.execute),
+                field('PostConditions', $._PostConditions),
               ),
               $._PostConditions,
               seq(
-                field("PostConditions", $._PostConditions),
-                field("execute", $.execute),
+                field('PostConditions', $._PostConditions),
+                field('execute', $.execute),
               ),
             ),
           ),
@@ -508,7 +510,7 @@ module.exports = grammar({
       ),
 
     pragmaDeclaration: ($) =>
-      prec(P.precedenceDeclaration, seq("#", $.expression)),
+      prec(P.precedenceDeclaration, seq('#', $.expression)),
 
     declaration: ($) =>
       choice(
@@ -527,17 +529,17 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field("Access", $.Access),
-          field("VariableKind", optional($.VariableKind)),
-          field("Identifier", $.Identifier),
+          field('Access', $.Access),
+          field('VariableKind', optional($.VariableKind)),
+          field('Identifier', $.Identifier),
           $._SemiColon,
-          field("TypeAnnotation", $.TypeAnnotation),
+          field('TypeAnnotation', $.TypeAnnotation),
         ),
       ),
 
-    Fields: ($) => prec.right(repeat1(seq($.FieldDeclaration, optional(";")))),
+    Fields: ($) => prec.right(repeat1(seq($.FieldDeclaration, optional(';')))),
 
-    Members: ($) => seq(field("Declarations", $._MemberOrNestedDeclaration)),
+    Members: ($) => seq(field('Declarations', $._MemberOrNestedDeclaration)),
 
     _MemberOrNestedDeclaration: ($) =>
       repeat1(
@@ -560,9 +562,9 @@ module.exports = grammar({
       prec.right(
         seq(
           seq(
-            field("Identifier", $.Identifier),
+            field('Identifier', $.Identifier),
             optional(
-              repeat(seq(".", field("NestedIdentifiers", $.Identifier))),
+              repeat(seq('.', field('NestedIdentifiers', $.Identifier))),
             ),
           ),
         ),
@@ -571,7 +573,7 @@ module.exports = grammar({
     FunctionType: ($) =>
       seq(
         $._OpenParen,
-        optional($._Fun), //TODO: @bluesign check this
+        optional($._Fun), // TODO: @bluesign check this
         $._OpenParen,
         commaSep1($.TypeAnnotation),
         $._CloseParen,
@@ -580,34 +582,34 @@ module.exports = grammar({
         $._CloseParen,
       ),
 
-    VariableSizedType: ($) => seq("[", field("ElementType", $._type), "]"),
+    VariableSizedType: ($) => seq('[', field('ElementType', $._type), ']'),
 
     ConstantSizedType: ($) =>
       seq(
-        "[",
-        field("ElementType", $._type),
-        ";",
-        field("Size", $.IntegerLiteral),
-        "]",
+        '[',
+        field('ElementType', $._type),
+        ';',
+        field('Size', $.IntegerLiteral),
+        ']',
       ),
 
     DictionaryType: ($) =>
       seq(
         $._OpenCurly,
-        field("KeyType", $._type),
+        field('KeyType', $._type),
         $._SemiColon,
-        field("ValueType", $._type),
+        field('ValueType', $._type),
         $._CloseCurly,
       ),
 
-    Block: ($) => seq(field("Statements", $._Statements)),
+    Block: ($) => seq(field('Statements', $._Statements)),
 
     FunctionBlock: ($) =>
       seq(
         $._OpenCurly,
-        field("PreConditions", optional($.PreConditions)),
-        field("PostConditions", optional($._PostConditions)),
-        field("Block", optional($.Block)),
+        field('PreConditions', optional($.PreConditions)),
+        field('PostConditions', optional($._PostConditions)),
+        field('Block', optional($.Block)),
         $._CloseCurly,
       ),
 
@@ -621,13 +623,13 @@ module.exports = grammar({
 
     Condition: ($) =>
       seq(
-        field("Test", $.expression),
+        field('Test', $.expression),
         optional(
           seq(
-            optional("\n"),
+            optional('\n'),
             $._SemiColon,
-            optional("\n"),
-            field("Message", choice($.expression)),
+            optional('\n'),
+            field('Message', choice($.expression)),
           ),
         ),
         optional($._eos),
@@ -660,27 +662,27 @@ module.exports = grammar({
         $.SwapStatement,
       ),
 
-    ExpressionStatement: ($) => seq(field("Expression", $.expression)),
+    ExpressionStatement: ($) => seq(field('Expression', $.expression)),
 
     ReturnStatement: ($) =>
-      prec.right(seq("return", field("Expression", optional($.expression)))),
+      prec.right(seq('return', field('Expression', optional($.expression)))),
 
-    BreakStatement: (_) => "break",
+    BreakStatement: (_) => 'break',
 
-    ContinueStatement: (_) => "continue",
+    ContinueStatement: (_) => 'continue',
 
     IfStatement: ($) =>
       seq(
         $._If,
-        field("Test", choice($.expression, $.VariableDeclaration)),
+        field('Test', choice($.expression, $.VariableDeclaration)),
         $._OpenCurly,
-        field("Then", $.Block),
+        field('Then', $.Block),
         $._CloseCurly,
         optional(
           seq(
             $._Else,
             field(
-              "Else",
+              'Else',
               choice($.IfStatement, seq($._OpenCurly, $.Block, $._CloseCurly)),
             ),
           ),
@@ -688,30 +690,30 @@ module.exports = grammar({
       ),
 
     WhileStatement: ($) =>
-      seq("while", $.expression, $._OpenCurly, $.Block, $._CloseCurly),
+      seq('while', $.expression, $._OpenCurly, $.Block, $._CloseCurly),
 
     ForStatement: ($) =>
       seq(
-        "for",
-        field("Identifier", commaSep1($.Identifier)),
-        "in",
-        field("Expression", $.expression),
+        'for',
+        field('Identifier', commaSep1($.Identifier)),
+        'in',
+        field('Expression', $.expression),
         $._OpenCurly,
-        field("Block", $.Block),
+        field('Block', $.Block),
         $._CloseCurly,
       ),
 
     EmitStatement: ($) =>
-      seq("emit", field("InvocationExpression", $.InvocationExpression)),
+      seq('emit', field('InvocationExpression', $.InvocationExpression)),
 
     AssignmentStatement: ($) =>
       seq(
-        field("Target", $.expression),
-        field("Transfer", $.Transfer),
-        field("Value", $.expression),
+        field('Target', $.expression),
+        field('Transfer', $.Transfer),
+        field('Value', $.expression),
       ),
 
-    SwapStatement: ($) => prec(100, seq($.expression, "<->", $.expression)),
+    SwapStatement: ($) => prec(100, seq($.expression, '<->', $.expression)),
 
     FunctionExpression: ($) =>
       prec(
@@ -719,9 +721,9 @@ module.exports = grammar({
         seq(
           optional($._OpenParen),
           optional($._Fun),
-          field("ParameterList", $.ParameterList),
+          field('ParameterList', $.ParameterList),
           field(
-            "ReturnTypeAnnotation",
+            'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
           ),
           $.FunctionBlock,
@@ -732,20 +734,20 @@ module.exports = grammar({
     NestedExpression: ($) =>
       prec(
         P.precedenceAccess,
-        seq($._OpenParen, field("Expression", $.expression), $._CloseParen),
+        seq($._OpenParen, field('Expression', $.expression), $._CloseParen),
       ),
 
-    OptionalOperator: (_) => "?",
-    OptionalOperator_Immediate: (_) => token.immediate("?"),
+    OptionalOperator: (_) => '?',
+    OptionalOperator_Immediate: (_) => token.immediate('?'),
 
     MemberExpression: ($) =>
       prec(
         P.precedenceAccess,
         seq(
-          field("Expression", $.expression),
-          field("Optional", optional($.OptionalOperator)),
-          ".",
-          field("Identifier", $.Identifier),
+          field('Expression', $.expression),
+          field('Optional', optional($.OptionalOperator)),
+          '.',
+          field('Identifier', $.Identifier),
         ),
       ),
 
@@ -753,15 +755,15 @@ module.exports = grammar({
       prec(
         P.precedenceAccess,
         seq(
-          field("TargetExpression", $.expression),
-          "[",
-          field("IndexingExpression", $.expression),
-          "]",
+          field('TargetExpression', $.expression),
+          '[',
+          field('IndexingExpression', $.expression),
+          ']',
         ),
       ),
 
-    _TypeHintOpen: (_) => "<",
-    _TypeHintClose: (_) => ">",
+    _TypeHintOpen: (_) => '<',
+    _TypeHintClose: (_) => '>',
 
     _TypeArguments: ($) =>
       seq($._TypeHintOpen, commaSep1($.TypeAnnotation), $._TypeHintClose),
@@ -769,8 +771,8 @@ module.exports = grammar({
     Invocation: ($) =>
       seq(
         $._OpenParen,
-        field("Arguments", optional($._Arguments)),
-        optional(","),
+        field('Arguments', optional($._Arguments)),
+        optional(','),
         $._CloseParen,
       ),
 
@@ -781,58 +783,58 @@ module.exports = grammar({
       prec(
         P.precedenceAccess,
         seq(
-          field("InvokedExpression", $.expression),
-          field("TypeArguments", optional($._TypeArguments)),
+          field('InvokedExpression', $.expression),
+          field('TypeArguments', optional($._TypeArguments)),
           $._OpenParen,
-          field("Arguments", optional($._Arguments)),
+          field('Arguments', optional($._Arguments)),
           $._CloseParen,
         ),
       ),
 
-    //Unary precedence: -, !, <-
+    // Unary precedence: -, !, <-
 
-    //postfix
+    // postfix
     ForceExpression: ($) =>
       prec(
         P.precedenceUnaryPostfix,
-        seq(field("Expression", $.expression), token.immediate("!")),
+        seq(field('Expression', $.expression), token.immediate('!')),
       ),
 
-    //prefix
+    // prefix
     UnaryMoveExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq(field("Operation", $.Move), field("Expression", $.expression)),
+        seq(field('Operation', $.Move), field('Expression', $.expression)),
       ),
 
-    //unary
+    // unary
     NegateExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq("!", field("Expression", $.expression)),
+        seq('!', field('Expression', $.expression)),
       ),
 
     CreateExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq($._Create, field("InvocationExpression", $.InvocationExpression)),
+        seq($._Create, field('InvocationExpression', $.InvocationExpression)),
       ),
 
     DestroyExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq($._Destroy, field("Expression", $.expression)),
+        seq($._Destroy, field('Expression', $.expression)),
       ),
 
-    //TODO: check
+    // TODO: check
     ReferenceExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
         seq(
           $._ReferenceAnnotation,
-          field("Expression", $.expression),
+          field('Expression', $.expression),
           choice($.Casting, $.ForceCasting, $.FailableCasting),
-          field("TargetType", $._type),
+          field('TargetType', $._type),
         ),
       ),
 
@@ -843,16 +845,16 @@ module.exports = grammar({
       prec(
         P.precedenceCasting,
         seq(
-          field("Expression", $.expression),
-          field("Operation", $.castingOp),
-          field("TypeAnnotation", $.TypeAnnotation),
+          field('Expression', $.expression),
+          field('Operation', $.castingOp),
+          field('TypeAnnotation', $.TypeAnnotation),
         ),
       ),
 
     // Multiplication precedence: *, /, %
-    Mul: (_) => "*",
-    Div: (_) => "/",
-    Mod: (_) => "%",
+    Mul: (_) => '*',
+    Div: (_) => '/',
+    Mod: (_) => '%',
 
     MultiplicativeOp: ($) => choice($.Mul, $.Div, $.Mod),
 
@@ -860,15 +862,15 @@ module.exports = grammar({
       prec.left(
         P.precedenceMultiplication,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.MultiplicativeOp),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.MultiplicativeOp),
+          field('Right', $.expression),
         ),
       ),
 
     // Addition precedence: +, -
-    Plus: (_) => "+",
-    Minus: (_) => "-",
+    Plus: (_) => '+',
+    Minus: (_) => '-',
 
     AdditiveOp: ($) => choice($.Plus, $.Minus),
 
@@ -876,15 +878,15 @@ module.exports = grammar({
       prec.left(
         P.precedenceAddition,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.AdditiveOp),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.AdditiveOp),
+          field('Right', $.expression),
         ),
       ),
 
-    //Bitwise shift precedence: <<, >>
-    ShiftLeft: (_) => "<<",
-    ShiftRight: (_) => ">>",
+    // Bitwise shift precedence: <<, >>
+    ShiftLeft: (_) => '<<',
+    ShiftRight: (_) => '>>',
 
     BitwiseShiftOp: ($) => choice($.ShiftLeft, $.ShiftRight),
 
@@ -892,67 +894,67 @@ module.exports = grammar({
       prec.left(
         P.precedenceBitwiseShift,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.BitwiseShiftOp),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.BitwiseShiftOp),
+          field('Right', $.expression),
         ),
       ),
 
-    //Bitwise conjunction precedence: &
-    BitwiseAnd: (_) => "&",
+    // Bitwise conjunction precedence: &
+    BitwiseAnd: (_) => '&',
 
     BitwiseExpressionAnd: ($) =>
       prec.left(
         P.precedenceBitwiseAnd,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.BitwiseAnd),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.BitwiseAnd),
+          field('Right', $.expression),
         ),
       ),
 
-    //Bitwise exclusive disjunction precedence: ^
-    BitwiseXor: (_) => "^",
+    // Bitwise exclusive disjunction precedence: ^
+    BitwiseXor: (_) => '^',
 
     BitwiseExpressionXor: ($) =>
       prec.left(
         P.precedenceBitwiseXor,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.BitwiseXor),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.BitwiseXor),
+          field('Right', $.expression),
         ),
       ),
 
     // Bitwise disjunction precedence: |
-    BitwiseOr: (_) => "|",
+    BitwiseOr: (_) => '|',
 
     BitwiseExpressionOr: ($) =>
       prec.left(
         P.precedenceBitwiseOr,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.BitwiseOr),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.BitwiseOr),
+          field('Right', $.expression),
         ),
       ),
 
-    //Nil-Coalescing precedence: ??  right associative!
+    // Nil-Coalescing precedence: ??  right associative!
     NilCoalescingExpression: ($) =>
       prec.right(
         P.precedenceNilCoalescing,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.NilCoalescing),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.NilCoalescing),
+          field('Right', $.expression),
         ),
       ),
 
-    //Relational precedence: <, <=, >, >=
-    Less: (_) => "<",
-    Greater: (_) => ">",
-    LessEqual: (_) => "<=",
-    GreaterEqual: (_) => ">=",
+    // Relational precedence: <, <=, >, >=
+    Less: (_) => '<',
+    Greater: (_) => '>',
+    LessEqual: (_) => '<=',
+    GreaterEqual: (_) => '>=',
 
     RelationalOP: ($) => choice($.Less, $.Greater, $.LessEqual, $.GreaterEqual),
 
@@ -960,15 +962,15 @@ module.exports = grammar({
       prec(
         P.precedenceComparison,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.RelationalOP),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.RelationalOP),
+          field('Right', $.expression),
         ),
       ),
 
-    //Equality precedence: ==, !=
-    Equal: (_) => "==",
-    Unequal: (_) => "!=",
+    // Equality precedence: ==, !=
+    Equal: (_) => '==',
+    Unequal: (_) => '!=',
 
     EqualityOp: ($) => choice($.Equal, $.Unequal),
 
@@ -976,78 +978,78 @@ module.exports = grammar({
       prec.left(
         P.precedenceComparisonEqual,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.EqualityOp),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.EqualityOp),
+          field('Right', $.expression),
         ),
       ),
 
-    //Logical conjunction precedence: &&
-    LogicalAnd: (_) => "&&",
+    // Logical conjunction precedence: &&
+    LogicalAnd: (_) => '&&',
 
     BinaryExpressionAnd: ($) =>
       prec.left(
         P.precedenceLogicalAnd,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.LogicalAnd),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.LogicalAnd),
+          field('Right', $.expression),
         ),
       ),
 
-    //Logical disjunction precedence: ||
-    LogicalOr: (_) => "||",
+    // Logical disjunction precedence: ||
+    LogicalOr: (_) => '||',
 
     BinaryExpressionOr: ($) =>
       prec.left(
         P.precedenceLogicalOr,
         seq(
-          field("Left", $.expression),
-          field("Operation", $.LogicalOr),
-          field("Right", $.expression),
+          field('Left', $.expression),
+          field('Operation', $.LogicalOr),
+          field('Right', $.expression),
         ),
       ),
 
-    //Ternary precedence: ? :*/
+    // Ternary precedence: ? :*/
     ConditionalExpression: ($) =>
       prec.right(
         P.precedenceTernary,
         seq(
-          field("Test", $.expression),
-          "?",
-          field("Then", $.expression),
+          field('Test', $.expression),
+          '?',
+          field('Then', $.expression),
           $._SemiColon,
-          field("Else", $.expression),
+          field('Else', $.expression),
         ),
       ),
 
     IdentifierExpression: ($) =>
-      prec.left(P.precedenceLiteral, field("Identifier", choice($.Identifier))),
+      prec.left(P.precedenceLiteral, field('Identifier', choice($.Identifier))),
 
     StringExpression: ($) =>
-      prec.left(P.precedenceLiteral, seq(field("Value", $.StringLiteral))),
+      prec.left(P.precedenceLiteral, seq(field('Value', $.StringLiteral))),
 
     BooleanLiteral: ($) => choice($.True, $.False),
 
     BooleanExpression: ($) =>
-      prec(P.precedenceLiteral, seq(field("Value", $.BooleanLiteral))),
+      prec(P.precedenceLiteral, seq(field('Value', $.BooleanLiteral))),
 
-    NilLiteral: (_) => "nil",
+    NilLiteral: (_) => 'nil',
 
     NilExpression: ($) =>
-      prec(P.precedenceLiteral, seq(field("Value", $.NilLiteral))),
+      prec(P.precedenceLiteral, seq(field('Value', $.NilLiteral))),
 
-    _PathSeparator: (_) => "/",
-    _PathSeparator_Immediate: (_) => "/",
+    _PathSeparator: (_) => '/',
+    _PathSeparator_Immediate: (_) => '/',
 
     PathExpression: ($) =>
       prec(
         P.precedenceLiteral,
         seq(
           $._PathSeparator,
-          field("Domain", $.Identifier),
+          field('Domain', $.Identifier),
           $._PathSeparator_Immediate,
-          field("Identifier", $.Identifier),
+          field('Identifier', $.Identifier),
         ),
       ),
 
@@ -1055,7 +1057,7 @@ module.exports = grammar({
       seq(optional($.Minus), $._positiveFixedPointLiteral),
 
     FixedPointExpression: ($) =>
-      prec(P.precedenceLiteral, seq(field("Value", $.FixedPointLiteral))),
+      prec(P.precedenceLiteral, seq(field('Value', $.FixedPointLiteral))),
 
     _positiveIntegerLiteral: ($) =>
       choice(
@@ -1071,15 +1073,15 @@ module.exports = grammar({
       prec(
         P.precedenceLiteral,
         choice(
-          field("Value", $.IntegerLiteral),
-          field("Value", $.HexadecimalLiteral),
+          field('Value', $.IntegerLiteral),
+          field('Value', $.HexadecimalLiteral),
         ),
       ),
 
     ArrayExpression: ($) =>
       prec(
         P.precedenceLiteral,
-        seq("[", field("Values", commaSep($.expression)), "]"),
+        seq('[', field('Values', commaSep($.expression)), ']'),
       ),
 
     DictionaryExpression: ($) =>
@@ -1128,84 +1130,84 @@ module.exports = grammar({
         $.ConditionalExpression,
       ),
 
-    Auth: (_) => "auth",
-    _ReferenceAnnotation: (_) => "&",
+    Auth: (_) => 'auth',
+    _ReferenceAnnotation: (_) => '&',
 
-    _Negate: (_) => "!",
+    _Negate: (_) => '!',
 
-    _Optional: (_) => "?",
+    _Optional: (_) => '?',
 
-    NilCoalescing: (_) => "??",
+    NilCoalescing: (_) => '??',
 
-    Casting: (_) => "as",
-    FailableCasting: (_) => "as?",
-    ForceCasting: (_) => "as!",
+    Casting: (_) => 'as',
+    FailableCasting: (_) => 'as?',
+    ForceCasting: (_) => 'as!',
 
-    ResourceAnnotation: (_) => "@",
+    ResourceAnnotation: (_) => '@',
 
     Argument: ($) =>
       seq(
-        optional(seq(field("Label", $.Identifier), $._SemiColon)),
-        field("Expression", $.expression),
+        optional(seq(field('Label', $.Identifier), $._SemiColon)),
+        field('Expression', $.expression),
       ),
 
-    _OpenCurly: (_) => "{",
-    _OpenCurly_Immidiate: (_) => token.immediate("{"),
-    _CloseCurly: (_) => "}",
+    _OpenCurly: (_) => '{',
+    _OpenCurly_Immidiate: (_) => token.immediate('{'),
+    _CloseCurly: (_) => '}',
 
-    _OpenParen: (_) => "(",
-    _CloseParen: (_) => ")",
-    _Struct: (_) => token("struct "),
-    _Resource: (_) => token("resource "),
-    _Contract: (_) => token("contract "),
-    _Interface: (_) => token("interface "),
-    _Fun: (_) => token("fun"),
-    _Event: (_) => "event ",
-    _Emit: (_) => "emit ",
-    _Pre: (_) => "pre",
-    _Post: (_) => "post",
-    _Priv: (_) => "priv",
-    _Pub: (_) => "pub ",
-    _Set: (_) => "set",
-    _Access: (_) => "access",
-    _All: (_) => "all",
-    _Account: (_) => "account",
-    _Return: (_) => "return",
-    _Break: (_) => "break",
-    _Continue: (_) => "continue",
-    _Let: (_) => "let ",
-    _Var: (_) => "var ",
-    _If: (_) => "if",
-    _Else: (_) => "else",
-    _While: (_) => "while",
-    _For: (_) => "for",
-    _In: (_) => "in ",
-    True: (_) => "true",
-    False: (_) => "false",
-    _Nil: (_) => "nil",
-    _Import: (_) => "import ",
-    _From: (_) => "from ",
-    _Create: (_) => "create ",
-    _Destroy: (_) => "destroy ",
-    _SemiColon: (_) => ":",
+    _OpenParen: (_) => '(',
+    _CloseParen: (_) => ')',
+    _Struct: (_) => token('struct '),
+    _Resource: (_) => token('resource '),
+    _Contract: (_) => token('contract '),
+    _Interface: (_) => token('interface '),
+    _Fun: (_) => token('fun'),
+    _Event: (_) => 'event ',
+    _Emit: (_) => 'emit ',
+    _Pre: (_) => 'pre',
+    _Post: (_) => 'post',
+    _Priv: (_) => 'priv',
+    _Pub: (_) => 'pub ',
+    _Set: (_) => 'set',
+    _Access: (_) => 'access',
+    _All: (_) => 'all',
+    _Account: (_) => 'account',
+    _Return: (_) => 'return',
+    _Break: (_) => 'break',
+    _Continue: (_) => 'continue',
+    _Let: (_) => 'let ',
+    _Var: (_) => 'var ',
+    _If: (_) => 'if',
+    _Else: (_) => 'else',
+    _While: (_) => 'while',
+    _For: (_) => 'for',
+    _In: (_) => 'in ',
+    True: (_) => 'true',
+    False: (_) => 'false',
+    _Nil: (_) => 'nil',
+    _Import: (_) => 'import ',
+    _From: (_) => 'from ',
+    _Create: (_) => 'create ',
+    _Destroy: (_) => 'destroy ',
+    _SemiColon: (_) => ':',
 
     SwitchCase: ($) =>
       seq(
         choice(
-          seq("case", field("Expression", $.expression)),
-          field("Expression", "default"),
+          seq('case', field('Expression', $.expression)),
+          field('Expression', 'default'),
         ),
-        ":",
-        field("Statements", optional($._Statements)),
+        ':',
+        field('Statements', optional($._Statements)),
       ),
 
     SwitchStatement: ($) =>
       seq(
-        "switch",
-        field("Expression", $.expression),
-        "{",
-        field("Cases", repeat($.SwitchCase)),
-        "}",
+        'switch',
+        field('Expression', $.expression),
+        '{',
+        field('Cases', repeat($.SwitchCase)),
+        '}',
       ),
   },
 });

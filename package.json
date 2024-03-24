@@ -5,9 +5,17 @@
   "main": "index.js",
   "types": "bindings/node",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tree-sitter test",
     "install": "node-gyp-build",
-    "prebuildify": "prebuildify --napi --strip"
+    "prebuildify": "prebuildify --napi --strip",
+    "lint": "eslint grammar.js",
+    "lint-fix": "eslint grammar.js --fix",
+    "build-wasm": "tree-sitter build --wasm"
+  },
+  "keywords": ["parser", "cadence"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluesign/cadence-tree-sitter.git"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +34,8 @@
     }
   },
   "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-google": "^0.14.0",
     "tree-sitter-cli": "^0.22.2",
     "prebuildify": "^6.0.0"
   },
@@ -39,7 +49,10 @@
   ],
   "tree-sitter": [
     {
-      "file-types": ["cdc"]
+      "scope": "source.cadence",
+      "injection-regex": "cadence",
+      "file-types": ["cdc"],
+      "highlights": ["queries/cadence/highlights.scm"]
     }
   ]
 }
