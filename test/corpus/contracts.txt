@@ -11,15 +11,14 @@ contract SomeContract {
 (Program
       (CompositeDeclaration
         (Access)
-        (CompositeKind)
-        (Identifier)))
+        (TypeIdentifier)))
 
 ==================
 Contract
 ==================
 
 access(all)
-contract SomeContract: SomeContractInterface {
+contract SomeContract: SomeContract2, SomeContract2.B {
 }
 
 -----
@@ -27,7 +26,68 @@ contract SomeContract: SomeContractInterface {
 (Program
     (CompositeDeclaration
     (Access)
-    (CompositeKind)
-    (Identifier)
-    (NominalType
-        (Identifier))))
+    (TypeIdentifier)
+    (Conformances
+          (NominalType
+            (TypeIdentifier))
+          (NominalType
+            (TypeIdentifier)
+            (TypeIdentifier)))))
+
+==================
+Contract init empty
+==================
+
+access(all)
+contract SomeContract {
+    init() {}
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+              (FunctionBlock))))))
+
+
+==================
+Contract init
+==================
+
+access(all)
+contract SomeContract {
+    init(greeting: String) {
+        self.greeting = greeting
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+              (Parameter
+                (Identifier)
+                (TypeAnnotation
+                  (NominalType
+                    (TypeIdentifier))))
+            (FunctionBlock
+            (Block
+                (AssignmentStatement
+                (MemberExpression
+                    (IdentifierExpression
+                    (Identifier))
+                    (Identifier))
+                (Transfer
+                    (TransferOperationCopy))
+                (IdentifierExpression
+                    (Identifier))))))))))

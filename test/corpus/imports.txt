@@ -8,8 +8,8 @@ import HelloWorld from 0x42
 
 (Program
     (ImportDeclaration
-    (Identifier)
-    (AddressLocation
+    (TypeIdentifier)
+    (Address
         (HexadecimalLiteral))))
 
 
@@ -23,7 +23,7 @@ import 0x42
 
 (Program
     (ImportDeclaration
-    (AddressLocation
+    (Address
         (HexadecimalLiteral))))
 
 
@@ -37,9 +37,8 @@ import HelloWorld from "test"
 
 (Program
     (ImportDeclaration
-    (Identifier)
-    (stringLocation
-        (StringLiteral))))
+    (TypeIdentifier)
+    (StringLiteral)))
 
 
 ==================
@@ -52,5 +51,4 @@ import "test"
 
 (Program
     (ImportDeclaration
-    (stringLocation
-        (StringLiteral))))
+    (StringLiteral)))

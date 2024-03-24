@@ -240,7 +240,7 @@
     }
   },
   {
-    "type": "AddressLocation",
+    "type": "Address",
     "named": true,
     "fields": {
       "Address": {
@@ -797,7 +797,7 @@
     "type": "CompositeDeclaration",
     "named": true,
     "fields": {
-      "Access": {
+      "access": {
         "multiple": false,
         "required": true,
         "types": [
@@ -807,41 +807,35 @@
           }
         ]
       },
-      "CompositeKind": {
+      "compositeKind": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "CompositeKind",
-            "named": true
-          }
-        ]
-      },
-      "Conformances": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
+            "type": "contract",
             "named": false
           },
           {
-            "type": "NominalType",
-            "named": true
+            "type": "resource",
+            "named": false
+          },
+          {
+            "type": "struct",
+            "named": false
           }
         ]
       },
-      "Identifier": {
+      "conformances": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "Identifier",
+            "type": "Conformances",
             "named": true
           }
         ]
       },
-      "Members": {
+      "members": {
         "multiple": false,
         "required": false,
         "types": [
@@ -850,13 +844,18 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "TypeIdentifier",
+            "named": true
+          }
+        ]
       }
     }
-  },
-  {
-    "type": "CompositeKind",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "Condition",
@@ -918,6 +917,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "Conformances",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "NominalType",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1256,12 +1270,38 @@
           }
         ]
       },
-      "ParameterList": {
-        "multiple": false,
+      "Parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "ParameterList",
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1514,12 +1554,16 @@
           }
         ]
       },
-      "ParameterList": {
-        "multiple": false,
-        "required": true,
+      "Parameters": {
+        "multiple": true,
+        "required": false,
         "types": [
           {
-            "type": "ParameterList",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1541,6 +1585,28 @@
           {
             "type": "view",
             "named": false
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
           }
         ]
       }
@@ -1588,12 +1654,38 @@
           }
         ]
       },
-      "ParameterList": {
-        "multiple": false,
+      "Parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "ParameterList",
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1604,12 +1696,16 @@
     "type": "FunctionExpression",
     "named": true,
     "fields": {
-      "ParameterList": {
-        "multiple": false,
-        "required": true,
+      "Parameters": {
+        "multiple": true,
+        "required": false,
         "types": [
           {
-            "type": "ParameterList",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1624,6 +1720,28 @@
           },
           {
             "type": "TypeAnnotation",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1662,6 +1780,11 @@
   },
   {
     "type": "HexadecimalLiteral",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "Identifier",
     "named": true,
     "fields": {}
   },
@@ -1737,7 +1860,21 @@
     "type": "ImportDeclaration",
     "named": true,
     "fields": {
-      "Identifiers": {
+      "location": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "Address",
+            "named": true
+          },
+          {
+            "type": "StringLiteral",
+            "named": true
+          }
+        ]
+      },
+      "type": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1746,26 +1883,12 @@
             "named": false
           },
           {
-            "type": "Identifier",
-            "named": true
-          }
-        ]
-      },
-      "Location": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "AddressLocation",
+            "type": "TypeIdentifier",
             "named": true
           },
           {
-            "type": "Identifier",
-            "named": true
-          },
-          {
-            "type": "stringLocation",
-            "named": true
+            "type": "from",
+            "named": false
           }
         ]
       }
@@ -1878,7 +2001,7 @@
     "type": "InterfaceDeclaration",
     "named": true,
     "fields": {
-      "Access": {
+      "access": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1888,32 +2011,40 @@
           }
         ]
       },
-      "CompositeKind": {
+      "compositeKind": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "CompositeKind",
-            "named": true
-          }
-        ]
-      },
-      "Identifier": {
-        "multiple": false,
-        "required": true,
-        "types": [
+            "type": "contract",
+            "named": false
+          },
           {
-            "type": "Identifier",
-            "named": true
+            "type": "resource",
+            "named": false
+          },
+          {
+            "type": "struct",
+            "named": false
           }
         ]
       },
-      "Members": {
+      "members": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "Members",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "TypeIdentifier",
             "named": true
           }
         ]
@@ -2223,7 +2354,7 @@
         "required": true,
         "types": [
           {
-            "type": "Identifier",
+            "type": "TypeIdentifier",
             "named": true
           }
         ]
@@ -2233,7 +2364,7 @@
         "required": false,
         "types": [
           {
-            "type": "Identifier",
+            "type": "TypeIdentifier",
             "named": true
           }
         ]
@@ -2333,26 +2464,6 @@
         "types": [
           {
             "type": "TypeAnnotation",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ParameterList",
-    "named": true,
-    "fields": {
-      "Parameters": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
             "named": true
           }
         ]
@@ -2930,6 +3041,11 @@
     }
   },
   {
+    "type": "TypeIdentifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "UnaryMoveExpression",
     "named": true,
     "fields": {
@@ -3200,12 +3316,16 @@
           }
         ]
       },
-      "ParameterList": {
-        "multiple": false,
-        "required": true,
+      "Parameters": {
+        "multiple": true,
+        "required": false,
         "types": [
           {
-            "type": "ParameterList",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -3220,6 +3340,28 @@
           },
           {
             "type": "TypeAnnotation",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -3257,21 +3399,6 @@
     }
   },
   {
-    "type": "stringLocation",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "StringLiteral",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "transactionDeclaration",
     "named": true,
     "fields": {
@@ -3285,12 +3412,16 @@
           }
         ]
       },
-      "ParameterList": {
-        "multiple": false,
+      "Parameters": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "ParameterList",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -3333,6 +3464,28 @@
         "types": [
           {
             "type": "execute",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -3461,10 +3614,6 @@
   },
   {
     "type": "GreaterEqual",
-    "named": true
-  },
-  {
-    "type": "Identifier",
     "named": true
   },
   {
@@ -3616,7 +3765,15 @@
     "named": false
   },
   {
+    "type": "from",
+    "named": false
+  },
+  {
     "type": "fun",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {

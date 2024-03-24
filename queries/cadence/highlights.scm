@@ -3,15 +3,17 @@
  (LineComment)
 ] @comment @spell
 
-(CompositeDeclaration) @type
-(ImportDeclaration) @include
+(TypeIdentifier) @type
 (Identifier) @variable
-(AddressLocation) @variable
+
+(SpecialFunctionDeclaration) @function.builtin
 
 (StringLiteral) @string
-(TypeAnnotation) @type
+(Address) @number
+(IntegerLiteral) @number
+;(TypeAnnotation) @type
 
-(Parameter Identifier: (Identifier) @parameter)
+(Parameter Identifier: (Identifier) @variable.parameter)
 [
     "var"
     "let"
@@ -33,6 +35,8 @@
     "execute"
     "self"
     "return"
+    "import"
+    "from"
 ] @keyword
 
 [
@@ -43,9 +47,3 @@
 ] @punctuation.bracket
 
 "." @punctuation.delimiter
-
-; (InvocationExpression Identifier: (IdentifierExpression) @function.call) ; foo()
-; (InvocationExpression Identifier: (MemberExpression) @function.call) ; foo()
-
-
-(IntegerLiteral) @number

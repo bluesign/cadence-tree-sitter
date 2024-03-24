@@ -1,17 +1,29 @@
-access(all)
-contract HelloWorld {
+import HelloWorld2 from 0x01
 // <- keyword
+//     ^ type
+//                 ^ keyword
+//                      ^ number
+
+access(all)
+contract HelloWorld : HelloWorld2 {
+// <- keyword
+//       ^ type
+//                    ^ type
 
     access(all) let greeting: String
     //          ^ type.qualifier
     //              ^ variable
+    //                        ^ type
 
     access(all) resource SomeResource {
-        access(all) var someField: UFix64,
+    //                   ^ type
+        access(all) var someField: UFix64
+        //              ^ variable
+        //                         ^ type
 
         init(someField: UFix64) {
-        // <- variable
-        //   ^ type
+        // <- function.builtin
+        //   ^ variable.parameter
         //              ^ type
             self.someField = someField
         }
@@ -23,11 +35,10 @@ contract HelloWorld {
     // <- keyword
     fun hello(someParameter: SomeResource): String {
     // <- keyword
-    //   ^ variable
     //       ^ punctuation.bracket
-    //        ^ parameter
-    //                       ^ variable
-    //                                      ^ variable
+    //        ^ variable.parameter
+    //                       ^ type
+    //                                      ^ type
         pre {
         // <- keyword
             self.greeting != "" : "greeting must not be empty"
@@ -43,7 +54,6 @@ contract HelloWorld {
 
 
     init() {
-    // <- type
         self.greeting = "Hello World!"
         //               ^ string
     }

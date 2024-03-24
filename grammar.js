@@ -215,8 +215,8 @@ module.exports = grammar({
 
     _Declarations: ($) => repeat1(seq($.declaration, optional($._eos))),
 
-    // Identifier
     Identifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+    TypeIdentifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
 
     // Access
     Access: ($) =>
@@ -343,13 +343,10 @@ module.exports = grammar({
 
     _hiddenComma: (_) => ',',
     // @bluesign: trailing comma is valid in parameter list
-    _Parameters: ($) =>
-      prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma))),
-
-    ParameterList: ($) =>
+    _ParameterList: ($) =>
       seq(
         '(',
-        field('Parameters', seq(optional($._Parameters))),
+        field('Parameters', seq(optional(prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma)))))),
         ')',
       ),
 
@@ -360,7 +357,7 @@ module.exports = grammar({
           field('Access', optional($.Access)),
           'fun',
           field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          field('parameters', $._ParameterList),
           field(
             'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
@@ -369,37 +366,41 @@ module.exports = grammar({
         ),
       ),
 
-    stringLocation: ($) => $.StringLiteral,
-    AddressLocation: ($) => seq(field('Address', $.HexadecimalLiteral)),
+    Address: ($) => seq(field('Address', $.HexadecimalLiteral)),
 
     ImportDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          $._Import,
-          field('Identifiers', optional(seq(commaSep1($.Identifier), $._From))),
+          'import',
+          optional(
+            field(
+              'type',
+              seq(commaSep1($.TypeIdentifier), 'from'),
+            ),
+          ),
           field(
-            'Location',
-            choice($.stringLocation, $.AddressLocation, $.Identifier),
+            'location',
+            choice($.StringLiteral, $.Address),
           ),
         ),
       ),
 
-    CompositeKind: (_) => choice('struct', 'resource', 'contract'),
+    _CompositeKind: (_) => choice('struct', 'resource', 'contract'),
 
-    _Conformances: ($) => commaSep1($.NominalType),
+    Conformances: ($) => commaSep1($.NominalType),
 
     CompositeDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
-          field('CompositeKind', $.CompositeKind),
-          field('Identifier', $.Identifier),
+          field('access', $.Access),
+          field('compositeKind', $._CompositeKind),
+          field('type', $.TypeIdentifier),
           optional($._SemiColon),
-          field('Conformances', optional($._Conformances)),
+          field('conformances', optional($.Conformances)),
           '{',
-          field('Members', optional($.Members)),
+          field('members', optional($.Members)),
           '}',
         ),
       ),
@@ -408,12 +409,12 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
-          field('CompositeKind', $.CompositeKind),
+          field('access', $.Access),
+          field('compositeKind', $._CompositeKind),
           'interface',
-          field('Identifier', $.Identifier),
+          field('type', $.TypeIdentifier),
           '{',
-          field('Members', optional($.Members)),
+          field('members', optional($.Members)),
           '}',
         ),
       ),
@@ -425,7 +426,7 @@ module.exports = grammar({
           field('Access', $.Access),
           'event',
           field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          field('parameters', $._ParameterList),
         ),
       ),
 
@@ -454,7 +455,7 @@ module.exports = grammar({
       seq(
         field('Access', optional($.Access)),
         field('Identifier', choice('prepare', 'init', 'destroy')),
-        field('ParameterList', $.ParameterList),
+        field('parameters', $._ParameterList),
         field('FunctionBlock', optional($.FunctionBlock)),
       ),
 
@@ -472,7 +473,7 @@ module.exports = grammar({
           field('View', optional('view')),
           'fun',
           field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          field('parameters', $._ParameterList),
           optional(
             seq($._SemiColon, field('ReturnTypeAnnotation', $.TypeAnnotation)),
           ),
@@ -486,7 +487,7 @@ module.exports = grammar({
         P.precedenceDeclaration,
         seq(
           'transaction',
-          field('ParameterList', optional($.ParameterList)),
+          field('parameters', optional($._ParameterList)),
           '{',
           field('Fields', optional($.Fields)),
           field('prepare', optional($.prepare)),
@@ -562,9 +563,9 @@ module.exports = grammar({
       prec.right(
         seq(
           seq(
-            field('Identifier', $.Identifier),
+            field('Identifier', $.TypeIdentifier),
             optional(
-              repeat(seq('.', field('NestedIdentifiers', $.Identifier))),
+              repeat(seq('.', field('NestedIdentifiers', $.TypeIdentifier))),
             ),
           ),
         ),
@@ -721,7 +722,7 @@ module.exports = grammar({
         seq(
           optional('('),
           optional('fun'),
-          field('ParameterList', $.ParameterList),
+          field('parameters', $._ParameterList),
           field(
             'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
@@ -1154,7 +1155,6 @@ module.exports = grammar({
 
     _Struct: (_) => token('struct '),
     _Resource: (_) => token('resource '),
-    _Contract: (_) => token('contract '),
     _Interface: (_) => token('interface '),
     _Event: (_) => 'event ',
     _Emit: (_) => 'emit ',
@@ -1177,8 +1177,6 @@ module.exports = grammar({
     True: (_) => 'true',
     False: (_) => 'false',
     _Nil: (_) => 'nil',
-    _Import: (_) => 'import ',
-    _From: (_) => 'from ',
     _Create: (_) => 'create ',
     _Destroy: (_) => 'destroy ',
     _SemiColon: (_) => ':',

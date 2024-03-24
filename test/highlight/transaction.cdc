@@ -1,7 +1,7 @@
 transaction {
 // <- keyword
     prepare() {
-    // <- keyword
+    // <- function.builtin
     //     ^ punctuation.bracket
     }
 

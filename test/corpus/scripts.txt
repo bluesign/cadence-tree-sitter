@@ -13,15 +13,14 @@ fun main(account: Address): UFix64 {
     (FunctionDeclaration
     (Access)
     (Identifier)
-    (ParameterList
-        (Parameter
-        (Identifier)
-        (TypeAnnotation
-            (NominalType
-            (Identifier)))))
+    (Parameter
+    (Identifier)
     (TypeAnnotation
         (NominalType
-        (Identifier)))
+        (TypeIdentifier))))
+    (TypeAnnotation
+        (NominalType
+        (TypeIdentifier)))
     (FunctionBlock
         (Block
         (ReturnStatement

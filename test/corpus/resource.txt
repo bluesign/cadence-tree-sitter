@@ -1,0 +1,62 @@
+==================
+Resource
+==================
+
+access(all) resource SomeResource {}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)))
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (FunctionBlock))))))
+
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    access(all) var someField: UFix64
+
+    init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (FieldDeclaration
+        (Access)
+        (VariableKind)
+        (Identifier)
+        (TypeAnnotation
+            (NominalType
+            (TypeIdentifier))))
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (FunctionBlock))))))
