@@ -27,8 +27,7 @@ transaction(amount: UFix64) {}
             (Identifier)))))))
 
 ==================
-Transaction Phases (TODO: fix me)
-:error
+Transaction Phases
 ==================
 
 transaction {
@@ -47,28 +46,16 @@ transaction {
 
 ---
 
-(Program
-    (transactionDeclaration
-    (prepare
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (ParameterList)
-            (FunctionBlock))))
-    (PreConditions
-        (Condition
-        (FixedPointExpression
-            (FixedPointLiteral
-            (MISSING "_positiveFixedPointLiteral_token1")))))
-    (execute
-        (Identifier)
-        (Block
-        (ExpressionStatement
-            (FixedPointExpression
-            (FixedPointLiteral
-                (MISSING "_positiveFixedPointLiteral_token1"))))))))))(Condition
-(FixedPointExpression
-(FixedPointLiteral
-    (MISSING "_positiveFixedPointLiteral_token1"))))
+    (Program
+      (transactionDeclaration
+        (prepare
+          (SpecialFunctionDeclaration
+            (FunctionDeclaration_
+              (ParameterList)
+              (FunctionBlock))))
+        (PreConditions)
+        (execute)))
+
 
 ==================
 Transaction Prepare Phase

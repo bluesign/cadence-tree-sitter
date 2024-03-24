@@ -1,0 +1,20 @@
+==================
+Address literal
+==================
+
+access(all) fun main() {
+    0x42
+}
+
+-----
+
+(Program
+    (FunctionDeclaration
+    (Access)
+    (Identifier)
+    (ParameterList)
+    (FunctionBlock
+        (Block
+        (ExpressionStatement
+            (IntegerExpression
+            (HexadecimalLiteral)))))))

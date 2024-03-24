@@ -13,3 +13,21 @@ contract SomeContract {
         (Access)
         (CompositeKind)
         (Identifier)))
+
+==================
+Contract
+==================
+
+access(all)
+contract SomeContract: SomeContractInterface {
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (CompositeKind)
+    (Identifier)
+    (NominalType
+        (Identifier))))
