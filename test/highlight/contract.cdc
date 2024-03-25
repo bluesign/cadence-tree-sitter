@@ -95,5 +95,8 @@ contract HelloWorld : HelloWorld2 {
     // <- constructor
         self.greeting = "Hello World!"
         //               ^ string
+        self.MinterStoragePath = /storage/cadenceExampleNFTMinter
+        //                       ^ string
+        //                        ^ string
     }
 }

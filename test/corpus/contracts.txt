@@ -157,3 +157,37 @@ contract SomeContract {
                     (Plus))
                 (IdentifierExpression
                     (Identifier)))))))))
+
+
+
+==================
+Contract function
+==================
+
+access(all)
+contract SomeContract {
+    init() {
+        self.MinterStoragePath = /storage/cadenceExampleNFTMinter
+    }
+}
+
+-------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Block
+              (AssignmentStatement
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))
+                (Transfer
+                  (TransferOperationCopy))
+                (PathExpression
+                  (Identifier)
+                  (Identifier))))))))

@@ -11,6 +11,8 @@
 (FunctionDeclaration name: (Identifier) @function)
 
 (StringLiteral) @string
+(PathExpression) @string
+(PathExpression (Identifier) @string)
 (Address) @number
 (IntegerLiteral) @number
 (BooleanLiteral) @boolean
