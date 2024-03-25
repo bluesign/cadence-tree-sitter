@@ -1,7 +1,4 @@
-[
- (blockComment)
- (LineComment)
-] @comment
+
 
 (TypeIdentifier) @type
 (TypeBuiltin) @type.builtin
@@ -50,3 +47,6 @@
 ] @punctuation.bracket
 
 "." @punctuation.delimiter
+
+(Comment) @comment
+(DocComment) @comment.doc

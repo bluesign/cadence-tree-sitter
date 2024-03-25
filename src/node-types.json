@@ -794,6 +794,11 @@
     }
   },
   {
+    "type": "Comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "CompositeDeclaration",
     "named": true,
     "fields": {
@@ -1560,16 +1565,6 @@
     "type": "FunctionDeclaration",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Block": {
         "multiple": false,
         "required": false,
@@ -1678,6 +1673,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2883,17 +2888,16 @@
   {
     "type": "SpecialFunctionDeclaration",
     "named": true,
-    "fields": {
-      "FunctionDeclaration": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "FunctionDeclaration_",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "FunctionDeclaration_",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3782,6 +3786,10 @@
     "named": false
   },
   {
+    "type": "DocComment",
+    "named": true
+  },
+  {
     "type": "Equal",
     "named": true
   },
@@ -3835,10 +3843,6 @@
   },
   {
     "type": "LessEqual",
-    "named": true
-  },
-  {
-    "type": "LineComment",
     "named": true
   },
   {
@@ -4000,10 +4004,6 @@
   {
     "type": "auth ",
     "named": false
-  },
-  {
-    "type": "blockComment",
-    "named": true
   },
   {
     "type": "break",

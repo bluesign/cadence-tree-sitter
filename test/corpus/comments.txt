@@ -1,0 +1,26 @@
+==================
+Comments
+==================
+
+// comment
+
+----
+
+(ERROR
+    (Comment))
+
+
+==================
+Doc Comments
+==================
+
+/// main
+access(all) fun main() {}
+
+----
+
+(Program
+    (DocComment)
+    (FunctionDeclaration
+    (Access)
+    (Identifier)))

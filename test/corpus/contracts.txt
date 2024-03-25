@@ -14,7 +14,24 @@ contract SomeContract {
         (TypeIdentifier)))
 
 ==================
-Contract
+Contract with doc
+==================
+
+/// Some contract
+access(all)
+contract SomeContract {
+}
+
+-----
+
+(Program
+    (DocComment)
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)))
+
+==================
+Contract with inheritance
 ==================
 
 access(all)

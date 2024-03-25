@@ -84,8 +84,8 @@ module.exports = grammar({
   name: 'cadence',
 
   extras: ($) => [
-    $.LineComment,
-    $.blockComment,
+    $.DocComment,
+    $.Comment,
     /[\s\uFEFF\u2060\u200B]/, // TODO:@bluesign check me
     /\n\t/,
   ],
@@ -177,10 +177,11 @@ module.exports = grammar({
 
     _eos: (_) => repeat1(choice(';')),
 
-    // blockComment: _ => /\/[*]+([^*]|([*][^/]))*[*]+\//,
-    LineComment: ($) => /\/\/.*[\n\r]/,
+    DocComment: ($) => /\/\/\/.*[\n\r]/,
+    _LineComment: ($) => /\/\/.*[\n\r]/,
+    _BlockComment: ($) => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
 
-    blockComment: ($) => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
+    Comment: ($) => choice($._LineComment, $._BlockComment),
 
     _positiveFixedPointLiteral: (_) =>
       prec(2, /([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/),
@@ -483,14 +484,14 @@ module.exports = grammar({
     SpecialFunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
-        seq(field('FunctionDeclaration', $.FunctionDeclaration_)),
+        $.FunctionDeclaration_,
       ),
 
     FunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           field('View', optional('view')),
           'fun',
           field('name', $.Identifier),

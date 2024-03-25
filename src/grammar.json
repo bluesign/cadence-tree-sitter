@@ -21,11 +21,15 @@
         ]
       }
     },
-    "LineComment": {
+    "DocComment": {
+      "type": "PATTERN",
+      "value": "\\/\\/\\/.*[\\n\\r]"
+    },
+    "_LineComment": {
       "type": "PATTERN",
       "value": "\\/\\/.*[\\n\\r]"
     },
-    "blockComment": {
+    "_BlockComment": {
       "type": "TOKEN",
       "content": {
         "type": "SEQ",
@@ -44,6 +48,19 @@
           }
         ]
       }
+    },
+    "Comment": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_LineComment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_BlockComment"
+        }
+      ]
     },
     "_positiveFixedPointLiteral": {
       "type": "PREC",
@@ -1635,17 +1652,8 @@
       "type": "PREC",
       "value": 1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "FunctionDeclaration",
-            "content": {
-              "type": "SYMBOL",
-              "name": "FunctionDeclaration_"
-            }
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "FunctionDeclaration_"
       }
     },
     "FunctionDeclaration": {
@@ -1655,12 +1663,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "Access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "FIELD",
@@ -4850,11 +4854,11 @@
   "extras": [
     {
       "type": "SYMBOL",
-      "name": "LineComment"
+      "name": "DocComment"
     },
     {
       "type": "SYMBOL",
-      "name": "blockComment"
+      "name": "Comment"
     },
     {
       "type": "PATTERN",
