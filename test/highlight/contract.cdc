@@ -5,7 +5,7 @@ import HelloWorld2 from 0x01
 //                      ^ number
 
 /// This is a simple HelloWorld contract
-// <- comment.doc
+// <- comment
 access(all)
 contract HelloWorld : HelloWorld2 {
 // <- keyword

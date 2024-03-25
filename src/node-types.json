@@ -840,11 +840,6 @@
     }
   },
   {
-    "type": "Comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "CompositeDeclaration",
     "named": true,
     "fields": {
@@ -4198,7 +4193,7 @@
     "named": false
   },
   {
-    "type": "DocComment",
+    "type": "Comment",
     "named": true
   },
   {

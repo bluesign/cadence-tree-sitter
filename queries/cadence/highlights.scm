@@ -36,11 +36,11 @@
     "pre"
     "post"
     "execute"
-    "self"
     "return"
     "import"
     "from"
     "view"
+    ;"create"
 ] @keyword
 
 [
@@ -55,4 +55,3 @@
 "." @punctuation.delimiter
 
 (Comment) @comment
-(DocComment) @comment.doc

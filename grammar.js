@@ -88,7 +88,6 @@ module.exports = grammar({
   name: 'cadence',
 
   extras: ($) => [
-    $.DocComment,
     $.Comment,
     /[\s\uFEFF\u2060\u200B]/, // TODO:@bluesign check me
     /\n\t/,
@@ -180,11 +179,14 @@ module.exports = grammar({
 
     _eos: (_) => repeat1(choice(';')),
 
-    DocComment: ($) => /\/\/\/.*[\n\r]/,
-    _LineComment: ($) => /\/\/.*[\n\r]/,
-    _BlockComment: ($) => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
-
-    Comment: ($) => choice($._LineComment, $._BlockComment),
+    Comment: (_) => token(choice(
+      seq('//', /.*/),
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/',
+      ),
+    )),
 
     _positiveFixedPointLiteral: (_) =>
       prec(2, /([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/),

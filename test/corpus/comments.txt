@@ -20,8 +20,32 @@ access(all) fun main() {}
 ----
 
 (Program
-    (DocComment)
+    (Comment)
     (FunctionDeclaration
       (Access
           (Entitlements))
     (Identifier)))
+
+
+==================
+Resource mixed comments
+==================
+
+/* --- Hearbeat --- */
+//
+/// The Heartbeat resource containing each blocks source of randomness in sequence
+///
+access(all) resource Heartbeat {
+}
+
+---------
+
+    (Program
+          (Comment)
+          (Comment)
+          (Comment)
+          (Comment)
+      (CompositeDeclaration
+        (Access
+          (Entitlements))
+        (TypeIdentifier)))

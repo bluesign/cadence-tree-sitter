@@ -21,46 +21,43 @@
         ]
       }
     },
-    "DocComment": {
-      "type": "PATTERN",
-      "value": "\\/\\/\\/.*[\\n\\r]"
-    },
-    "_LineComment": {
-      "type": "PATTERN",
-      "value": "\\/\\/.*[\\n\\r]"
-    },
-    "_BlockComment": {
+    "Comment": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
+        "type": "CHOICE",
         "members": [
           {
-            "type": "STRING",
-            "value": "/*"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "//"
+              },
+              {
+                "type": "PATTERN",
+                "value": ".*"
+              }
+            ]
           },
           {
-            "type": "PATTERN",
-            "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
-          },
-          {
-            "type": "STRING",
-            "value": "/"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "/*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
+              },
+              {
+                "type": "STRING",
+                "value": "/"
+              }
+            ]
           }
         ]
       }
-    },
-    "Comment": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_LineComment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_BlockComment"
-        }
-      ]
     },
     "_positiveFixedPointLiteral": {
       "type": "PREC",
@@ -4734,10 +4731,6 @@
     }
   },
   "extras": [
-    {
-      "type": "SYMBOL",
-      "name": "DocComment"
-    },
     {
       "type": "SYMBOL",
       "name": "Comment"
