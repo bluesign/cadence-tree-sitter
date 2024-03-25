@@ -28,8 +28,7 @@ access(all) resource SomeResource {
     (TypeIdentifier)
     (Members
         (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (FunctionBlock))))))
+        (FunctionDeclaration_)))))
 
 
 ==================
@@ -59,5 +58,4 @@ access(all) resource SomeResource {
                 (TypeIdentifier
                   (TypeBuiltin)))))
         (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (FunctionBlock))))))
+        (FunctionDeclaration_)))))

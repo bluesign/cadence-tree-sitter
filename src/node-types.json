@@ -1473,15 +1473,39 @@
     }
   },
   {
-    "type": "FunctionBlock",
+    "type": "FunctionDeclaration",
     "named": true,
     "fields": {
+      "Access": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "Access",
+            "named": true
+          }
+        ]
+      },
       "Block": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "Block",
+            "named": true
+          }
+        ]
+      },
+      "Parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
             "named": true
           }
         ]
@@ -1517,56 +1541,6 @@
             "named": true
           }
         ]
-      }
-    }
-  },
-  {
-    "type": "FunctionDeclaration",
-    "named": true,
-    "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
-      "FunctionBlock": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "FunctionBlock",
-            "named": true
-          }
-        ]
-      },
-      "Identifier": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Identifier",
-            "named": true
-          }
-        ]
-      },
-      "Parameters": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
       },
       "ReturnTypeAnnotation": {
         "multiple": false,
@@ -1585,6 +1559,16 @@
           {
             "type": "view",
             "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "Identifier",
+            "named": true
           }
         ]
       },
@@ -1626,12 +1610,12 @@
           }
         ]
       },
-      "FunctionBlock": {
+      "Block": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "FunctionBlock",
+            "type": "Block",
             "named": true
           }
         ]
@@ -1668,6 +1652,38 @@
           }
         ]
       },
+      "PostConditions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "Condition",
+            "named": true
+          },
+          {
+            "type": "post",
+            "named": false
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "PreConditions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "PreConditions",
+            "named": true
+          }
+        ]
+      },
       "parameters": {
         "multiple": true,
         "required": true,
@@ -1696,6 +1712,16 @@
     "type": "FunctionExpression",
     "named": true,
     "fields": {
+      "Block": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "Block",
+            "named": true
+          }
+        ]
+      },
       "Parameters": {
         "multiple": true,
         "required": false,
@@ -1706,6 +1732,38 @@
           },
           {
             "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "PostConditions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "Condition",
+            "named": true
+          },
+          {
+            "type": "post",
+            "named": false
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "PreConditions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "PreConditions",
             "named": true
           }
         ]
@@ -1746,16 +1804,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "FunctionBlock",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3311,12 +3359,12 @@
           }
         ]
       },
-      "FunctionBlock": {
+      "Block": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "FunctionBlock",
+            "type": "Block",
             "named": true
           }
         ]
@@ -3341,6 +3389,38 @@
           },
           {
             "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "PostConditions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "Condition",
+            "named": true
+          },
+          {
+            "type": "post",
+            "named": false
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "PreConditions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "PreConditions",
             "named": true
           }
         ]

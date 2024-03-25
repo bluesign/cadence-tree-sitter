@@ -1114,12 +1114,8 @@
             }
           },
           {
-            "type": "FIELD",
-            "name": "FunctionBlock",
-            "content": {
-              "type": "SYMBOL",
-              "name": "FunctionBlock"
-            }
+            "type": "SYMBOL",
+            "name": "_FunctionBlock"
           }
         ]
       }
@@ -1605,20 +1601,16 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "FunctionBlock",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "FunctionBlock"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_FunctionBlock"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -1675,7 +1667,7 @@
           },
           {
             "type": "FIELD",
-            "name": "Identifier",
+            "name": "name",
             "content": {
               "type": "SYMBOL",
               "name": "Identifier"
@@ -1727,20 +1719,16 @@
             ]
           },
           {
-            "type": "FIELD",
-            "name": "FunctionBlock",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "FunctionBlock"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_FunctionBlock"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
@@ -2322,7 +2310,7 @@
         }
       ]
     },
-    "FunctionBlock": {
+    "_FunctionBlock": {
       "type": "SEQ",
       "members": [
         {
@@ -3005,7 +2993,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "FunctionBlock"
+            "name": "_FunctionBlock"
           },
           {
             "type": "CHOICE",

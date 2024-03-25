@@ -52,8 +52,7 @@ transaction {
       (transactionDeclaration
         (prepare
           (SpecialFunctionDeclaration
-            (FunctionDeclaration_
-              (FunctionBlock))))
+            (FunctionDeclaration_)))
         (PreConditions)
         (execute)))
 
@@ -85,8 +84,7 @@ transaction {
                 (TypeAnnotation
                   (ReferenceType
                     (NominalType
-                      (TypeIdentifier)))))
-              (FunctionBlock))))))
+                      (TypeIdentifier))))))))))
 
 
 ==================
@@ -115,7 +113,7 @@ transaction {
             (ERROR
                 (UNEXPECTED 'S')
                 (UNEXPECTED 'g'))))))))))(ERROR
-(UNEXPECTED 'o'))(FunctionBlock)
+(UNEXPECTED 'o'))
 
 
 ==================
@@ -137,8 +135,7 @@ transaction {
     (transactionDeclaration
     (prepare
         (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (FunctionBlock))))
+        (FunctionDeclaration_)))
     (Condition
         (BinaryExpressionEquality
         (MemberExpression

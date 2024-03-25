@@ -51,8 +51,7 @@ contract SomeContract {
     (TypeIdentifier)
     (Members
         (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-              (FunctionBlock))))))
+        (FunctionDeclaration_)))))
 
 
 ==================
@@ -81,7 +80,6 @@ contract SomeContract {
                   (NominalType
                     (TypeIdentifier
                       (TypeBuiltin)))))
-            (FunctionBlock
             (Block
                 (AssignmentStatement
                 (MemberExpression
@@ -91,4 +89,50 @@ contract SomeContract {
                 (Transfer
                     (TransferOperationCopy))
                 (IdentifierExpression
-                    (Identifier))))))))))
+                    (Identifier)))))))))
+
+==================
+Contract function
+==================
+
+access(all)
+contract SomeContract {
+    access(all)
+    fun hello(add: String) {
+        self.greeting =  self.greeting + add
+    }
+}
+
+-------
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (FunctionDeclaration
+        (Access)
+        (Identifier)
+        (Parameter
+            (Identifier)
+            (TypeAnnotation
+            (NominalType
+                (TypeIdentifier
+                (TypeBuiltin)))))
+        (Block
+            (AssignmentStatement
+                (MemberExpression
+                (IdentifierExpression
+                    (Identifier))
+                (Identifier))
+                (Transfer
+                (TransferOperationCopy))
+                (AdditiveExpression
+                (MemberExpression
+                    (IdentifierExpression
+                    (Identifier))
+                    (Identifier))
+                (AdditiveOp
+                    (Plus))
+                (IdentifierExpression
+                    (Identifier)))))))))

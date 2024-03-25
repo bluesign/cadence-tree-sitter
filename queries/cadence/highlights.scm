@@ -8,6 +8,7 @@
 (Identifier) @variable
 
 (SpecialFunctionDeclaration) @function.builtin
+(FunctionDeclaration name: (Identifier) @function)
 
 (StringLiteral) @string
 (Address) @number

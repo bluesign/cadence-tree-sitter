@@ -12,8 +12,7 @@ access(all) fun main() {
     (FunctionDeclaration
     (Access)
     (Identifier)
-    (FunctionBlock
-        (Block
-        (ExpressionStatement
-            (IntegerExpression
-            (HexadecimalLiteral)))))))
+    (Block
+    (ExpressionStatement
+        (IntegerExpression
+        (HexadecimalLiteral))))))

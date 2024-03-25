@@ -40,6 +40,7 @@ contract HelloWorld : HelloWorld2 {
     // <- keyword
     fun hello(someParameter: SomeResource): String {
     // <- keyword
+    //  ^ function
     //       ^ punctuation.bracket
     //        ^ variable.parameter
     //                       ^ type
