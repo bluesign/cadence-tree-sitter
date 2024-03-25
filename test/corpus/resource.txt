@@ -27,7 +27,7 @@ access(all) resource SomeResource {
     (Access)
     (TypeIdentifier)
     (Members
-        (ConstructorDeclaration))))
+        (InitDeclaration))))
 
 
 ==================
@@ -55,4 +55,31 @@ access(all) resource SomeResource {
             (NominalType
                 (TypeIdentifier
                   (TypeBuiltin))))
-        (ConstructorDeclaration))))
+        (InitDeclaration))))
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    access(all) var someField: UFix64
+
+    view init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access)
+    (TypeIdentifier)
+    (Members
+        (FieldDeclaration
+        (Access)
+        (VariableKind)
+        (Identifier)
+            (NominalType
+                (TypeIdentifier
+                  (TypeBuiltin))))
+        (InitDeclaration))))

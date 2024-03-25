@@ -483,8 +483,9 @@ module.exports = grammar({
         optional($._FunctionBlock),
       ),
 
-    ConstructorDeclaration: ($) =>
+    InitDeclaration: ($) =>
       seq(
+        optional('view'),
         'init',
         field('parameters', $._ParameterList),
         optional($._FunctionBlock),
@@ -501,7 +502,7 @@ module.exports = grammar({
         P.precedenceDeclaration,
         seq(
           $.Access,
-          field('View', optional('view')),
+          optional('view'),
           'fun',
           field('name', $.Identifier),
           field('parameters', $._ParameterList),
@@ -579,7 +580,7 @@ module.exports = grammar({
           choice(
             $.FieldDeclaration,
             $.SpecialFunctionDeclaration,
-            $.ConstructorDeclaration,
+            $.InitDeclaration,
             $.FunctionDeclaration,
             $.InterfaceDeclaration,
             $.CompositeDeclaration,

@@ -26,6 +26,7 @@ contract HelloWorld : HelloWorld2 {
     // <- keyword
     //                   ^ type
         access(all) var someField: UFix64
+        //          ^ type.qualifier
         //              ^ variable
         //                         ^ type.builtin
         access(contract) var someBool: Bool
@@ -37,9 +38,20 @@ contract HelloWorld : HelloWorld2 {
 
             self.someField = someField
             self.someBool = true
+            // <- variable
             //              ^ boolean
         }
     }
+
+    access(all) struct SomeStruct {
+        view init(someField: UFix64) {
+        // <- keyword
+        //   ^ constructor
+        //        ^ variable.parameter
+        //                   ^ type.builtin
+        }
+    }
+
 
     access(all)
     // <- keyword
@@ -64,8 +76,24 @@ contract HelloWorld : HelloWorld2 {
     }
 
 
+    access(all)
+    // <- keyword
+    fun returnArray(someParameter: @HelloWorld2.TypeA): [String] {
+    // <- keyword
+    //  ^ function
+    //              ^ variable.parameter
+    //                              ^ type
+    //                                                  ^ punctuation.bracket
+    //                                                   ^ type.builtin
+        return ["Hello", "World"]
+        // <- keyword
+        //     ^ punctuation.bracket
+        //      ^ string
+        //               ^ string
+    }
 
     init() {
+    // <- constructor
         self.greeting = "Hello World!"
         //               ^ string
     }

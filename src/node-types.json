@@ -1038,90 +1038,6 @@
     }
   },
   {
-    "type": "ConstructorDeclaration",
-    "named": true,
-    "fields": {
-      "Block": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "Block",
-            "named": true
-          }
-        ]
-      },
-      "Parameters": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
-      },
-      "PostConditions": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "Condition",
-            "named": true
-          },
-          {
-            "type": "post",
-            "named": false
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
-          }
-        ]
-      },
-      "PreConditions": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "PreConditions",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "ContinueStatement",
     "named": true,
     "fields": {}
@@ -1705,16 +1621,6 @@
           }
         ]
       },
-      "View": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "view",
-            "named": false
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -2232,6 +2138,90 @@
     }
   },
   {
+    "type": "InitDeclaration",
+    "named": true,
+    "fields": {
+      "Block": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "Block",
+            "named": true
+          }
+        ]
+      },
+      "Parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "PostConditions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "Condition",
+            "named": true
+          },
+          {
+            "type": "post",
+            "named": false
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "PreConditions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "PreConditions",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "InstantiationType",
     "named": true,
     "fields": {
@@ -2580,10 +2570,6 @@
             "named": true
           },
           {
-            "type": "ConstructorDeclaration",
-            "named": true
-          },
-          {
             "type": "EnumDeclaration",
             "named": true
           },
@@ -2597,6 +2583,10 @@
           },
           {
             "type": "FunctionDeclaration",
+            "named": true
+          },
+          {
+            "type": "InitDeclaration",
             "named": true
           },
           {

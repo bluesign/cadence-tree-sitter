@@ -4,7 +4,7 @@
 (TypeBuiltin) @type.builtin
 (Identifier) @variable
 
-(ConstructorDeclaration) @constructor
+(InitDeclaration) @constructor
 (SpecialFunctionDeclaration) @function.builtin
 (FunctionDeclaration name: (Identifier) @function)
 
@@ -37,6 +37,7 @@
     "return"
     "import"
     "from"
+    "view"
 ] @keyword
 
 [
@@ -44,6 +45,8 @@
     ")"
     "}"
     "{"
+    "["
+    "]"
 ] @punctuation.bracket
 
 "." @punctuation.delimiter

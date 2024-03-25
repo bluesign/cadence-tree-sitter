@@ -1563,9 +1563,21 @@
         }
       ]
     },
-    "ConstructorDeclaration": {
+    "InitDeclaration": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "view"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "STRING",
           "value": "init"
@@ -1611,20 +1623,16 @@
             "name": "Access"
           },
           {
-            "type": "FIELD",
-            "name": "View",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "view"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "view"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "STRING",
@@ -2020,7 +2028,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "ConstructorDeclaration"
+                "name": "InitDeclaration"
               },
               {
                 "type": "SYMBOL",
