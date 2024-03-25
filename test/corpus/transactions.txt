@@ -85,8 +85,7 @@ transaction {
 
 
 ==================
-Transaction Prepare: authorized reference (TODO: fix me)
-:error
+Transaction Prepare: authorized reference
 ==================
 
 transaction {
@@ -101,15 +100,15 @@ transaction {
     (prepare
         (SpecialFunctionDeclaration
         (FunctionDeclaration_
-            (ParameterList
             (Parameter
                 (Identifier)
-                (NominalType
-                    (TypeIdentifier)))
-            (ERROR
-                (UNEXPECTED 'S')
-                (UNEXPECTED 'g'))))))))))(ERROR
-(UNEXPECTED 'o'))
+                (AuthorizedType
+                  (Entitlements
+                    (Identifier))
+                  (ReferenceType
+                    (NominalType
+                      (TypeIdentifier))))))))))
+
 
 
 ==================

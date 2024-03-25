@@ -239,7 +239,7 @@ module.exports = grammar({
     TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
 
     // TODO: Entitlements
-    Entitlements: ($) => choice('self', 'contract', 'account', 'all'),
+    Entitlements: ($) => choice('self', 'contract', 'account', 'all', $.Identifier),
 
     // Access
     Access: ($) =>
@@ -263,6 +263,8 @@ module.exports = grammar({
           field('ReferencedType', choice($._BasicType, $.RestrictedType)),
         ),
       ),
+
+    AuthorizedType: ($) => seq('auth', '(', $.Entitlements, ')', $.ReferenceType),
 
     _Restrictions: ($) =>
       seq(
@@ -305,6 +307,7 @@ module.exports = grammar({
       choice(
         $._BasicType,
         $.FunctionType,
+        $.AuthorizedType,
         $.ReferenceType,
         $.OptionalType,
         $.ResourceType,
@@ -373,7 +376,7 @@ module.exports = grammar({
     _ParameterList: ($) =>
       seq(
         '(',
-        field('Parameters', seq(optional(prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma)))))),
+        seq(optional(prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma))))),
         ')',
       ),
 
