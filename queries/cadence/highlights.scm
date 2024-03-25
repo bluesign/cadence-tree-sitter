@@ -7,13 +7,13 @@
 (TypeBuiltin) @type.builtin
 (Identifier) @variable
 
+(ConstructorDeclaration) @constructor
 (SpecialFunctionDeclaration) @function.builtin
 (FunctionDeclaration name: (Identifier) @function)
 
 (StringLiteral) @string
 (Address) @number
 (IntegerLiteral) @number
-;(TypeAnnotation) @type
 
 (Parameter Identifier: (Identifier) @variable.parameter)
 [

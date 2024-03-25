@@ -50,8 +50,7 @@ contract SomeContract {
     (Access)
     (TypeIdentifier)
     (Members
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_)))))
+        (ConstructorDeclaration))))
 
 
 ==================
@@ -72,24 +71,24 @@ contract SomeContract {
     (Access)
     (TypeIdentifier)
     (Members
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-              (Parameter
-                (Identifier)
-                (TypeAnnotation
-                  (NominalType
-                    (TypeIdentifier
-                      (TypeBuiltin)))))
-            (Block
-                (AssignmentStatement
-                (MemberExpression
-                    (IdentifierExpression
-                    (Identifier))
-                    (Identifier))
-                (Transfer
-                    (TransferOperationCopy))
+        (ConstructorDeclaration
+        (Parameter
+            (Identifier)
+            (TypeAnnotation
+            (NominalType
+                (TypeIdentifier
+                (TypeBuiltin)))))
+        (Block
+            (AssignmentStatement
+            (MemberExpression
                 (IdentifierExpression
-                    (Identifier)))))))))
+                (Identifier))
+                (Identifier))
+            (Transfer
+                (TransferOperationCopy))
+            (IdentifierExpression
+                (Identifier))))))))
+
 
 ==================
 Contract function

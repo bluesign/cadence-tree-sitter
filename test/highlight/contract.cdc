@@ -28,7 +28,7 @@ contract HelloWorld : HelloWorld2 {
         //                         ^ type.builtin
 
         init(someField: UFix64) {
-        // <- function.builtin
+        // <- constructor
         //   ^ variable.parameter
         //              ^ type.builtin
 

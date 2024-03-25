@@ -993,6 +993,90 @@
     }
   },
   {
+    "type": "ConstructorDeclaration",
+    "named": true,
+    "fields": {
+      "Block": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "Block",
+            "named": true
+          }
+        ]
+      },
+      "Parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "PostConditions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "Condition",
+            "named": true
+          },
+          {
+            "type": "post",
+            "named": false
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "PreConditions": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "PreConditions",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Parameter",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ContinueStatement",
     "named": true,
     "fields": {}
@@ -1600,16 +1684,6 @@
     "type": "FunctionDeclaration_",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Block": {
         "multiple": false,
         "required": false,
@@ -1617,24 +1691,6 @@
           {
             "type": "Block",
             "named": true
-          }
-        ]
-      },
-      "Identifier": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "destroy",
-            "named": false
-          },
-          {
-            "type": "init",
-            "named": false
-          },
-          {
-            "type": "prepare",
-            "named": false
           }
         ]
       },
@@ -1706,6 +1762,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2206,6 +2272,10 @@
           },
           {
             "type": "CompositeDeclaration",
+            "named": true
+          },
+          {
+            "type": "ConstructorDeclaration",
             "named": true
           },
           {

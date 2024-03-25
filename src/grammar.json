@@ -1556,41 +1556,58 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "Access",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "Access"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "Access"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "prepare"
+            },
+            {
+              "type": "STRING",
+              "value": "destroy"
+            }
+          ]
         },
         {
           "type": "FIELD",
-          "name": "Identifier",
+          "name": "parameters",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "prepare"
-              },
-              {
-                "type": "STRING",
-                "value": "init"
-              },
-              {
-                "type": "STRING",
-                "value": "destroy"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_ParameterList"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_FunctionBlock"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "ConstructorDeclaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "init"
         },
         {
           "type": "FIELD",
@@ -2052,6 +2069,10 @@
               {
                 "type": "SYMBOL",
                 "name": "SpecialFunctionDeclaration"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ConstructorDeclaration"
               },
               {
                 "type": "SYMBOL",

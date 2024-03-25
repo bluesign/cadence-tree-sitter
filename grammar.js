@@ -376,7 +376,7 @@ module.exports = grammar({
             'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
           ),
-          field('FunctionBlock', $.FunctionBlock),
+          $._FunctionBlock,
         ),
       ),
 
@@ -467,10 +467,17 @@ module.exports = grammar({
 
     FunctionDeclaration_: ($) =>
       seq(
-        field('Access', optional($.Access)),
-        field('Identifier', choice('prepare', 'init', 'destroy')),
+        optional($.Access),
+        choice('prepare', 'destroy'),
         field('parameters', $._ParameterList),
-        field('FunctionBlock', optional($.FunctionBlock)),
+        optional($._FunctionBlock),
+      ),
+
+    ConstructorDeclaration: ($) =>
+      seq(
+        'init',
+        field('parameters', $._ParameterList),
+        optional($._FunctionBlock),
       ),
 
     SpecialFunctionDeclaration: ($) =>
@@ -486,13 +493,13 @@ module.exports = grammar({
           field('Access', $.Access),
           field('View', optional('view')),
           'fun',
-          field('Identifier', $.Identifier),
+          field('name', $.Identifier),
           field('parameters', $._ParameterList),
           optional(
             seq($._SemiColon, field('ReturnTypeAnnotation', $.TypeAnnotation)),
           ),
           optional('\n'),
-          field('FunctionBlock', optional($.FunctionBlock)),
+          optional($._FunctionBlock),
         ),
       ),
 
@@ -562,6 +569,7 @@ module.exports = grammar({
           choice(
             $.FieldDeclaration,
             $.SpecialFunctionDeclaration,
+            $.ConstructorDeclaration,
             $.FunctionDeclaration,
             $.InterfaceDeclaration,
             $.CompositeDeclaration,
@@ -619,7 +627,7 @@ module.exports = grammar({
 
     Block: ($) => seq(field('Statements', $._Statements)),
 
-    FunctionBlock: ($) =>
+    _FunctionBlock: ($) =>
       seq(
         '{',
         field('PreConditions', optional($.PreConditions)),
@@ -741,7 +749,7 @@ module.exports = grammar({
             'ReturnTypeAnnotation',
             optional(seq($._SemiColon, $.TypeAnnotation)),
           ),
-          $.FunctionBlock,
+          $._FunctionBlock,
           optional(')'),
         ),
       ),

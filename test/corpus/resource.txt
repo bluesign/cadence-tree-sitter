@@ -27,8 +27,7 @@ access(all) resource SomeResource {
     (Access)
     (TypeIdentifier)
     (Members
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_)))))
+        (ConstructorDeclaration))))
 
 
 ==================
@@ -57,5 +56,4 @@ access(all) resource SomeResource {
             (NominalType
                 (TypeIdentifier
                   (TypeBuiltin)))))
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_)))))
+        (ConstructorDeclaration))))
