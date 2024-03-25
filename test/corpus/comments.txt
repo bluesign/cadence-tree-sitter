@@ -22,5 +22,6 @@ access(all) fun main() {}
 (Program
     (DocComment)
     (FunctionDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (Identifier)))

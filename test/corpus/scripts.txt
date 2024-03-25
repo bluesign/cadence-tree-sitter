@@ -10,7 +10,8 @@ fun main(account: Address): UFix64 {
 -----
     (Program
       (FunctionDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (Identifier)
         (Parameter
           (Identifier)

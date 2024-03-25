@@ -8,7 +8,8 @@ access(all) resource SomeResource {}
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)))
 
 ==================
@@ -24,7 +25,8 @@ access(all) resource SomeResource {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (InitDeclaration))))
@@ -45,11 +47,13 @@ access(all) resource SomeResource {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (FieldDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (VariableKind)
         (Identifier)
             (NominalType
@@ -72,11 +76,13 @@ access(all) resource SomeResource {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (FieldDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (VariableKind)
         (Identifier)
             (NominalType

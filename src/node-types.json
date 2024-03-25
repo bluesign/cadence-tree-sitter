@@ -182,7 +182,17 @@
   {
     "type": "Access",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Entitlements",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "AdditiveExpression",
@@ -838,16 +848,6 @@
     "type": "CompositeDeclaration",
     "named": true,
     "fields": {
-      "access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "compositeKind": {
         "multiple": false,
         "required": true,
@@ -896,6 +896,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1209,19 +1219,14 @@
     }
   },
   {
+    "type": "Entitlements",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "EnumCaseDeclaration",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Identifier": {
         "multiple": false,
         "required": true,
@@ -1232,22 +1237,22 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "EnumDeclaration",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Declarations": {
         "multiple": true,
         "required": false,
@@ -1278,6 +1283,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1303,16 +1318,6 @@
     "type": "EventDeclaration",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Identifier": {
         "multiple": false,
         "required": true,
@@ -1359,6 +1364,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1381,16 +1396,6 @@
     "type": "FieldDeclaration",
     "named": true,
     "fields": {
-      "Access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "Identifier": {
         "multiple": false,
         "required": true,
@@ -1457,6 +1462,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2374,16 +2389,6 @@
     "type": "InterfaceDeclaration",
     "named": true,
     "fields": {
-      "access": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "Access",
-            "named": true
-          }
-        ]
-      },
       "compositeKind": {
         "multiple": false,
         "required": true,
@@ -2422,6 +2427,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4483,14 +4498,6 @@
     "named": false
   },
   {
-    "type": "priv",
-    "named": false
-  },
-  {
-    "type": "pub",
-    "named": false
-  },
-  {
     "type": "resource",
     "named": false
   },
@@ -4500,10 +4507,6 @@
   },
   {
     "type": "self",
-    "named": false
-  },
-  {
-    "type": "set",
     "named": false
   },
   {

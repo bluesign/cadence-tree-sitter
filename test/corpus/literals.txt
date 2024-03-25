@@ -15,7 +15,8 @@ access(all) fun main() {
 
 (Program
     (FunctionDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (Identifier)
     (Block
     (ExpressionStatement

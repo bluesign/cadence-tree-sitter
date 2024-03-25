@@ -15,7 +15,6 @@ contract HelloWorld : HelloWorld2 {
 // some comment
 // <- comment
 
-
     access(all) let greeting: String
     // <- keyword
     //          ^ type.qualifier
@@ -30,6 +29,7 @@ contract HelloWorld : HelloWorld2 {
         //              ^ variable
         //                         ^ type.builtin
         access(contract) var someBool: Bool
+        //          ^ label
 
         init(someField: UFix64) {
         // <- constructor
@@ -38,20 +38,19 @@ contract HelloWorld : HelloWorld2 {
 
             self.someField = someField
             self.someBool = true
-            // <- variable
+            // <- variable.builtin
             //              ^ boolean
         }
     }
 
     access(all) struct SomeStruct {
-        view init(someField: UFix64) {
+        view init(_ someField: UFix64) {
         // <- keyword
         //   ^ constructor
-        //        ^ variable.parameter
-        //                   ^ type.builtin
+        //          ^ variable.parameter
+        //                     ^ type.builtin
         }
     }
-
 
     access(all)
     // <- keyword
@@ -65,7 +64,7 @@ contract HelloWorld : HelloWorld2 {
         pre {
         // <- keyword
             self.greeting != "" : "greeting must not be empty"
-            // <- variable
+            // <- variable.builtin
             //  ^ punctuation.delimiter
             //               ^ string
             //                    ^ string

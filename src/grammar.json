@@ -397,47 +397,30 @@
         }
       ]
     },
-    "Access": {
+    "Entitlements": {
       "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "priv"
+          "value": "self"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "pub"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "("
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "set"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ")"
-                    }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "STRING",
+          "value": "contract"
         },
+        {
+          "type": "STRING",
+          "value": "account"
+        },
+        {
+          "type": "STRING",
+          "value": "all"
+        }
+      ]
+    },
+    "Access": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "SEQ",
           "members": [
@@ -450,25 +433,8 @@
               "value": "("
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "self"
-                },
-                {
-                  "type": "STRING",
-                  "value": "contract"
-                },
-                {
-                  "type": "STRING",
-                  "value": "account"
-                },
-                {
-                  "type": "STRING",
-                  "value": "all"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "Entitlements"
             },
             {
               "type": "STRING",
@@ -1219,12 +1185,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "FIELD",
@@ -1304,12 +1266,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "FIELD",
@@ -1365,12 +1323,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "Access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "STRING",
@@ -1402,12 +1356,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "Access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "STRING",
@@ -1459,12 +1409,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "Access",
-          "content": {
-            "type": "SYMBOL",
-            "name": "Access"
-          }
+          "type": "SYMBOL",
+          "name": "Access"
         },
         {
           "type": "STRING",
@@ -1923,12 +1869,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "Access",
-            "content": {
-              "type": "SYMBOL",
-              "name": "Access"
-            }
+            "type": "SYMBOL",
+            "name": "Access"
           },
           {
             "type": "FIELD",
@@ -4626,10 +4568,6 @@
     "_Set": {
       "type": "STRING",
       "value": "set"
-    },
-    "_Access": {
-      "type": "STRING",
-      "value": "access"
     },
     "_All": {
       "type": "STRING",

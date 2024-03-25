@@ -3,6 +3,8 @@
 (TypeIdentifier) @type
 (TypeBuiltin) @type.builtin
 (Identifier) @variable
+((Identifier) @variable.builtin
+  (#eq? @variable.builtin "self"))
 
 (InitDeclaration) @constructor
 (SpecialFunctionDeclaration) @function.builtin
@@ -21,12 +23,13 @@
 
 (Access) @keyword
 (transactionDeclaration) @keyword
+(Access (Entitlements) @label)
+
+
+(CompositeDeclaration) @keyword
 
 [
-    "contract"
     "event"
-    "struct"
-    "resource"
     "interface"
     "enum"
     "fun"

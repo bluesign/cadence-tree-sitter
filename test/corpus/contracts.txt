@@ -10,7 +10,8 @@ contract SomeContract {
 
 (Program
       (CompositeDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (TypeIdentifier)))
 
 ==================
@@ -27,7 +28,8 @@ contract SomeContract {
 (Program
     (DocComment)
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)))
 
 ==================
@@ -42,7 +44,8 @@ contract SomeContract: SomeContract2, SomeContract2.B {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Conformances
           (NominalType
@@ -64,7 +67,8 @@ contract SomeContract {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (InitDeclaration))))
@@ -85,7 +89,8 @@ contract SomeContract {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (InitDeclaration
@@ -122,11 +127,13 @@ contract SomeContract {
 
 (Program
     (CompositeDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (TypeIdentifier)
     (Members
         (FunctionDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (Identifier)
         (Parameter
             (Identifier)

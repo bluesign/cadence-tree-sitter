@@ -10,7 +10,8 @@ a1: Int,
 
 (Program
     (FunctionDeclaration
-    (Access)
+      (Access
+          (Entitlements))
     (Identifier)
     (Parameter
         (Identifier)
@@ -30,7 +31,8 @@ a1: Int?,
 
     (Program
       (FunctionDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (Identifier)
         (Parameter
           (Identifier)
@@ -52,7 +54,8 @@ access(all) fun main(
 
     (Program
       (FunctionDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (Identifier)
         (Parameter
           (Identifier)
@@ -79,7 +82,8 @@ access(all) fun main(
 -----
     (Program
       (FunctionDeclaration
-        (Access)
+          (Access
+          (Entitlements))
         (Identifier)
         (Parameter
           (Identifier)

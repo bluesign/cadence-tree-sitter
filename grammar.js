@@ -236,15 +236,16 @@ module.exports = grammar({
     ),
     TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
 
+    // TODO: Entitlements
+    Entitlements: ($) => choice('self', 'contract', 'account', 'all'),
+
     // Access
     Access: ($) =>
       choice(
-        'priv',
-        seq('pub', optional(seq('(', 'set', ')'))),
         seq(
           'access',
           '(',
-          choice('self', 'contract', 'account', 'all'),
+          $.Entitlements,
           ')',
         ),
       ),
@@ -418,7 +419,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('access', $.Access),
+          $.Access,
           field('compositeKind', $._CompositeKind),
           field('type', $.TypeIdentifier),
           optional($._SemiColon),
@@ -433,7 +434,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('access', $.Access),
+          $.Access,
           field('compositeKind', $._CompositeKind),
           'interface',
           field('type', $.TypeIdentifier),
@@ -447,7 +448,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           'event',
           field('Identifier', $.Identifier),
           field('parameters', $._ParameterList),
@@ -458,7 +459,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           'enum',
           field('Identifier', $.Identifier),
           $._SemiColon,
@@ -470,7 +471,11 @@ module.exports = grammar({
       ),
 
     EnumCaseDeclaration: ($) =>
-      seq(field('Access', $.Access), 'case', field('Identifier', $.Identifier)),
+      seq(
+        $.Access,
+        'case',
+        field('Identifier', $.Identifier),
+      ),
 
     prepare: ($) => $.SpecialFunctionDeclaration,
     execute: ($) => seq('execute', '{', optional($.Block), '}'),
@@ -562,7 +567,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           field('VariableKind', optional($.VariableKind)),
           field('Identifier', $.Identifier),
           $._SemiColon,
@@ -1190,7 +1195,6 @@ module.exports = grammar({
     _Priv: (_) => 'priv',
     _Pub: (_) => 'pub ',
     _Set: (_) => 'set',
-    _Access: (_) => 'access',
     _All: (_) => 'all',
     _Account: (_) => 'account',
     _Return: (_) => 'return',
