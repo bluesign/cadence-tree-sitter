@@ -111,13 +111,13 @@ module.exports = grammar({
     [$._TypeHintOpen, $.Less],
 
     [$.FunctionExpression],
-    [$.TypeAnnotation],
+    [$._TypeAnnotation],
     [$.BinaryExpressionRelational],
     [$.VariableDeclaration],
     [$.FunctionDeclaration],
     [$.ExpressionStatement, $.AssignmentStatement],
 
-    [$.RestrictedType, $.TypeAnnotation],
+    [$.RestrictedType, $._TypeAnnotation],
     [$.EmitStatement, $.expression],
     [$._Restrictions, $._BasicType],
     [$.nestedFunctionDeclaration, $.FunctionDeclaration],
@@ -267,7 +267,7 @@ module.exports = grammar({
 
     InstantiationType: ($) =>
       seq(
-        field('InstantiatedType', $.TypeAnnotation),
+        field('InstantiatedType', $._TypeAnnotation),
         field('TypeArguments', $._TypeArguments),
       ),
 
@@ -278,7 +278,7 @@ module.exports = grammar({
       ),
 
     OptionalType: ($) =>
-      seq(field('ElementType', $._type), $.OptionalOperator_Immediate),
+      seq(field('ElementType', $._type), $._OptionalOperator_Immediate),
 
     _type: ($) =>
       choice(
@@ -299,7 +299,7 @@ module.exports = grammar({
       ),
 
     // type annotation
-    TypeAnnotation: ($) =>
+    _TypeAnnotation: ($) =>
       choice(
         seq(
           field('IsResource', $.ResourceAnnotation),
@@ -331,7 +331,7 @@ module.exports = grammar({
           field('VariableKind', $.VariableKind),
           field('Identifier', $.Identifier),
           optional(
-            seq($._SemiColon, field('TypeAnnotation', $.TypeAnnotation)),
+            seq($._SemiColon, field('type', $._TypeAnnotation)),
           ),
           field('Transfer', $.Transfer),
           field('Value', $.expression),
@@ -352,7 +352,7 @@ module.exports = grammar({
           field('Label', optional($.Identifier)),
           field('Identifier', $.Identifier),
           $._SemiColon,
-          field('TypeAnnotation', $.TypeAnnotation),
+          field('type', $._TypeAnnotation),
         ),
       ),
 
@@ -374,8 +374,8 @@ module.exports = grammar({
           field('Identifier', $.Identifier),
           field('parameters', $._ParameterList),
           field(
-            'ReturnTypeAnnotation',
-            optional(seq($._SemiColon, $.TypeAnnotation)),
+            'type',
+            optional(seq($._SemiColon, $._TypeAnnotation)),
           ),
           $._FunctionBlock,
         ),
@@ -497,7 +497,7 @@ module.exports = grammar({
           field('name', $.Identifier),
           field('parameters', $._ParameterList),
           optional(
-            seq($._SemiColon, field('ReturnTypeAnnotation', $.TypeAnnotation)),
+            seq($._SemiColon, field('type', $._TypeAnnotation)),
           ),
           optional('\n'),
           optional($._FunctionBlock),
@@ -556,7 +556,7 @@ module.exports = grammar({
           field('VariableKind', optional($.VariableKind)),
           field('Identifier', $.Identifier),
           $._SemiColon,
-          field('TypeAnnotation', $.TypeAnnotation),
+          field('type', $._TypeAnnotation),
         ),
       ),
 
@@ -599,10 +599,10 @@ module.exports = grammar({
         '(',
         optional('fun'), // TODO: @bluesign check this
         '(',
-        commaSep1($.TypeAnnotation),
+        commaSep1($._TypeAnnotation),
         ')',
         $._SemiColon,
-        $.TypeAnnotation,
+        $._TypeAnnotation,
         ')',
       ),
 
@@ -747,8 +747,8 @@ module.exports = grammar({
           optional('fun'),
           field('parameters', $._ParameterList),
           field(
-            'ReturnTypeAnnotation',
-            optional(seq($._SemiColon, $.TypeAnnotation)),
+            'type',
+            optional(seq($._SemiColon, $._TypeAnnotation)),
           ),
           $._FunctionBlock,
           optional(')'),
@@ -762,7 +762,7 @@ module.exports = grammar({
       ),
 
     OptionalOperator: (_) => '?',
-    OptionalOperator_Immediate: (_) => token.immediate('?'),
+    _OptionalOperator_Immediate: (_) => token.immediate('?'),
 
     MemberExpression: ($) =>
       prec(
@@ -790,7 +790,7 @@ module.exports = grammar({
     _TypeHintClose: (_) => '>',
 
     _TypeArguments: ($) =>
-      seq($._TypeHintOpen, commaSep1($.TypeAnnotation), $._TypeHintClose),
+      seq($._TypeHintOpen, commaSep1($._TypeAnnotation), $._TypeHintClose),
 
     Invocation: ($) =>
       seq(
@@ -871,7 +871,7 @@ module.exports = grammar({
         seq(
           field('Expression', $.expression),
           field('Operation', $.castingOp),
-          field('TypeAnnotation', $.TypeAnnotation),
+          field('type', $._TypeAnnotation),
         ),
       ),
 

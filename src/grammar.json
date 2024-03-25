@@ -579,7 +579,7 @@
           "name": "InstantiatedType",
           "content": {
             "type": "SYMBOL",
-            "name": "TypeAnnotation"
+            "name": "_TypeAnnotation"
           }
         },
         {
@@ -634,7 +634,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "OptionalOperator_Immediate"
+          "name": "_OptionalOperator_Immediate"
         }
       ]
     },
@@ -688,7 +688,7 @@
         }
       ]
     },
-    "TypeAnnotation": {
+    "_TypeAnnotation": {
       "type": "CHOICE",
       "members": [
         {
@@ -877,10 +877,10 @@
                   },
                   {
                     "type": "FIELD",
-                    "name": "TypeAnnotation",
+                    "name": "type",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "TypeAnnotation"
+                      "name": "_TypeAnnotation"
                     }
                   }
                 ]
@@ -974,10 +974,10 @@
           },
           {
             "type": "FIELD",
-            "name": "TypeAnnotation",
+            "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "TypeAnnotation"
+              "name": "_TypeAnnotation"
             }
           }
         ]
@@ -1107,7 +1107,7 @@
           },
           {
             "type": "FIELD",
-            "name": "ReturnTypeAnnotation",
+            "name": "type",
             "content": {
               "type": "CHOICE",
               "members": [
@@ -1120,7 +1120,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "TypeAnnotation"
+                      "name": "_TypeAnnotation"
                     }
                   ]
                 },
@@ -1714,10 +1714,10 @@
                   },
                   {
                     "type": "FIELD",
-                    "name": "ReturnTypeAnnotation",
+                    "name": "type",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "TypeAnnotation"
+                      "name": "_TypeAnnotation"
                     }
                   }
                 ]
@@ -2008,10 +2008,10 @@
           },
           {
             "type": "FIELD",
-            "name": "TypeAnnotation",
+            "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "TypeAnnotation"
+              "name": "_TypeAnnotation"
             }
           }
         ]
@@ -2197,7 +2197,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "TypeAnnotation"
+              "name": "_TypeAnnotation"
             },
             {
               "type": "REPEAT",
@@ -2210,7 +2210,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "TypeAnnotation"
+                    "name": "_TypeAnnotation"
                   }
                 ]
               }
@@ -2227,7 +2227,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "TypeAnnotation"
+          "name": "_TypeAnnotation"
         },
         {
           "type": "STRING",
@@ -2993,7 +2993,7 @@
           },
           {
             "type": "FIELD",
-            "name": "ReturnTypeAnnotation",
+            "name": "type",
             "content": {
               "type": "CHOICE",
               "members": [
@@ -3006,7 +3006,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "TypeAnnotation"
+                      "name": "_TypeAnnotation"
                     }
                   ]
                 },
@@ -3064,7 +3064,7 @@
       "type": "STRING",
       "value": "?"
     },
-    "OptionalOperator_Immediate": {
+    "_OptionalOperator_Immediate": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "STRING",
@@ -3169,7 +3169,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "TypeAnnotation"
+              "name": "_TypeAnnotation"
             },
             {
               "type": "REPEAT",
@@ -3182,7 +3182,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "TypeAnnotation"
+                    "name": "_TypeAnnotation"
                   }
                 ]
               }
@@ -3517,10 +3517,10 @@
           },
           {
             "type": "FIELD",
-            "name": "TypeAnnotation",
+            "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "TypeAnnotation"
+              "name": "_TypeAnnotation"
             }
           }
         ]
@@ -4913,7 +4913,7 @@
       "FunctionExpression"
     ],
     [
-      "TypeAnnotation"
+      "_TypeAnnotation"
     ],
     [
       "BinaryExpressionRelational"
@@ -4930,7 +4930,7 @@
     ],
     [
       "RestrictedType",
-      "TypeAnnotation"
+      "_TypeAnnotation"
     ],
     [
       "EmitStatement",

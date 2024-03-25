@@ -21,10 +21,9 @@ transaction(amount: UFix64) {}
     (transactionDeclaration
     (Parameter
         (Identifier)
-        (TypeAnnotation
         (NominalType
             (TypeIdentifier
-            (TypeBuiltin)))))))
+            (TypeBuiltin))))))
 
 
 
@@ -75,16 +74,14 @@ transaction {
         (FunctionDeclaration_
               (Parameter
                 (Identifier)
-                (TypeAnnotation
                   (ReferenceType
                     (NominalType
-                      (TypeIdentifier)))))
+                      (TypeIdentifier))))
               (Parameter
                 (Identifier)
-                (TypeAnnotation
                   (ReferenceType
                     (NominalType
-                      (TypeIdentifier))))))))))
+                      (TypeIdentifier)))))))))
 
 
 ==================
@@ -107,9 +104,8 @@ transaction {
             (ParameterList
             (Parameter
                 (Identifier)
-                (TypeAnnotation
                 (NominalType
-                    (TypeIdentifier))))
+                    (TypeIdentifier)))
             (ERROR
                 (UNEXPECTED 'S')
                 (UNEXPECTED 'g'))))))))))(ERROR

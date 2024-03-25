@@ -761,12 +761,68 @@
     "type": "CastingExpression",
     "named": true,
     "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Expression": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -781,12 +837,52 @@
           }
         ]
       },
-      "TypeAnnotation": {
-        "multiple": false,
+      "type": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "TypeAnnotation",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -1427,6 +1523,52 @@
           }
         ]
       },
+      "AnnotatedType": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Identifier": {
         "multiple": false,
         "required": true,
@@ -1437,12 +1579,12 @@
           }
         ]
       },
-      "TypeAnnotation": {
+      "IsResource": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "TypeAnnotation",
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -1453,6 +1595,56 @@
         "types": [
           {
             "type": "VariableKind",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -1565,12 +1757,68 @@
     "type": "FunctionDeclaration",
     "named": true,
     "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Block": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "Block",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -1621,16 +1869,6 @@
           }
         ]
       },
-      "ReturnTypeAnnotation": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "TypeAnnotation",
-            "named": true
-          }
-        ]
-      },
       "View": {
         "multiple": false,
         "required": false,
@@ -1669,6 +1907,56 @@
           },
           {
             "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -1783,12 +2071,68 @@
     "type": "FunctionExpression",
     "named": true,
     "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Block": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "Block",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -1839,20 +2183,6 @@
           }
         ]
       },
-      "ReturnTypeAnnotation": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "TypeAnnotation",
-            "named": true
-          }
-        ]
-      },
       "parameters": {
         "multiple": true,
         "required": true,
@@ -1874,22 +2204,123 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
       }
     }
   },
   {
     "type": "FunctionType",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "TypeAnnotation",
-          "named": true
-        }
-      ]
+    "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2043,12 +2474,108 @@
     "type": "InstantiationType",
     "named": true,
     "fields": {
-      "InstantiatedType": {
-        "multiple": false,
+      "AnnotatedType": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "TypeAnnotation",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
+      "InstantiatedType": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -2070,7 +2597,43 @@
             "named": false
           },
           {
-            "type": "TypeAnnotation",
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -2174,6 +2737,52 @@
     "type": "InvocationExpression",
     "named": true,
     "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Arguments": {
         "multiple": true,
         "required": false,
@@ -2198,6 +2807,16 @@
           }
         ]
       },
+      "IsResource": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          }
+        ]
+      },
       "TypeArguments": {
         "multiple": true,
         "required": false,
@@ -2215,7 +2834,43 @@
             "named": false
           },
           {
-            "type": "TypeAnnotation",
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -2545,28 +3200,74 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "OptionalOperator_Immediate",
-          "named": true
-        }
-      ]
     }
   },
   {
     "type": "Parameter",
     "named": true,
     "fields": {
+      "AnnotatedType": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Identifier": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "Identifier",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -2581,12 +3282,52 @@
           }
         ]
       },
-      "TypeAnnotation": {
-        "multiple": false,
+      "type": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "TypeAnnotation",
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -3101,68 +3842,6 @@
     "fields": {}
   },
   {
-    "type": "TypeAnnotation",
-    "named": true,
-    "fields": {
-      "AnnotatedType": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "ConstantSizedType",
-            "named": true
-          },
-          {
-            "type": "DictionaryType",
-            "named": true
-          },
-          {
-            "type": "FunctionType",
-            "named": true
-          },
-          {
-            "type": "InstantiationType",
-            "named": true
-          },
-          {
-            "type": "NominalType",
-            "named": true
-          },
-          {
-            "type": "OptionalType",
-            "named": true
-          },
-          {
-            "type": "ReferenceType",
-            "named": true
-          },
-          {
-            "type": "RestrictedType",
-            "named": true
-          },
-          {
-            "type": "VariableSizedType",
-            "named": true
-          }
-        ]
-      },
-      "IsResource": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ResourceAnnotation",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "TypeBuiltin",
     "named": true,
     "fields": {}
@@ -3222,12 +3901,68 @@
           }
         ]
       },
+      "AnnotatedType": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Identifier": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "Identifier",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -3262,16 +3997,6 @@
           }
         ]
       },
-      "TypeAnnotation": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "TypeAnnotation",
-            "named": true
-          }
-        ]
-      },
       "Value": {
         "multiple": false,
         "required": true,
@@ -3288,6 +4013,56 @@
         "types": [
           {
             "type": "VariableKind",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -3433,6 +4208,52 @@
           }
         ]
       },
+      "AnnotatedType": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
       "Block": {
         "multiple": false,
         "required": false,
@@ -3449,6 +4270,16 @@
         "types": [
           {
             "type": "Identifier",
+            "named": true
+          }
+        ]
+      },
+      "IsResource": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ResourceAnnotation",
             "named": true
           }
         ]
@@ -3499,20 +4330,6 @@
           }
         ]
       },
-      "ReturnTypeAnnotation": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ":",
-            "named": false
-          },
-          {
-            "type": "TypeAnnotation",
-            "named": true
-          }
-        ]
-      },
       "parameters": {
         "multiple": true,
         "required": true,
@@ -3531,6 +4348,60 @@
           },
           {
             "type": "Parameter",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceAnnotation",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -3871,10 +4742,6 @@
   },
   {
     "type": "NilCoalescing",
-    "named": true
-  },
-  {
-    "type": "OptionalOperator_Immediate",
     "named": true
   },
   {

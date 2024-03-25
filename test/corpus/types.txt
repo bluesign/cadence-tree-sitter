@@ -1,0 +1,96 @@
+==================
+Paramter type Int
+==================
+
+access(all) fun main(
+a1: Int,
+) {}
+
+-----
+
+(Program
+    (FunctionDeclaration
+    (Access)
+    (Identifier)
+    (Parameter
+        (Identifier)
+        (NominalType
+            (TypeIdentifier
+            (TypeBuiltin))))))
+
+==================
+Paramter type Int?
+==================
+
+access(all) fun main(
+a1: Int?,
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access)
+        (Identifier)
+        (Parameter
+          (Identifier)
+            (OptionalType
+              (NominalType
+                (TypeIdentifier
+                  (TypeBuiltin)))))))
+
+==================
+Paramter type external struct
+==================
+
+access(all) fun main(
+    a1: SomeContract.StructA,
+    a2: SomeContract.StructB?,
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access)
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (NominalType
+            (TypeIdentifier)
+            (TypeIdentifier)))
+        (Parameter
+          (Identifier)
+          (OptionalType
+            (NominalType
+              (TypeIdentifier)
+              (TypeIdentifier))))))
+
+
+==================
+Paramter type external resource
+==================
+
+access(all) fun main(
+    a1: @SomeContract.ResourceA,
+    a2: @SomeContract.ResourceB?,
+) {}
+
+-----
+    (Program
+      (FunctionDeclaration
+        (Access)
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (ResourceAnnotation)
+          (NominalType
+            (TypeIdentifier)
+            (TypeIdentifier)))
+        (Parameter
+          (Identifier)
+          (ResourceAnnotation)
+          (OptionalType
+            (NominalType
+              (TypeIdentifier)
+              (TypeIdentifier))))))

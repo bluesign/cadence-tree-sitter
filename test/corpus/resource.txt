@@ -52,8 +52,7 @@ access(all) resource SomeResource {
         (Access)
         (VariableKind)
         (Identifier)
-        (TypeAnnotation
             (NominalType
                 (TypeIdentifier
-                  (TypeBuiltin)))))
+                  (TypeBuiltin))))
         (ConstructorDeclaration))))

@@ -7,6 +7,7 @@ transaction {
 
     pre {
     // <- keyword
+    //  ^ punctuation.bracket
     }
 
     execute {

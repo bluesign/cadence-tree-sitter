@@ -91,10 +91,9 @@ contract SomeContract {
         (ConstructorDeclaration
         (Parameter
             (Identifier)
-            (TypeAnnotation
             (NominalType
                 (TypeIdentifier
-                (TypeBuiltin)))))
+                (TypeBuiltin))))
         (Block
             (AssignmentStatement
             (MemberExpression
@@ -131,10 +130,9 @@ contract SomeContract {
         (Identifier)
         (Parameter
             (Identifier)
-            (TypeAnnotation
             (NominalType
                 (TypeIdentifier
-                (TypeBuiltin)))))
+                (TypeBuiltin))))
         (Block
             (AssignmentStatement
                 (MemberExpression

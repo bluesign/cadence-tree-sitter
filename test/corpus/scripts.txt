@@ -14,14 +14,12 @@ fun main(account: Address): UFix64 {
         (Identifier)
         (Parameter
           (Identifier)
-          (TypeAnnotation
             (NominalType
               (TypeIdentifier
-                (TypeBuiltin)))))
-        (TypeAnnotation
+                (TypeBuiltin))))
           (NominalType
             (TypeIdentifier
-              (TypeBuiltin))))
+              (TypeBuiltin)))
           (Block
             (ReturnStatement
               (FixedPointExpression
