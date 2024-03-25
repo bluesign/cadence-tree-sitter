@@ -1,7 +1,7 @@
 [
  (blockComment)
  (LineComment)
-] @comment @spell
+] @comment
 
 (TypeIdentifier) @type
 (TypeBuiltin) @type.builtin

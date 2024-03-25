@@ -10,6 +10,10 @@ contract HelloWorld : HelloWorld2 {
 //       ^ type
 //                    ^ type
 
+// some comment
+// <- comment
+
+
     access(all) let greeting: String
     // <- keyword
     //          ^ type.qualifier
@@ -17,6 +21,7 @@ contract HelloWorld : HelloWorld2 {
     //                        ^ type.builtin
 
     access(all) resource SomeResource {
+    // <- keyword
     //                   ^ type
         access(all) var someField: UFix64
         //              ^ variable
