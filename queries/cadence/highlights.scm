@@ -14,6 +14,7 @@
 (StringLiteral) @string
 (Address) @number
 (IntegerLiteral) @number
+(BooleanLiteral) @boolean
 
 (Parameter Identifier: (Identifier) @variable.parameter)
 [

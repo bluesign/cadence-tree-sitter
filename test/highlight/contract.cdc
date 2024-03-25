@@ -26,6 +26,7 @@ contract HelloWorld : HelloWorld2 {
         access(all) var someField: UFix64
         //              ^ variable
         //                         ^ type.builtin
+        access(contract) var someBool: Bool
 
         init(someField: UFix64) {
         // <- constructor
@@ -33,6 +34,8 @@ contract HelloWorld : HelloWorld2 {
         //              ^ type.builtin
 
             self.someField = someField
+            self.someBool = true
+            //              ^ boolean
         }
     }
 
