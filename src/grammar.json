@@ -579,7 +579,7 @@
           "name": "InstantiatedType",
           "content": {
             "type": "SYMBOL",
-            "name": "_TypeAnnotation"
+            "name": "_type"
           }
         },
         {
@@ -621,22 +621,43 @@
         }
       ]
     },
-    "OptionalType": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "ElementType",
-          "content": {
+    "ResourceType": {
+      "type": "PREC",
+      "value": 19,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "@"
+          },
+          {
             "type": "SYMBOL",
             "name": "_type"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_OptionalOperator_Immediate"
-        }
-      ]
+        ]
+      }
+    },
+    "OptionalType": {
+      "type": "PREC",
+      "value": 18,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "ElementType",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_type"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_OptionalOperator_Immediate"
+          }
+        ]
+      }
     },
     "_type": {
       "type": "CHOICE",
@@ -656,6 +677,10 @@
         {
           "type": "SYMBOL",
           "name": "OptionalType"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ResourceType"
         },
         {
           "type": "SYMBOL",
@@ -685,87 +710,6 @@
         {
           "type": "SYMBOL",
           "name": "DictionaryType"
-        }
-      ]
-    },
-    "_TypeAnnotation": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "IsResource",
-              "content": {
-                "type": "SYMBOL",
-                "name": "ResourceAnnotation"
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "AnnotatedType",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_type"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": ","
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_type"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "AnnotatedType",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_type"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": ","
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_type"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          ]
         }
       ]
     },
@@ -880,7 +824,7 @@
                     "name": "type",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_TypeAnnotation"
+                      "name": "_type"
                     }
                   }
                 ]
@@ -977,7 +921,7 @@
             "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "_TypeAnnotation"
+              "name": "_type"
             }
           }
         ]
@@ -1120,7 +1064,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "_TypeAnnotation"
+                      "name": "_type"
                     }
                   ]
                 },
@@ -1717,7 +1661,7 @@
                     "name": "type",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_TypeAnnotation"
+                      "name": "_type"
                     }
                   }
                 ]
@@ -2011,7 +1955,7 @@
             "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "_TypeAnnotation"
+              "name": "_type"
             }
           }
         ]
@@ -2197,7 +2141,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_TypeAnnotation"
+              "name": "_type"
             },
             {
               "type": "REPEAT",
@@ -2210,7 +2154,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_TypeAnnotation"
+                    "name": "_type"
                   }
                 ]
               }
@@ -2227,7 +2171,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_TypeAnnotation"
+          "name": "_type"
         },
         {
           "type": "STRING",
@@ -3006,7 +2950,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "_TypeAnnotation"
+                      "name": "_type"
                     }
                   ]
                 },
@@ -3169,7 +3113,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_TypeAnnotation"
+              "name": "_type"
             },
             {
               "type": "REPEAT",
@@ -3182,7 +3126,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_TypeAnnotation"
+                    "name": "_type"
                   }
                 ]
               }
@@ -3520,7 +3464,7 @@
             "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "_TypeAnnotation"
+              "name": "_type"
             }
           }
         ]
@@ -4580,10 +4524,6 @@
       "type": "STRING",
       "value": "!"
     },
-    "_Optional": {
-      "type": "STRING",
-      "value": "?"
-    },
     "NilCoalescing": {
       "type": "STRING",
       "value": "??"
@@ -4599,10 +4539,6 @@
     "ForceCasting": {
       "type": "STRING",
       "value": "as!"
-    },
-    "ResourceAnnotation": {
-      "type": "STRING",
-      "value": "@"
     },
     "Argument": {
       "type": "SEQ",
@@ -4910,10 +4846,11 @@
       "Less"
     ],
     [
-      "FunctionExpression"
+      "TypeIdentifier",
+      "Identifier"
     ],
     [
-      "_TypeAnnotation"
+      "FunctionExpression"
     ],
     [
       "BinaryExpressionRelational"
@@ -4929,16 +4866,8 @@
       "AssignmentStatement"
     ],
     [
-      "RestrictedType",
-      "_TypeAnnotation"
-    ],
-    [
       "EmitStatement",
       "expression"
-    ],
-    [
-      "_Restrictions",
-      "_BasicType"
     ],
     [
       "nestedFunctionDeclaration",

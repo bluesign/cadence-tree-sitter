@@ -83,14 +83,14 @@ access(all) fun main(
         (Identifier)
         (Parameter
           (Identifier)
-          (ResourceAnnotation)
-          (NominalType
-            (TypeIdentifier)
-            (TypeIdentifier)))
-        (Parameter
-          (Identifier)
-          (ResourceAnnotation)
-          (OptionalType
+          (ResourceType
             (NominalType
               (TypeIdentifier)
-              (TypeIdentifier))))))
+              (TypeIdentifier))))
+        (Parameter
+          (Identifier)
+          (OptionalType
+            (ResourceType
+              (NominalType
+                (TypeIdentifier)
+                (TypeIdentifier)))))))
