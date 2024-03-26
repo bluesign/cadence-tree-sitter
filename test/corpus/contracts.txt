@@ -272,3 +272,27 @@ contract SomeContract {
               (Entitlements
                 (EntitlementIdentifier)))
             (EntitlementIdentifier)))))
+
+==================
+Contract init can have access
+==================
+
+access(all)
+contract SomeContract {
+    access(all) init() {
+    }
+}
+
+------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Access
+              (Entitlements
+                (EntitlementIdentifier)))))))

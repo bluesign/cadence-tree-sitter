@@ -555,6 +555,7 @@ module.exports = grammar({
 
     InitDeclaration: ($) =>
       seq(
+        optional($.Access),
         optional('view'),
         'init',
         $._ParameterList,

@@ -2360,6 +2360,10 @@
       "required": false,
       "types": [
         {
+          "type": "Access",
+          "named": true
+        },
+        {
           "type": "Parameter",
           "named": true
         }
