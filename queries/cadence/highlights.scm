@@ -45,6 +45,7 @@
     "view"
     "create"
     "if"
+    "mapping"
 ] @keyword
 
 [

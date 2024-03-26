@@ -241,9 +241,12 @@ module.exports = grammar({
     ),
     TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
 
-    EntitlementIdentifier: ($) => choice(
-      /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
-      $._EntitlementIdentifierBuiltin,
+    EntitlementIdentifier: ($) => seq(
+      optional('mapping'),
+      choice(
+        /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+        $._EntitlementIdentifierBuiltin,
+      ),
     ),
     _EntitlementIdentifierBuiltin: (_) => choice(
       'self',
@@ -253,6 +256,7 @@ module.exports = grammar({
     ),
 
     EntitlementQualifiedIdentifier: ($) => seq(
+      optional('mapping'),
       $.TypeIdentifier,
       optional(repeat(seq('.', $.TypeIdentifier))),
       '.',

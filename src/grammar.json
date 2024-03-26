@@ -402,15 +402,32 @@
       ]
     },
     "EntitlementIdentifier": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "mapping"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "_EntitlementIdentifierBuiltin"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_EntitlementIdentifierBuiltin"
+            }
+          ]
         }
       ]
     },
@@ -438,6 +455,18 @@
     "EntitlementQualifiedIdentifier": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "mapping"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "SYMBOL",
           "name": "TypeIdentifier"

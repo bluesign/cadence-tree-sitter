@@ -22,3 +22,19 @@ fun f() {
               (Argument
                 (StringExpression
                   (StringLiteral))))))))
+
+==================
+Func access mapping
+==================
+
+access(mapping Identity)
+fun f() {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)))

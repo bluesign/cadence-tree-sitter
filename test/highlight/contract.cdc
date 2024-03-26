@@ -57,6 +57,11 @@ contract HelloWorld : HelloWorld2 {
         }
     }
 
+    access(mapping Identity) fun hello(){}
+    // <- keyword
+    //     ^ keyword
+    //             ^ label
+
     access(all)
     // <- keyword
     fun hello(someParameter: SomeResource): String {

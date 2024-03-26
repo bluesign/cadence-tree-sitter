@@ -4684,6 +4684,10 @@
     "named": false
   },
   {
+    "type": "mapping",
+    "named": false
+  },
+  {
     "type": "panic",
     "named": false
   },
