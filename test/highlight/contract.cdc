@@ -3,6 +3,9 @@ import HelloWorld2 from 0x01
 //     ^ type
 //                 ^ keyword
 //                      ^ number
+import Crypto
+// <- keyword
+//     ^ type
 
 /// This is a simple HelloWorld contract
 // <- comment

@@ -2147,6 +2147,10 @@
           {
             "type": "StringLiteral",
             "named": true
+          },
+          {
+            "type": "TypeIdentifier",
+            "named": true
           }
         ]
       },

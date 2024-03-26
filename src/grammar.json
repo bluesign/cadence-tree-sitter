@@ -1159,6 +1159,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "Address"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "TypeIdentifier"
                 }
               ]
             }

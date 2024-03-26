@@ -1,4 +1,16 @@
 ==================
+Import builtin
+==================
+
+import Crypto
+
+-----
+
+(Program
+    (ImportDeclaration
+        (TypeIdentifier)))
+
+==================
 Import from address
 ==================
 

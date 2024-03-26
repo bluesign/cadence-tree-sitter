@@ -411,7 +411,7 @@ module.exports = grammar({
           ),
           field(
             'location',
-            choice($.StringLiteral, $.Address),
+            choice($.StringLiteral, $.Address, $.TypeIdentifier),
           ),
         ),
       ),
