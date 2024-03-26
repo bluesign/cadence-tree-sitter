@@ -11,7 +11,8 @@ a1: Int,
 (Program
     (FunctionDeclaration
       (Access
-          (Entitlements))
+          (Entitlements
+             (EntitlementIdentifier)))
     (Identifier)
     (Parameter
         (Identifier)
@@ -32,7 +33,8 @@ a1: Int?,
     (Program
       (FunctionDeclaration
           (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
         (Parameter
           (Identifier)
@@ -55,7 +57,8 @@ access(all) fun main(
     (Program
       (FunctionDeclaration
           (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
         (Parameter
           (Identifier)
@@ -83,7 +86,8 @@ access(all) fun main(
     (Program
       (FunctionDeclaration
           (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
         (Parameter
           (Identifier)
@@ -100,12 +104,60 @@ access(all) fun main(
                 (TypeIdentifier)))))))
 
 ==================
-Paramter type two entitlements (TODO: fixme)
-:error
+Paramter type two entitlements
 ==================
 
 access(all) fun initDefaultToken(
-    _ acct: auth(SaveValue, Capabilities
-) &Account) {}
+    _ acct: auth(SaveValue, Capabilities) &Account
+) {}
 
 -----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (Identifier)
+          (AuthorizedType
+            (Entitlements
+              (EntitlementExpressionAnd
+                (EntitlementIdentifier)
+                (EntitlementIdentifier)))
+            (ReferenceType
+              (NominalType
+                (TypeIdentifier)))))))
+
+
+==================
+Paramter type three entitlements
+==================
+
+access(all) fun initDefaultToken(
+    _ acct: auth(SaveValue, Capabilities1 | Capabilities2) &Account
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (Identifier)
+          (AuthorizedType
+            (Entitlements
+              (EntitlementExpressionOr
+                (EntitlementExpressionAnd
+                  (EntitlementIdentifier)
+                  (EntitlementIdentifier))
+                (EntitlementIdentifier)))
+            (ReferenceType
+              (NominalType
+                (TypeIdentifier)))))))

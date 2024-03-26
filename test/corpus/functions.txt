@@ -11,7 +11,8 @@ fun f() {
     (Program
       (FunctionDeclaration
         (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
         (Block
           (ExpressionStatement

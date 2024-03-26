@@ -81,6 +81,9 @@ const P = {
   resourceType: 19,
   otherType: 20,
 
+  precedenceEntitlementOr: 1,
+  precedenceEntitlementAnd: 2,
+
   precedenceDeclaration: 1,
 };
 
@@ -221,7 +224,7 @@ module.exports = grammar({
 
     _Declarations: ($) => repeat1(seq($.declaration, optional($._eos))),
 
-    Identifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+    Identifier: ($) => token(/[a-zA-Z_]([0-9a-zA-Z_]*)?/),
     TypeBuiltin: ($) => choice(
       'Bool',
       'String',
@@ -238,8 +241,51 @@ module.exports = grammar({
     ),
     TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
 
-    // TODO: Entitlements
-    Entitlements: ($) => choice('self', 'contract', 'account', 'all', $.Identifier),
+    EntitlementIdentifier: ($) => choice(
+      /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+      $._EntitlementIdentifierBuiltin,
+    ),
+    _EntitlementIdentifierBuiltin: (_) => choice(
+      'self',
+      'contract',
+      'account',
+      'all',
+    ),
+
+    EntitlementQualifiedIdentifier: ($) => seq(
+      $.TypeIdentifier,
+      optional(repeat(seq('.', $.TypeIdentifier))),
+      '.',
+      $.EntitlementIdentifier,
+    ),
+    _EntitlementExpression: ($) => choice(
+      $.EntitlementIdentifier,
+      $.EntitlementQualifiedIdentifier,
+      $.EntitlementExpressionOr,
+      $.EntitlementExpressionAnd,
+    ),
+
+    EntitlementExpressionOr: ($) =>
+      prec.left(
+        P.precedenceEntitlementOr,
+        seq(
+          field('left', $._EntitlementExpression),
+          '|',
+          field('right', $._EntitlementExpression),
+        ),
+      ),
+
+    EntitlementExpressionAnd: ($) =>
+      prec.left(
+        P.precedenceEntitlementAnd,
+        seq(
+          field('left', $._EntitlementExpression),
+          ',',
+          field('right', $._EntitlementExpression),
+        ),
+      ),
+
+    Entitlements: ($) => $._EntitlementExpression,
 
     // Access
     Access: ($) =>

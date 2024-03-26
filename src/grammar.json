@@ -257,8 +257,11 @@
       }
     },
     "Identifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+      }
     },
     "TypeBuiltin": {
       "type": "CHOICE",
@@ -398,7 +401,20 @@
         }
       ]
     },
-    "Entitlements": {
+    "EntitlementIdentifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[a-zA-Z_]([0-9a-zA-Z_]*)?"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_EntitlementIdentifierBuiltin"
+        }
+      ]
+    },
+    "_EntitlementIdentifierBuiltin": {
       "type": "CHOICE",
       "members": [
         {
@@ -416,12 +432,132 @@
         {
           "type": "STRING",
           "value": "all"
+        }
+      ]
+    },
+    "EntitlementQualifiedIdentifier": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "TypeIdentifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "TypeIdentifier"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "."
         },
         {
           "type": "SYMBOL",
-          "name": "Identifier"
+          "name": "EntitlementIdentifier"
         }
       ]
+    },
+    "_EntitlementExpression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "EntitlementIdentifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "EntitlementQualifiedIdentifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "EntitlementExpressionOr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "EntitlementExpressionAnd"
+        }
+      ]
+    },
+    "EntitlementExpressionOr": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_EntitlementExpression"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "|"
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_EntitlementExpression"
+            }
+          }
+        ]
+      }
+    },
+    "EntitlementExpressionAnd": {
+      "type": "PREC_LEFT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_EntitlementExpression"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ","
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_EntitlementExpression"
+            }
+          }
+        ]
+      }
+    },
+    "Entitlements": {
+      "type": "SYMBOL",
+      "name": "_EntitlementExpression"
     },
     "Access": {
       "type": "CHOICE",

@@ -22,7 +22,8 @@ access(all) fun main() {}
     (Comment)
     (FunctionDeclaration
         (Access
-            (Entitlements))
+            (Entitlements
+                (EntitlementIdentifier)))
     (Identifier)))
 
 ==================
@@ -45,5 +46,6 @@ access(all) resource Heartbeat {
     (Comment)
     (CompositeDeclaration
     (Access
-        (Entitlements))
+        (Entitlements
+            (EntitlementIdentifier)))
     (TypeIdentifier)))

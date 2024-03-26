@@ -660,6 +660,11 @@
     }
   },
   {
+    "type": "BitwiseOr",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "BitwiseShiftOp",
     "named": true,
     "fields": {},
@@ -1293,15 +1298,151 @@
     }
   },
   {
+    "type": "EntitlementExpressionAnd",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "EntitlementExpressionAnd",
+            "named": true
+          },
+          {
+            "type": "EntitlementExpressionOr",
+            "named": true
+          },
+          {
+            "type": "EntitlementIdentifier",
+            "named": true
+          },
+          {
+            "type": "EntitlementQualifiedIdentifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "EntitlementExpressionAnd",
+            "named": true
+          },
+          {
+            "type": "EntitlementExpressionOr",
+            "named": true
+          },
+          {
+            "type": "EntitlementIdentifier",
+            "named": true
+          },
+          {
+            "type": "EntitlementQualifiedIdentifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "EntitlementExpressionOr",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "EntitlementExpressionAnd",
+            "named": true
+          },
+          {
+            "type": "EntitlementExpressionOr",
+            "named": true
+          },
+          {
+            "type": "EntitlementIdentifier",
+            "named": true
+          },
+          {
+            "type": "EntitlementQualifiedIdentifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "EntitlementExpressionAnd",
+            "named": true
+          },
+          {
+            "type": "EntitlementExpressionOr",
+            "named": true
+          },
+          {
+            "type": "EntitlementIdentifier",
+            "named": true
+          },
+          {
+            "type": "EntitlementQualifiedIdentifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "EntitlementIdentifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "EntitlementQualifiedIdentifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "EntitlementIdentifier",
+          "named": true
+        },
+        {
+          "type": "TypeIdentifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "Entitlements",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "Identifier",
+          "type": "EntitlementExpressionAnd",
+          "named": true
+        },
+        {
+          "type": "EntitlementExpressionOr",
+          "named": true
+        },
+        {
+          "type": "EntitlementIdentifier",
+          "named": true
+        },
+        {
+          "type": "EntitlementQualifiedIdentifier",
           "named": true
         }
       ]
@@ -4218,10 +4359,6 @@
     "named": false
   },
   {
-    "type": "BitwiseOr",
-    "named": true
-  },
-  {
     "type": "BitwiseXor",
     "named": true
   },
@@ -4583,6 +4720,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {

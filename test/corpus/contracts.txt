@@ -11,7 +11,8 @@ contract SomeContract {
 (Program
     (CompositeDeclaration
         (Access
-            (Entitlements))
+            (Entitlements
+                (EntitlementIdentifier)))
         (TypeIdentifier)))
 
 ==================
@@ -29,7 +30,8 @@ contract SomeContract {
     (Comment)
     (CompositeDeclaration
         (Access
-            (Entitlements))
+            (Entitlements
+                (EntitlementIdentifier)))
         (TypeIdentifier)))
 
 ==================
@@ -45,7 +47,8 @@ contract SomeContract: SomeContract2, SomeContract2.B {
 (Program
     (CompositeDeclaration
         (Access
-            (Entitlements))
+            (Entitlements
+                (EntitlementIdentifier)))
         (TypeIdentifier)
         (Conformances
             (NominalType
@@ -68,7 +71,8 @@ contract SomeContract {
 (Program
     (CompositeDeclaration
         (Access
-            (Entitlements))
+            (Entitlements
+                (EntitlementIdentifier)))
         (TypeIdentifier)
         (Members
             (InitDeclaration))))
@@ -90,7 +94,8 @@ contract SomeContract {
 (Program
     (CompositeDeclaration
     (Access
-        (Entitlements))
+        (Entitlements
+            (EntitlementIdentifier)))
     (TypeIdentifier)
     (Members
     (InitDeclaration
@@ -128,12 +133,14 @@ contract SomeContract {
 (Program
     (CompositeDeclaration
       (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
     (TypeIdentifier)
     (Members
         (FunctionDeclaration
           (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
         (Parameter
             (Identifier)
@@ -174,7 +181,8 @@ contract SomeContract {
     (Program
       (CompositeDeclaration
         (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (TypeIdentifier)
         (Members
           (InitDeclaration
@@ -207,7 +215,8 @@ contract SomeContract {
     (Program
       (CompositeDeclaration
         (Access
-          (Entitlements))
+          (Entitlements
+            (EntitlementIdentifier)))
         (TypeIdentifier)
         (Members
           (InitDeclaration

@@ -25,7 +25,7 @@
 
 (Access) @keyword
 (transactionDeclaration) @keyword
-(Access (Entitlements) @label)
+(EntitlementIdentifier) @label
 
 
 (CompositeDeclaration) @keyword

@@ -104,7 +104,7 @@ transaction {
                 (Identifier)
                 (AuthorizedType
                   (Entitlements
-                    (Identifier))
+                    (EntitlementIdentifier))
                   (ReferenceType
                     (NominalType
                       (TypeIdentifier))))))))))
