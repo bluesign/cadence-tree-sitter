@@ -8,10 +8,9 @@ import HelloWorld from 0x42
 
 (Program
     (ImportDeclaration
-    (TypeIdentifier)
-    (Address
-        (HexadecimalLiteral))))
-
+        (TypeIdentifier)
+        (Address
+            (HexadecimalLiteral))))
 
 ==================
 Import from address
@@ -25,7 +24,6 @@ import 0x42
     (ImportDeclaration
     (Address
         (HexadecimalLiteral))))
-
 
 ==================
 Import from name

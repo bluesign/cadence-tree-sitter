@@ -346,7 +346,7 @@ module.exports = grammar({
           field('VariableKind', $.VariableKind),
           field('Identifier', $.Identifier),
           optional(
-            seq($._SemiColon, field('type', $._type)),
+            seq(':', field('type', $._type)),
           ),
           field('Transfer', $.Transfer),
           field('Value', $.expression),
@@ -366,7 +366,7 @@ module.exports = grammar({
         seq(
           field('Label', optional($.Identifier)),
           field('Identifier', $.Identifier),
-          $._SemiColon,
+          ':',
           field('type', $._type),
         ),
       ),
@@ -390,7 +390,7 @@ module.exports = grammar({
           field('parameters', $._ParameterList),
           field(
             'type',
-            optional(seq($._SemiColon, $._type)),
+            optional(seq(':', $._type)),
           ),
           $._FunctionBlock,
         ),
@@ -427,7 +427,7 @@ module.exports = grammar({
           $.Access,
           field('compositeKind', $._CompositeKind),
           field('type', $.TypeIdentifier),
-          optional($._SemiColon),
+          optional(':'),
           field('conformances', optional($.Conformances)),
           '{',
           field('members', optional($.Members)),
@@ -467,7 +467,7 @@ module.exports = grammar({
           $.Access,
           'enum',
           field('Identifier', $.Identifier),
-          $._SemiColon,
+          ':',
           field('typeAnnotation', $.NominalType),
           '{',
           field('Declarations', repeat($.EnumCaseDeclaration)),
@@ -517,7 +517,7 @@ module.exports = grammar({
           field('name', $.Identifier),
           field('parameters', $._ParameterList),
           optional(
-            seq($._SemiColon, field('type', $._type)),
+            seq(':', field('type', $._type)),
           ),
           optional('\n'),
           optional($._FunctionBlock),
@@ -575,7 +575,7 @@ module.exports = grammar({
           $.Access,
           field('VariableKind', optional($.VariableKind)),
           field('Identifier', $.Identifier),
-          $._SemiColon,
+          ':',
           field('type', $._type),
         ),
       ),
@@ -621,7 +621,7 @@ module.exports = grammar({
         '(',
         commaSep1($._type),
         ')',
-        $._SemiColon,
+        ':',
         $._type,
         ')',
       ),
@@ -641,7 +641,7 @@ module.exports = grammar({
       seq(
         '{',
         field('KeyType', $._type),
-        $._SemiColon,
+        ':',
         field('ValueType', $._type),
         '}',
       ),
@@ -671,7 +671,7 @@ module.exports = grammar({
         optional(
           seq(
             optional('\n'),
-            $._SemiColon,
+            ':',
             optional('\n'),
             field('Message', choice($.expression)),
           ),
@@ -768,7 +768,7 @@ module.exports = grammar({
           field('parameters', $._ParameterList),
           field(
             'type',
-            optional(seq($._SemiColon, $._type)),
+            optional(seq(':', $._type)),
           ),
           $._FunctionBlock,
           optional(')'),
@@ -861,7 +861,13 @@ module.exports = grammar({
     CreateExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq($._Create, field('InvocationExpression', $.InvocationExpression)),
+        seq(
+          'create',
+          field('type', $._type),
+          '(',
+          field('Arguments', optional($._Arguments)),
+          ')',
+        ),
       ),
 
     DestroyExpression: ($) =>
@@ -1062,7 +1068,7 @@ module.exports = grammar({
           field('Test', $.expression),
           '?',
           field('Then', $.expression),
-          $._SemiColon,
+          ':',
           field('Else', $.expression),
         ),
       ),
@@ -1134,7 +1140,7 @@ module.exports = grammar({
         seq('{', commaSep($.dictionaryEntry), '}'),
       ),
 
-    dictionaryEntry: ($) => seq($.expression, $._SemiColon, $.expression),
+    dictionaryEntry: ($) => seq($.expression, ':', $.expression),
 
     expression: ($) =>
       choice(
@@ -1187,37 +1193,15 @@ module.exports = grammar({
 
     Argument: ($) =>
       seq(
-        optional(seq(field('Label', $.Identifier), $._SemiColon)),
+        optional(seq(field('Label', $.Identifier), ':')),
         field('Expression', $.expression),
       ),
 
-
-    _Struct: (_) => token('struct '),
-    _Resource: (_) => token('resource '),
-    _Interface: (_) => token('interface '),
-    _Event: (_) => 'event ',
-    _Emit: (_) => 'emit ',
-    _Priv: (_) => 'priv',
-    _Pub: (_) => 'pub ',
-    _Set: (_) => 'set',
-    _All: (_) => 'all',
-    _Account: (_) => 'account',
-    _Return: (_) => 'return',
-    _Break: (_) => 'break',
-    _Continue: (_) => 'continue',
-    _Let: (_) => 'let ',
-    _Var: (_) => 'var ',
     _If: (_) => 'if',
     _Else: (_) => 'else',
-    _While: (_) => 'while',
-    _For: (_) => 'for',
-    _In: (_) => 'in ',
     True: (_) => 'true',
     False: (_) => 'false',
-    _Nil: (_) => 'nil',
-    _Create: (_) => 'create ',
     _Destroy: (_) => 'destroy ',
-    _SemiColon: (_) => ':',
 
     SwitchCase: ($) =>
       seq(

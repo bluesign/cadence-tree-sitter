@@ -7,6 +7,8 @@ import HelloWorld2 from 0x01
 /// This is a simple HelloWorld contract
 // <- comment
 access(all)
+// <- keyword
+//     ^ label
 contract HelloWorld : HelloWorld2 {
 // <- keyword
 //       ^ type
@@ -100,5 +102,10 @@ contract HelloWorld : HelloWorld2 {
         //  ^ punctuation.delimiter
         //                       ^ string
         //                        ^ string
+
+        self.account.storage.save(<- create Heartbeat(label: "test"), to: self.HeartbeatStoragePath)
+        // <- variable.builtin
+        //                           ^ keyword
+        //                                  ^ type
     }
 }

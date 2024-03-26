@@ -782,11 +782,6 @@
     }
   },
   {
-    "type": "BreakStatement",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "CastingExpression",
     "named": true,
     "fields": {
@@ -1070,20 +1065,69 @@
     }
   },
   {
-    "type": "ContinueStatement",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "CreateExpression",
     "named": true,
     "fields": {
-      "InvocationExpression": {
+      "Arguments": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "Argument",
+            "named": true
+          }
+        ]
+      },
+      "type": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "InvocationExpression",
+            "type": "AuthorizedType",
+            "named": true
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
             "named": true
           }
         ]
@@ -2767,11 +2811,6 @@
     }
   },
   {
-    "type": "NilLiteral",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "NominalType",
     "named": true,
     "fields": {
@@ -4187,6 +4226,10 @@
     "named": false
   },
   {
+    "type": "BreakStatement",
+    "named": true
+  },
+  {
     "type": "Casting",
     "named": true
   },
@@ -4196,6 +4239,10 @@
   },
   {
     "type": "Comment",
+    "named": true
+  },
+  {
+    "type": "ContinueStatement",
     "named": true
   },
   {
@@ -4280,6 +4327,10 @@
   },
   {
     "type": "NilCoalescing",
+    "named": true
+  },
+  {
+    "type": "NilLiteral",
     "named": true
   },
   {
@@ -4411,19 +4462,15 @@
     "named": false
   },
   {
-    "type": "break",
-    "named": false
-  },
-  {
     "type": "case",
     "named": false
   },
   {
-    "type": "continue",
+    "type": "contract",
     "named": false
   },
   {
-    "type": "contract",
+    "type": "create",
     "named": false
   },
   {
@@ -4480,10 +4527,6 @@
   },
   {
     "type": "let",
-    "named": false
-  },
-  {
-    "type": "nil",
     "named": false
   },
   {

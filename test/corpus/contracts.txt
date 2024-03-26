@@ -9,9 +9,9 @@ contract SomeContract {
 -----
 
 (Program
-      (CompositeDeclaration
-          (Access
-          (Entitlements))
+    (CompositeDeclaration
+        (Access
+            (Entitlements))
         (TypeIdentifier)))
 
 ==================
@@ -28,9 +28,9 @@ contract SomeContract {
 (Program
     (Comment)
     (CompositeDeclaration
-      (Access
-          (Entitlements))
-    (TypeIdentifier)))
+        (Access
+            (Entitlements))
+        (TypeIdentifier)))
 
 ==================
 Contract with inheritance
@@ -44,15 +44,15 @@ contract SomeContract: SomeContract2, SomeContract2.B {
 
 (Program
     (CompositeDeclaration
-      (Access
-          (Entitlements))
-    (TypeIdentifier)
-    (Conformances
-          (NominalType
-            (TypeIdentifier))
-          (NominalType
-            (TypeIdentifier)
-            (TypeIdentifier)))))
+        (Access
+            (Entitlements))
+        (TypeIdentifier)
+        (Conformances
+            (NominalType
+                (TypeIdentifier))
+            (NominalType
+                (TypeIdentifier)
+                (TypeIdentifier)))))
 
 ==================
 Contract init empty
@@ -67,11 +67,11 @@ contract SomeContract {
 
 (Program
     (CompositeDeclaration
-      (Access
-          (Entitlements))
-    (TypeIdentifier)
-    (Members
-        (InitDeclaration))))
+        (Access
+            (Entitlements))
+        (TypeIdentifier)
+        (Members
+            (InitDeclaration))))
 
 
 ==================
@@ -89,21 +89,21 @@ contract SomeContract {
 
 (Program
     (CompositeDeclaration
-      (Access
-          (Entitlements))
+    (Access
+        (Entitlements))
     (TypeIdentifier)
     (Members
-        (InitDeclaration
+    (InitDeclaration
         (Parameter
             (Identifier)
             (NominalType
                 (TypeIdentifier
-                (TypeBuiltin))))
+                    (TypeBuiltin))))
         (Block
             (AssignmentStatement
-            (MemberExpression
-                (IdentifierExpression
-                (Identifier))
+                (MemberExpression
+                    (IdentifierExpression
+                        (Identifier))
                 (Identifier))
             (Transfer
                 (TransferOperationCopy))
@@ -158,10 +158,8 @@ contract SomeContract {
                 (IdentifierExpression
                     (Identifier)))))))))
 
-
-
 ==================
-Contract function
+Contract init with path
 ==================
 
 access(all)
@@ -191,3 +189,52 @@ contract SomeContract {
                 (PathExpression
                   (Identifier)
                   (Identifier))))))))
+
+
+==================
+Contract init with create
+==================
+
+access(all)
+contract SomeContract {
+    init() {
+        self.account.storage.save(<-create Heartbeat(label: "test"), to: self.HeartbeatStoragePath)
+    }
+}
+
+-------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Block
+              (ExpressionStatement
+                (InvocationExpression
+                  (MemberExpression
+                    (MemberExpression
+                      (MemberExpression
+                        (IdentifierExpression
+                          (Identifier))
+                        (Identifier))
+                      (Identifier))
+                    (Identifier))
+                  (Argument
+                    (UnaryMoveExpression
+                      (Move)
+                      (CreateExpression
+                        (NominalType
+                          (TypeIdentifier))
+                        (Argument
+                          (Identifier)
+                          (StringExpression
+                            (StringLiteral))))))
+                  (Argument
+                    (Identifier)
+                    (MemberExpression
+                      (IdentifierExpression
+                        (Identifier))
+                      (Identifier))))))))))

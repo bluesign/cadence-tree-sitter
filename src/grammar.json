@@ -816,8 +816,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "_SemiColon"
+                    "type": "STRING",
+                    "value": ":"
                   },
                   {
                     "type": "FIELD",
@@ -913,8 +913,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "_SemiColon"
+            "type": "STRING",
+            "value": ":"
           },
           {
             "type": "FIELD",
@@ -1055,8 +1055,8 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "_SemiColon"
+                      "type": "STRING",
+                      "value": ":"
                     },
                     {
                       "type": "SYMBOL",
@@ -1238,8 +1238,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_SemiColon"
+                "type": "STRING",
+                "value": ":"
               },
               {
                 "type": "BLANK"
@@ -1402,8 +1402,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "_SemiColon"
+            "type": "STRING",
+            "value": ":"
           },
           {
             "type": "FIELD",
@@ -1637,8 +1637,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "_SemiColon"
+                    "type": "STRING",
+                    "value": ":"
                   },
                   {
                     "type": "FIELD",
@@ -1927,8 +1927,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "_SemiColon"
+            "type": "STRING",
+            "value": ":"
           },
           {
             "type": "FIELD",
@@ -2146,8 +2146,8 @@
           "value": ")"
         },
         {
-          "type": "SYMBOL",
-          "name": "_SemiColon"
+          "type": "STRING",
+          "value": ":"
         },
         {
           "type": "SYMBOL",
@@ -2229,8 +2229,8 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "_SemiColon"
+          "type": "STRING",
+          "value": ":"
         },
         {
           "type": "FIELD",
@@ -2420,8 +2420,8 @@
                   ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_SemiColon"
+                  "type": "STRING",
+                  "value": ":"
                 },
                 {
                   "type": "CHOICE",
@@ -2925,8 +2925,8 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "_SemiColon"
+                      "type": "STRING",
+                      "value": ":"
                     },
                     {
                       "type": "SYMBOL",
@@ -3319,16 +3319,40 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "_Create"
+            "type": "STRING",
+            "value": "create"
           },
           {
             "type": "FIELD",
-            "name": "InvocationExpression",
+            "name": "type",
             "content": {
               "type": "SYMBOL",
-              "name": "InvocationExpression"
+              "name": "_type"
             }
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "FIELD",
+            "name": "Arguments",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_Arguments"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
         ]
       }
@@ -3989,8 +4013,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "_SemiColon"
+            "type": "STRING",
+            "value": ":"
           },
           {
             "type": "FIELD",
@@ -4346,8 +4370,8 @@
           "name": "expression"
         },
         {
-          "type": "SYMBOL",
-          "name": "_SemiColon"
+          "type": "STRING",
+          "value": ":"
         },
         {
           "type": "SYMBOL",
@@ -4538,8 +4562,8 @@
                   }
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_SemiColon"
+                  "type": "STRING",
+                  "value": ":"
                 }
               ]
             },
@@ -4558,75 +4582,6 @@
         }
       ]
     },
-    "_Struct": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "struct "
-      }
-    },
-    "_Resource": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "resource "
-      }
-    },
-    "_Interface": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "interface "
-      }
-    },
-    "_Event": {
-      "type": "STRING",
-      "value": "event "
-    },
-    "_Emit": {
-      "type": "STRING",
-      "value": "emit "
-    },
-    "_Priv": {
-      "type": "STRING",
-      "value": "priv"
-    },
-    "_Pub": {
-      "type": "STRING",
-      "value": "pub "
-    },
-    "_Set": {
-      "type": "STRING",
-      "value": "set"
-    },
-    "_All": {
-      "type": "STRING",
-      "value": "all"
-    },
-    "_Account": {
-      "type": "STRING",
-      "value": "account"
-    },
-    "_Return": {
-      "type": "STRING",
-      "value": "return"
-    },
-    "_Break": {
-      "type": "STRING",
-      "value": "break"
-    },
-    "_Continue": {
-      "type": "STRING",
-      "value": "continue"
-    },
-    "_Let": {
-      "type": "STRING",
-      "value": "let "
-    },
-    "_Var": {
-      "type": "STRING",
-      "value": "var "
-    },
     "_If": {
       "type": "STRING",
       "value": "if"
@@ -4634,18 +4589,6 @@
     "_Else": {
       "type": "STRING",
       "value": "else"
-    },
-    "_While": {
-      "type": "STRING",
-      "value": "while"
-    },
-    "_For": {
-      "type": "STRING",
-      "value": "for"
-    },
-    "_In": {
-      "type": "STRING",
-      "value": "in "
     },
     "True": {
       "type": "STRING",
@@ -4655,21 +4598,9 @@
       "type": "STRING",
       "value": "false"
     },
-    "_Nil": {
-      "type": "STRING",
-      "value": "nil"
-    },
-    "_Create": {
-      "type": "STRING",
-      "value": "create "
-    },
     "_Destroy": {
       "type": "STRING",
       "value": "destroy "
-    },
-    "_SemiColon": {
-      "type": "STRING",
-      "value": ":"
     },
     "SwitchCase": {
       "type": "SEQ",

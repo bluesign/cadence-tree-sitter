@@ -42,7 +42,7 @@
     "import"
     "from"
     "view"
-    ;"create"
+    "create"
 ] @keyword
 
 [

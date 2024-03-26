@@ -9,7 +9,6 @@ Comments
 (Program
     (Comment))
 
-
 ==================
 Doc Comments
 ==================
@@ -22,10 +21,9 @@ access(all) fun main() {}
 (Program
     (Comment)
     (FunctionDeclaration
-      (Access
-          (Entitlements))
+        (Access
+            (Entitlements))
     (Identifier)))
-
 
 ==================
 Resource mixed comments
@@ -40,12 +38,12 @@ access(all) resource Heartbeat {
 
 ---------
 
-    (Program
-          (Comment)
-          (Comment)
-          (Comment)
-          (Comment)
-      (CompositeDeclaration
-        (Access
-          (Entitlements))
-        (TypeIdentifier)))
+(Program
+    (Comment)
+    (Comment)
+    (Comment)
+    (Comment)
+    (CompositeDeclaration
+    (Access
+        (Entitlements))
+    (TypeIdentifier)))
