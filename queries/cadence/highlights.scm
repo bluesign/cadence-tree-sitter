@@ -43,6 +43,7 @@
     "from"
     "view"
     "create"
+    "if"
 ] @keyword
 
 [

@@ -763,7 +763,7 @@ module.exports = grammar({
 
     IfStatement: ($) =>
       seq(
-        $._If,
+        'if',
         field('Test', choice($.expression, $.VariableDeclaration)),
         '{',
         field('Then', $.Block),
@@ -1243,7 +1243,6 @@ module.exports = grammar({
         field('Expression', $.expression),
       ),
 
-    _If: (_) => 'if',
     _Else: (_) => 'else',
     True: (_) => 'true',
     False: (_) => 'false',

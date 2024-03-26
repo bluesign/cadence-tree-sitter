@@ -4651,6 +4651,10 @@
     "named": false
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "import",
     "named": false
   },

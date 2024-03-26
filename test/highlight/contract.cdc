@@ -110,5 +110,10 @@ contract HelloWorld : HelloWorld2 {
         // <- variable.builtin
         //                           ^ keyword
         //                                  ^ type
+
+        if conditionIsTrue() {
+        // <- keyword
+            log("Hello, World!")
+        )
     }
 }
