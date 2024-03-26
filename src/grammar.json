@@ -1540,6 +1540,27 @@
         ]
       }
     },
+    "EntitlementDeclaration": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "Access"
+          },
+          {
+            "type": "STRING",
+            "value": "entitlement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "EntitlementIdentifier"
+          }
+        ]
+      }
+    },
     "EnumDeclaration": {
       "type": "PREC",
       "value": 1,
@@ -2025,6 +2046,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "EntitlementDeclaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "transactionDeclaration"
         },
         {
@@ -2162,6 +2187,10 @@
               {
                 "type": "SYMBOL",
                 "name": "EventDeclaration"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "EntitlementDeclaration"
               },
               {
                 "type": "SYMBOL",

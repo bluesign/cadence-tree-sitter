@@ -20,6 +20,11 @@ contract HelloWorld : HelloWorld2 {
 // some comment
 // <- comment
 
+    access(all) entitlement NodeOperator
+    // <- keyword
+    //          ^ keyword
+    //                      ^ label
+
     access(all) let greeting: String
     // <- keyword
     //          ^ type.qualifier

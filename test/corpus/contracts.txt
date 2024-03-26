@@ -247,3 +247,28 @@ contract SomeContract {
                       (IdentifierExpression
                         (Identifier))
                       (Identifier))))))))))
+
+
+==================
+Contract define entitlement
+==================
+
+access(all)
+contract SomeContract {
+    access(all) entitlement NodeOperator
+}
+
+------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (EntitlementDeclaration
+            (Access
+              (Entitlements
+                (EntitlementIdentifier)))
+            (EntitlementIdentifier)))))

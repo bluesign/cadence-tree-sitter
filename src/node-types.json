@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "EntitlementDeclaration",
+        "named": true
+      },
+      {
         "type": "EnumDeclaration",
         "named": true
       },
@@ -1302,6 +1306,25 @@
       "types": [
         {
           "type": "Argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "EntitlementDeclaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Access",
+          "named": true
+        },
+        {
+          "type": "EntitlementIdentifier",
           "named": true
         }
       ]
@@ -2697,6 +2720,10 @@
           },
           {
             "type": "CompositeDeclaration",
+            "named": true
+          },
+          {
+            "type": "EntitlementDeclaration",
             "named": true
           },
           {
@@ -4621,6 +4648,10 @@
   },
   {
     "type": "emit",
+    "named": false
+  },
+  {
+    "type": "entitlement",
     "named": false
   },
   {

@@ -510,6 +510,16 @@ module.exports = grammar({
         ),
       ),
 
+    EntitlementDeclaration: ($) =>
+      prec(
+        P.precedenceDeclaration,
+        seq(
+          $.Access,
+          'entitlement',
+          $.EntitlementIdentifier,
+        ),
+      ),
+
     EnumDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
@@ -613,6 +623,7 @@ module.exports = grammar({
         $.CompositeDeclaration,
         $.InterfaceDeclaration,
         $.EventDeclaration,
+        $.EntitlementDeclaration,
         $.transactionDeclaration,
         $.pragmaDeclaration,
         $.EnumDeclaration,
@@ -645,6 +656,7 @@ module.exports = grammar({
             $.InterfaceDeclaration,
             $.CompositeDeclaration,
             $.EventDeclaration,
+            $.EntitlementDeclaration,
             $.pragmaDeclaration,
             $.EnumDeclaration,
           ),
