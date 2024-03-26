@@ -96,6 +96,8 @@ contract HelloWorld : HelloWorld2 {
         self.greeting = "Hello World!"
         //               ^ string
         self.MinterStoragePath = /storage/cadenceExampleNFTMinter
+        // <- variable.builtin
+        //  ^ punctuation.delimiter
         //                       ^ string
         //                        ^ string
     }

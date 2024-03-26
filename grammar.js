@@ -175,7 +175,7 @@ module.exports = grammar({
     [$.MemberExpression, $.BinaryExpressionRelational, $.ConditionalExpression],
   ],
   rules: {
-    Program: ($) => field('Declarations', $._Declarations),
+    Program: ($) => optional($._Declarations),
 
     _eos: (_) => repeat1(choice(';')),
 

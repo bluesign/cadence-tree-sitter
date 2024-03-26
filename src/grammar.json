@@ -2,12 +2,16 @@
   "name": "cadence",
   "rules": {
     "Program": {
-      "type": "FIELD",
-      "name": "Declarations",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_Declarations"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_Declarations"
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
     },
     "_eos": {
       "type": "REPEAT1",
