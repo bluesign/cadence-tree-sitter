@@ -1,5 +1,5 @@
 ==================
-Func panic (TODO: should detect panic)
+Func panic
 ==================
 
 access(all)
@@ -8,6 +8,7 @@ fun f() {
 }
 
 -----
+
     (Program
       (FunctionDeclaration
         (Access
@@ -16,9 +17,8 @@ fun f() {
         (Identifier)
         (Block
           (ExpressionStatement
-            (InvocationExpression
-              (IdentifierExpression
-                (Identifier))
+            (SpecialFunctionExpression
+              (SpecialFunctionIdentifier)
               (Argument
                 (StringExpression
                   (StringLiteral))))))))

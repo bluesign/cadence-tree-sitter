@@ -119,6 +119,7 @@ module.exports = grammar({
 
 
     [$.FunctionExpression],
+
     [$.BinaryExpressionRelational],
     [$.VariableDeclaration],
     [$.FunctionDeclaration],
@@ -883,6 +884,29 @@ module.exports = grammar({
         ),
       ),
 
+
+    SpecialFunctionIdentifier: (_) =>
+      choice(
+        'panic',
+        'assert',
+        'log',
+        'revertibleRandom',
+        'decodeString',
+        'decodeList',
+        'getCurrentBlock',
+        'getBlock',
+      ),
+
+    SpecialFunctionExpression: ($) =>
+      prec(
+        P.precedenceAccess,
+        seq(
+          $.SpecialFunctionIdentifier,
+          field('TypeArguments', optional($._TypeArguments)),
+          $._Arguments,
+        ),
+      ),
+
     // Unary precedence: -, !, <-
 
     // postfix
@@ -1204,6 +1228,7 @@ module.exports = grammar({
         // TODO: AttachExpression
         $.IndexExpression,
         $.InvocationExpression,
+        $.SpecialFunctionExpression,
         $.MemberExpression,
         $.ForceExpression,
         $.UnaryMoveExpression,

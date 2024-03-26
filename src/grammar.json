@@ -3343,6 +3343,76 @@
         ]
       }
     },
+    "SpecialFunctionIdentifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "panic"
+        },
+        {
+          "type": "STRING",
+          "value": "assert"
+        },
+        {
+          "type": "STRING",
+          "value": "log"
+        },
+        {
+          "type": "STRING",
+          "value": "revertibleRandom"
+        },
+        {
+          "type": "STRING",
+          "value": "decodeString"
+        },
+        {
+          "type": "STRING",
+          "value": "decodeList"
+        },
+        {
+          "type": "STRING",
+          "value": "getCurrentBlock"
+        },
+        {
+          "type": "STRING",
+          "value": "getBlock"
+        }
+      ]
+    },
+    "SpecialFunctionExpression": {
+      "type": "PREC",
+      "value": 16,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "SpecialFunctionIdentifier"
+          },
+          {
+            "type": "FIELD",
+            "name": "TypeArguments",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_TypeArguments"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_Arguments"
+          }
+        ]
+      }
+    },
     "ForceExpression": {
       "type": "PREC",
       "value": 15,
@@ -4514,6 +4584,10 @@
         {
           "type": "SYMBOL",
           "name": "InvocationExpression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "SpecialFunctionExpression"
         },
         {
           "type": "SYMBOL",

@@ -96,7 +96,9 @@ contract HelloWorld : HelloWorld2 {
     //              ^ variable.parameter
     //                              ^ type
     //                                                  ^ punctuation.bracket
-    //                                                   ^ type.builtin
+    //
+        panic("oh no!")
+        // <- function.builtin
         return ["Hello", "World"]
         // <- keyword
         //     ^ punctuation.bracket

@@ -170,6 +170,10 @@
         "named": true
       },
       {
+        "type": "SpecialFunctionExpression",
+        "named": true
+      },
+      {
         "type": "StringExpression",
         "named": true
       },
@@ -3416,6 +3420,93 @@
     }
   },
   {
+    "type": "SpecialFunctionExpression",
+    "named": true,
+    "fields": {
+      "TypeArguments": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": "AuthorizedType",
+            "named": true
+          },
+          {
+            "type": "ConstantSizedType",
+            "named": true
+          },
+          {
+            "type": "DictionaryType",
+            "named": true
+          },
+          {
+            "type": "FunctionType",
+            "named": true
+          },
+          {
+            "type": "InstantiationType",
+            "named": true
+          },
+          {
+            "type": "NominalType",
+            "named": true
+          },
+          {
+            "type": "OptionalType",
+            "named": true
+          },
+          {
+            "type": "ReferenceType",
+            "named": true
+          },
+          {
+            "type": "ResourceType",
+            "named": true
+          },
+          {
+            "type": "RestrictedType",
+            "named": true
+          },
+          {
+            "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Argument",
+          "named": true
+        },
+        {
+          "type": "SpecialFunctionIdentifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "SpecialFunctionIdentifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "StringExpression",
     "named": true,
     "fields": {
@@ -4489,6 +4580,10 @@
     "named": false
   },
   {
+    "type": "assert",
+    "named": false
+  },
+  {
     "type": "auth",
     "named": false
   },
@@ -4506,6 +4601,14 @@
   },
   {
     "type": "create",
+    "named": false
+  },
+  {
+    "type": "decodeList",
+    "named": false
+  },
+  {
+    "type": "decodeString",
     "named": false
   },
   {
@@ -4545,6 +4648,14 @@
     "named": false
   },
   {
+    "type": "getBlock",
+    "named": false
+  },
+  {
+    "type": "getCurrentBlock",
+    "named": false
+  },
+  {
     "type": "if",
     "named": false
   },
@@ -4569,6 +4680,14 @@
     "named": false
   },
   {
+    "type": "log",
+    "named": false
+  },
+  {
+    "type": "panic",
+    "named": false
+  },
+  {
     "type": "post",
     "named": false
   },
@@ -4586,6 +4705,10 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "revertibleRandom",
     "named": false
   },
   {

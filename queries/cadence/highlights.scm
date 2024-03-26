@@ -8,6 +8,7 @@
 
 (InitDeclaration) @constructor
 (SpecialFunctionDeclaration) @function.builtin
+(SpecialFunctionIdentifier) @function.builtin
 (FunctionDeclaration name: (Identifier) @function)
 
 (StringLiteral) @string
