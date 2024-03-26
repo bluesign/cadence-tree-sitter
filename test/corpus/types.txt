@@ -98,3 +98,14 @@ access(all) fun main(
               (NominalType
                 (TypeIdentifier)
                 (TypeIdentifier)))))))
+
+==================
+Paramter type two entitlements (TODO: fixme)
+:error
+==================
+
+access(all) fun initDefaultToken(
+    _ acct: auth(SaveValue, Capabilities
+) &Account) {}
+
+-----

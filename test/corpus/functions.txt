@@ -1,0 +1,23 @@
+==================
+Func panic (TODO: should detect panic)
+==================
+
+access(all)
+fun f() {
+    panic("This is a panic")
+}
+
+-----
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements))
+        (Identifier)
+        (Block
+          (ExpressionStatement
+            (InvocationExpression
+              (IdentifierExpression
+                (Identifier))
+              (Argument
+                (StringExpression
+                  (StringLiteral))))))))

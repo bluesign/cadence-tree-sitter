@@ -1,0 +1,59 @@
+==================
+Emit event (TODO: should not error)
+==================
+
+access(account) fun startNewEpoch() {
+
+    emit EpochStart (
+        counter: self.currentEpochCounter,
+        finalView: newEpochMetadata.endView,
+        totalStaked: FlowIDTableStaking.getTotalStaked(),
+        totalFlowSupply: FlowToken.totalSupply + previousEpochMetadata.totalRewards,
+    )
+}
+
+------
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements))
+        (Identifier)
+        (Block
+          (EmitStatement
+            (InvocationExpression
+              (IdentifierExpression
+                (Identifier))
+              (Argument
+                (Identifier)
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier)))
+              (Argument
+                (Identifier)
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier)))
+              (Argument
+                (Identifier)
+                (InvocationExpression
+                  (MemberExpression
+                    (IdentifierExpression
+                      (Identifier))
+                    (Identifier))))
+              (Argument
+                (Identifier)
+                (AdditiveExpression
+                  (MemberExpression
+                    (IdentifierExpression
+                      (Identifier))
+                    (Identifier))
+                  (AdditiveOp
+                    (Plus))
+                  (MemberExpression
+                    (IdentifierExpression
+                      (Identifier))
+                    (Identifier))))
+              (ERROR))))))
