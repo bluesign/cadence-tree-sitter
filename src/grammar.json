@@ -3348,7 +3348,7 @@
         "members": [
           {
             "type": "FIELD",
-            "name": "InvokedExpression",
+            "name": "invoked",
             "content": {
               "type": "SYMBOL",
               "name": "expression"
@@ -3373,6 +3373,31 @@
           {
             "type": "SYMBOL",
             "name": "_Arguments"
+          }
+        ]
+      }
+    },
+    "CastExpression": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_type"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "Argument"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
         ]
       }
@@ -4618,6 +4643,10 @@
         {
           "type": "SYMBOL",
           "name": "InvocationExpression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "CastExpression"
         },
         {
           "type": "SYMBOL",

@@ -578,7 +578,7 @@ access(all) contract FlowIDTableStaking {
             // Remove the node as a candidate node if they were one before but aren't now
             if !self.isEligibleForCandidateNodeStatus(nodeRecord) {
                 FlowIDTableStaking.removeFromCandidateNodeList(nodeID: self.id, role: nodeRecord.role)
-            }   
+            }
         }
 
         /// Requests to unstake all of the node operators staked and committed tokens
@@ -632,7 +632,7 @@ access(all) contract FlowIDTableStaking {
     }
 
     /// Public interface to query information about a delegator
-    /// from the account it is stored in 
+    /// from the account it is stored in
     access(all) resource interface NodeDelegatorPublic {
         access(all) let id: UInt32
         access(all) let nodeID: String
@@ -811,7 +811,7 @@ access(all) contract FlowIDTableStaking {
                     self.delegatorRewards[delegatorID] = reward * scalingFactor
             }
         }
-        
+
         access(all) fun scaleOperatorRewards(scalingFactor: UFix64) {
             self.nodeRewards = self.nodeRewards * scalingFactor
         }
@@ -927,7 +927,7 @@ access(all) contract FlowIDTableStaking {
         }
 
         /// Sets a list of node IDs who will not receive rewards for the current epoch
-        /// This is used during epochs to punish nodes who have poor uptime 
+        /// This is used during epochs to punish nodes who have poor uptime
         /// or who do not update to latest node software quickly enough
         /// The parameter is a dictionary mapping node IDs
         /// to a percentage, which is the percentage of their expected rewards that
@@ -1097,7 +1097,7 @@ access(all) contract FlowIDTableStaking {
                 ?? panic("Could not copy moves pending list from storage")
 
             let participantList = FlowIDTableStaking.getParticipantNodeList()
-                ?? panic("Could not copy participant list from storage")    
+                ?? panic("Could not copy participant list from storage")
 
             // We only iterate through movesPendingList here because any node
             // that has insufficient stake committed will be because it has submitted
@@ -1125,7 +1125,7 @@ access(all) contract FlowIDTableStaking {
 
                 // permissionless node roles (access)
                 // NOTE: Access nodes which registered prior to the 100-FLOW stake requirement
-                // (which must be approved) are not removed during a temporary grace period during 
+                // (which must be approved) are not removed during a temporary grace period during
                 // which these grandfathered node operators may submit the necessary stake requirement.
                 // Therefore Access nodes must either be approved OR have sufficient stake:
                 //  - Old ANs must be approved, but are allowed to have zero stake
@@ -1146,9 +1146,9 @@ access(all) contract FlowIDTableStaking {
         /// so if there are more candidate nodes for that role than there are slots
         /// nodes are randomly selected from the list to be included.
         /// Nodes which are not selected for inclusion are removed and refunded in this function.
-        /// All candidate nodes left staked after this function exits are implicitly selected to fill the 
+        /// All candidate nodes left staked after this function exits are implicitly selected to fill the
         /// available slots, and will become participants at the next epoch transition.
-        /// 
+        ///
         access(all) fun fillNodeRoleSlots(): [String] {
 
             var currentNodeCount: {UInt8: UInt16} = FlowIDTableStaking.getCurrentRoleNodeCounts()
@@ -1174,16 +1174,16 @@ access(all) contract FlowIDTableStaking {
                         self.removeAndRefundNodeRecord(nodeID)
                     }
                 } else if currentNodeCount[role]! + UInt16(candidateNodesForRole.keys.length) > slotLimits[role]! {
-                    
+
                     // Not all slots are full, but addition of all the candidate nodes exceeds the slot limit
                     // Calculate how many nodes to remove from the candidate list for this role
                     var numNodesToRemove: UInt16 = currentNodeCount[role]! + UInt16(candidateNodesForRole.keys.length) - slotLimits[role]!
-                    
+
                     let numNodesToAdd = UInt16(candidateNodesForRole.keys.length) - numNodesToRemove
 
                     // Indicates which indicies in the candidate nodes array will be removed
                     var deletionList: {UInt16: Bool} = {}
-                    
+
                     // Randomly select which indicies will be removed
                     while numNodesToRemove > 0 {
                         let selection = UInt16(revertibleRandom<UInt64>() % UInt64(candidateNodesForRole.keys.length))
@@ -1236,7 +1236,7 @@ access(all) contract FlowIDTableStaking {
 
             let rewardsBreakdownArray = rewardsSummary.breakdown
             let totalRewards = rewardsSummary.totalRewards
-            
+
             // If there are no node operators to pay rewards to, do not mint new tokens
             if rewardsBreakdownArray.length == 0 {
                 emit EpochTotalRewardsPaid(total: totalRewards, fromFees: 0.0, minted: 0.0, feesBurned: 0.0, epochCounterForRewards: forEpochCounter)
@@ -1246,7 +1246,7 @@ access(all) contract FlowIDTableStaking {
                 self.setNonOperationalNodesList(emptyNodeList)
 
                 return
-            } 
+            }
 
             let feeBalance = FlowFees.getFeeBalance()
             var mintedRewards: UFix64 = 0.0
@@ -1268,13 +1268,13 @@ access(all) contract FlowIDTableStaking {
             for rewardBreakdown in rewardsBreakdownArray {
                 let nodeRecord = FlowIDTableStaking.borrowNodeRecord(rewardBreakdown.nodeID)
                 let nodeReward = rewardBreakdown.nodeRewards
-                
+
                 nodeRecord.tokensRewarded.deposit(from: <-rewardsVault.withdraw(amount: nodeReward))
 
                 for delegator in rewardBreakdown.delegatorRewards.keys {
                     let delRecord = nodeRecord.borrowDelegatorRecord(delegator)
                     let delegatorReward = rewardBreakdown.delegatorRewards[delegator]!
-                        
+
                     delRecord.tokensRewarded.deposit(from: <-rewardsVault.withdraw(amount: delegatorReward))
                     emit DelegatorRewardsPaid(nodeID: rewardBreakdown.nodeID, delegatorID: delegator, amount: delegatorReward, epochCounter: forEpochCounter)
                 }
@@ -1416,7 +1416,7 @@ access(all) contract FlowIDTableStaking {
                     }
                     rewardsBreakdown.setDelegatorReward(delegatorID: delegator, rewards: delegatorRewardAmount)
                 }
-                
+
                 rewardsBreakdown.setNodeRewards(nodeRewardAmount)
                 rewardsBreakdownArray.append(rewardsBreakdown)
             }
@@ -1753,7 +1753,7 @@ access(all) contract FlowIDTableStaking {
             ?? panic("Could not load candidate node list from storage")
         var candidateNodesForRole = candidateNodes.remove(key: role)
             ?? panic("Could not get candidate nodes for role: ".concat(role.toString()))
-        
+
         candidateNodesForRole.remove(key: nodeID)
         candidateNodes[role] = candidateNodesForRole
     }
@@ -1770,7 +1770,7 @@ access(all) contract FlowIDTableStaking {
             ?? {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
     }
 
-    /// Gets the number of auto-opened slots for each node role. 
+    /// Gets the number of auto-opened slots for each node role.
     access(all) fun getOpenNodeSlots(): {UInt8: UInt16} {
         return FlowIDTableStaking.account.storage.copy<{UInt8: UInt16}>(from: /storage/flowStakingOpenNodeSlots)
             ?? ({} as {UInt8: UInt16})
@@ -1845,7 +1845,7 @@ access(all) contract FlowIDTableStaking {
 
             // permissionless node roles (access)
             // NOTE: Access nodes which registered prior to the 100-FLOW stake requirement
-            // (which must be approved) are not removed during a temporary grace period during 
+            // (which must be approved) are not removed during a temporary grace period during
             // which these grandfathered node operators may submit the necessary stake requirement.
             // Therefore Access nodes must either be approved OR have sufficient stake:
             //  - Old ANs must be approved, but are allowed to have zero stake

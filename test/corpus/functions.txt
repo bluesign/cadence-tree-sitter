@@ -38,3 +38,51 @@ fun f() {}
           (Entitlements
             (EntitlementIdentifier)))
         (Identifier)))
+
+
+==================
+While cast
+==================
+
+access(all)
+fun f() {
+    while boundaryIndex < UInt64(2) {
+        boundaryIndex = boundaryIndex + 1
+    }
+}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Block
+          (WhileStatement
+            (BinaryExpressionRelational
+              (IdentifierExpression
+                (Identifier))
+              (RelationalOP
+                (Less))
+              (CastExpression
+                (NominalType
+                  (TypeIdentifier
+                    (TypeBuiltin)))
+                (Argument
+                  (IntegerExpression
+                    (IntegerLiteral)))))
+            (Block
+              (AssignmentStatement
+                (IdentifierExpression
+                  (Identifier))
+                (Transfer
+                  (TransferOperationCopy))
+                (AdditiveExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (AdditiveOp
+                    (Plus))
+                  (IntegerExpression
+                    (IntegerLiteral)))))))))

@@ -131,6 +131,10 @@ contract HelloWorld : HelloWorld2 {
         //                           ^ keyword
         //                                  ^ type
 
+        self.totalSupply = 0.0
+        // <- variable.builtin
+        //                 ^ number
+
         if conditionIsTrue() {
         // <- keyword
             log("Hello, World!")

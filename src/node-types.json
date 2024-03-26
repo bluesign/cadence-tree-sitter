@@ -94,6 +94,10 @@
         "named": true
       },
       {
+        "type": "CastExpression",
+        "named": true
+      },
+      {
         "type": "CastingExpression",
         "named": true
       },
@@ -789,6 +793,65 @@
         },
         {
           "type": "True",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "CastExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Argument",
+          "named": true
+        },
+        {
+          "type": "AuthorizedType",
+          "named": true
+        },
+        {
+          "type": "ConstantSizedType",
+          "named": true
+        },
+        {
+          "type": "DictionaryType",
+          "named": true
+        },
+        {
+          "type": "FunctionType",
+          "named": true
+        },
+        {
+          "type": "InstantiationType",
+          "named": true
+        },
+        {
+          "type": "NominalType",
+          "named": true
+        },
+        {
+          "type": "OptionalType",
+          "named": true
+        },
+        {
+          "type": "ReferenceType",
+          "named": true
+        },
+        {
+          "type": "ResourceType",
+          "named": true
+        },
+        {
+          "type": "RestrictedType",
+          "named": true
+        },
+        {
+          "type": "VariableSizedType",
           "named": true
         }
       ]
@@ -2585,16 +2648,6 @@
     "type": "InvocationExpression",
     "named": true,
     "fields": {
-      "InvokedExpression": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
       "TypeArguments": {
         "multiple": true,
         "required": false,
@@ -2653,6 +2706,16 @@
           },
           {
             "type": "VariableSizedType",
+            "named": true
+          }
+        ]
+      },
+      "invoked": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
             "named": true
           }
         ]

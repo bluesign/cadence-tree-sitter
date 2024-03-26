@@ -75,6 +75,7 @@ const P = {
   // - FunctionExpression
   // - PathExpression
   // - AttachExpression
+  // - CastExpression
   precedenceLiteral: 17,
 
   optionalType: 18,
@@ -892,12 +893,22 @@ module.exports = grammar({
       prec(
         P.precedenceAccess,
         seq(
-          field('InvokedExpression', $.expression),
+          field('invoked', $.expression),
           field('TypeArguments', optional($._TypeArguments)),
           $._Arguments,
         ),
       ),
 
+    CastExpression: ($) =>
+      prec(
+        P.precedenceLiteral,
+        seq(
+          $._type,
+          '(',
+          $.Argument,
+          ')',
+        ),
+      ),
 
     SpecialFunctionIdentifier: (_) =>
       choice(
@@ -1242,6 +1253,7 @@ module.exports = grammar({
         // TODO: AttachExpression
         $.IndexExpression,
         $.InvocationExpression,
+        $.CastExpression,
         $.SpecialFunctionExpression,
         $.MemberExpression,
         $.ForceExpression,

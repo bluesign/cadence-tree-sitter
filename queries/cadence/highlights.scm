@@ -16,6 +16,7 @@
 (PathExpression (Identifier) @string)
 (Address) @number
 (IntegerLiteral) @number
+(FixedPointLiteral) @number
 (BooleanLiteral) @boolean
 
 (Parameter Identifier: (Identifier) @variable.parameter)
@@ -27,7 +28,6 @@
 (Access) @keyword
 (transactionDeclaration) @keyword
 (EntitlementIdentifier) @label
-
 
 (CompositeDeclaration) @keyword
 
