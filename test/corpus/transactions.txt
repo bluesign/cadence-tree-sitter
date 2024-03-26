@@ -143,3 +143,41 @@ transaction {
             (FixedPointLiteral)))
         (StringExpression
         (StringLiteral)))))
+
+
+==================
+Transaction pre condition
+==================
+
+transaction {
+    prepare() {
+    }
+
+    pre {
+        self.nodeInfo[nodeInfo.id] == nil
+    }
+}
+
+---
+
+    (Program
+      (transactionDeclaration
+        (prepare
+          (SpecialFunctionDeclaration
+            (FunctionDeclaration_)))
+        (PreConditions
+          (Condition
+            (BinaryExpressionEquality
+              (IndexExpression
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier)))
+              (EqualityOp
+                (Equal))
+              (NilExpression
+                (NilLiteral)))))))

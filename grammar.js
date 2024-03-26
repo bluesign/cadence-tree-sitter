@@ -713,16 +713,13 @@ module.exports = grammar({
 
     Condition: ($) =>
       seq(
-        field('Test', $.expression),
+        field('test', $.expression),
         optional(
           seq(
-            optional('\n'),
             ':',
-            optional('\n'),
-            field('Message', choice($.expression)),
+            field('message', choice($.expression)),
           ),
         ),
-        optional($._eos),
       ),
 
     _Statements: ($) =>
