@@ -124,7 +124,6 @@ module.exports = grammar({
     [$.FunctionDeclaration],
     [$.ExpressionStatement, $.AssignmentStatement],
 
-    [$.EmitStatement, $.expression],
     [$.nestedFunctionDeclaration, $.FunctionDeclaration],
 
     [$.MemberExpression, $.BitwiseExpressionXor, $.ConditionalExpression],
@@ -433,7 +432,7 @@ module.exports = grammar({
           field('Access', optional($.Access)),
           'fun',
           field('Identifier', $.Identifier),
-          field('parameters', $._ParameterList),
+          $._ParameterList,
           field(
             'type',
             optional(seq(':', $._type)),
@@ -502,7 +501,7 @@ module.exports = grammar({
           $.Access,
           'event',
           field('Identifier', $.Identifier),
-          field('parameters', $._ParameterList),
+          $._ParameterList,
         ),
       ),
 
@@ -535,7 +534,7 @@ module.exports = grammar({
       seq(
         optional($.Access),
         choice('prepare', 'destroy'),
-        field('parameters', $._ParameterList),
+        $._ParameterList,
         optional($._FunctionBlock),
       ),
 
@@ -543,7 +542,7 @@ module.exports = grammar({
       seq(
         optional('view'),
         'init',
-        field('parameters', $._ParameterList),
+        $._ParameterList,
         optional($._FunctionBlock),
       ),
 
@@ -561,7 +560,7 @@ module.exports = grammar({
           optional('view'),
           'fun',
           field('name', $.Identifier),
-          field('parameters', $._ParameterList),
+          $._ParameterList,
           optional(
             seq(':', field('type', $._type)),
           ),
@@ -575,7 +574,7 @@ module.exports = grammar({
         P.precedenceDeclaration,
         seq(
           'transaction',
-          field('parameters', optional($._ParameterList)),
+          optional($._ParameterList),
           '{',
           field('Fields', optional($.Fields)),
           field('prepare', optional($.prepare)),
@@ -793,8 +792,14 @@ module.exports = grammar({
         '}',
       ),
 
+    _Property: ($) => $.Identifier,
+
     EmitStatement: ($) =>
-      seq('emit', field('InvocationExpression', $.InvocationExpression)),
+      seq(
+        'emit',
+        field('type', $.TypeIdentifier),
+        $._Arguments,
+      ),
 
     AssignmentStatement: ($) =>
       seq(
@@ -811,7 +816,7 @@ module.exports = grammar({
         seq(
           optional('('),
           optional('fun'),
-          field('parameters', $._ParameterList),
+          $._ParameterList,
           field(
             'type',
             optional(seq(':', $._type)),
@@ -858,15 +863,14 @@ module.exports = grammar({
     _TypeArguments: ($) =>
       seq($._TypeHintOpen, commaSep1($._type), $._TypeHintClose),
 
-    Invocation: ($) =>
-      seq(
-        '(',
-        field('Arguments', optional($._Arguments)),
-        optional(','),
-        ')',
-      ),
+    Invocation: ($) => $._Arguments,
 
-    _Arguments: ($) => commaSep1($.Argument),
+    _Arguments: ($) => seq(
+      '(',
+      seq(commaSep($.Argument)),
+      optional(','),
+      ')',
+    ),
 
     //                optional(','), //TODO: check bug
     InvocationExpression: ($) =>
@@ -875,9 +879,7 @@ module.exports = grammar({
         seq(
           field('InvokedExpression', $.expression),
           field('TypeArguments', optional($._TypeArguments)),
-          '(',
-          field('Arguments', optional($._Arguments)),
-          ')',
+          $._Arguments,
         ),
       ),
 
@@ -910,9 +912,7 @@ module.exports = grammar({
         seq(
           'create',
           field('type', $._type),
-          '(',
-          field('Arguments', optional($._Arguments)),
-          ')',
+          $._Arguments,
         ),
       ),
 

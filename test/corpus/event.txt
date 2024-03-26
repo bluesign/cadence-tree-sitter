@@ -1,14 +1,12 @@
 ==================
-Emit event (TODO: should not error)
+Emit event
 ==================
 
-access(account) fun startNewEpoch() {
-
-    emit EpochStart (
-        counter: self.currentEpochCounter,
-        finalView: newEpochMetadata.endView,
-        totalStaked: FlowIDTableStaking.getTotalStaked(),
-        totalFlowSupply: FlowToken.totalSupply + previousEpochMetadata.totalRewards,
+access(account) fun emitEvtFn() {
+    emit HelloEvent (
+        prop1: HelloWorld2.prop1,
+        prop2: HelloWorld2.fn1(),
+        prop3: HelloWorld2.prop1 + HelloWorld2.fn1(),
     )
 }
 
@@ -22,39 +20,31 @@ access(account) fun startNewEpoch() {
         (Identifier)
         (Block
           (EmitStatement
-            (InvocationExpression
-              (IdentifierExpression
-                (Identifier))
-              (Argument
-                (Identifier)
+            (TypeIdentifier)
+            (Argument
+              (Identifier)
+              (MemberExpression
+                (IdentifierExpression
+                  (Identifier))
+                (Identifier)))
+            (Argument
+              (Identifier)
+              (InvocationExpression
                 (MemberExpression
                   (IdentifierExpression
                     (Identifier))
-                  (Identifier)))
-              (Argument
-                (Identifier)
+                  (Identifier))))
+            (Argument
+              (Identifier)
+              (AdditiveExpression
                 (MemberExpression
                   (IdentifierExpression
                     (Identifier))
-                  (Identifier)))
-              (Argument
-                (Identifier)
+                  (Identifier))
+                (AdditiveOp
+                  (Plus))
                 (InvocationExpression
                   (MemberExpression
                     (IdentifierExpression
                       (Identifier))
-                    (Identifier))))
-              (Argument
-                (Identifier)
-                (AdditiveExpression
-                  (MemberExpression
-                    (IdentifierExpression
-                      (Identifier))
-                    (Identifier))
-                  (AdditiveOp
-                    (Plus))
-                  (MemberExpression
-                    (IdentifierExpression
-                      (Identifier))
-                    (Identifier))))
-              (ERROR))))))
+                    (Identifier)))))))))

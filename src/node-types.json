@@ -1073,20 +1073,6 @@
     "type": "CreateExpression",
     "named": true,
     "fields": {
-      "Arguments": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Argument",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
@@ -1137,6 +1123,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Argument",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1285,16 +1281,26 @@
     "type": "EmitStatement",
     "named": true,
     "fields": {
-      "InvocationExpression": {
+      "type": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "InvocationExpression",
+            "type": "TypeIdentifier",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Argument",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1552,36 +1558,18 @@
             "named": true
           }
         ]
-      },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "Access",
+          "named": true
+        },
+        {
+          "type": "Parameter",
           "named": true
         }
       ]
@@ -1847,28 +1835,6 @@
           }
         ]
       },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": false,
@@ -1921,11 +1887,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "Access",
+          "named": true
+        },
+        {
+          "type": "Parameter",
           "named": true
         }
       ]
@@ -1976,36 +1946,18 @@
             "named": true
           }
         ]
-      },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "Access",
+          "named": true
+        },
+        {
+          "type": "Parameter",
           "named": true
         }
       ]
@@ -2053,28 +2005,6 @@
         "types": [
           {
             "type": "PreConditions",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
             "named": true
           }
         ]
@@ -2133,6 +2063,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Parameter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2386,29 +2326,17 @@
             "named": true
           }
         ]
-      },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Parameter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2626,20 +2554,6 @@
     "type": "InvocationExpression",
     "named": true,
     "fields": {
-      "Arguments": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Argument",
-            "named": true
-          }
-        ]
-      },
       "InvokedExpression": {
         "multiple": false,
         "required": true,
@@ -2712,6 +2626,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Argument",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4062,28 +3986,6 @@
           }
         ]
       },
-      "parameters": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": true,
         "required": false,
@@ -4138,6 +4040,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "Parameter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4226,28 +4138,6 @@
           }
         ]
       },
-      "parameters": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "Parameter",
-            "named": true
-          }
-        ]
-      },
       "prepare": {
         "multiple": false,
         "required": false,
@@ -4265,6 +4155,10 @@
       "types": [
         {
           "type": "Condition",
+          "named": true
+        },
+        {
+          "type": "Parameter",
           "named": true
         }
       ]

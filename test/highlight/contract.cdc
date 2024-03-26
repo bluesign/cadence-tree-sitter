@@ -75,6 +75,14 @@ contract HelloWorld : HelloWorld2 {
             //                    ^ string
         }
 
+        emit HelloEvent (
+        // <- keyword
+        //   ^ type
+            prop1: HelloWorld2.prop1,
+            prop2: HelloWorld2.fn1(),
+            prop3: HelloWorld2.prop1 + HelloWorld2.fn1(),
+        )
+
         return self.greeting
         // <- keyword
     }
