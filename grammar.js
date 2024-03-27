@@ -52,7 +52,6 @@ const P = {
   // precedenceUnaryPrefix is the precedence of
   // - UnaryExpression
   // - CreateExpression
-  // - DestroyExpression
   // - ReferenceExpression
   precedenceUnaryPrefix: 14,
   // precedenceUnaryPostfix is the precedence of
@@ -78,9 +77,11 @@ const P = {
   // - CastExpression
   precedenceLiteral: 17,
 
+  instantiationType: 17,
   optionalType: 18,
   resourceType: 19,
   otherType: 20,
+  basicType: 21,
 
   precedenceEntitlementOr: 1,
   precedenceEntitlementAnd: 2,
@@ -101,8 +102,6 @@ module.exports = grammar({
   conflicts: ($) => [
     [$.ConditionalExpression, $.MemberExpression, $.NegateExpression],
     [$.InvocationExpression, $.NegateExpression, $.BinaryExpressionRelational],
-    [$.MemberExpression, $.DestroyExpression, $.ConditionalExpression],
-    [$.InvocationExpression, $.DestroyExpression, $.BinaryExpressionRelational],
     [$.MemberExpression, $.UnaryMoveExpression, $.ConditionalExpression],
     [
       $.InvocationExpression,
@@ -325,9 +324,12 @@ module.exports = grammar({
       ),
 
     InstantiationType: ($) =>
-      seq(
-        field('InstantiatedType', $._type),
-        field('TypeArguments', $._TypeArguments),
+      prec(
+        P.instantiationType,
+        seq(
+          field('InstantiatedType', $._type),
+          field('TypeArguments', $._TypeArguments),
+        ),
       ),
 
     RestrictedType: ($) =>
@@ -356,7 +358,6 @@ module.exports = grammar({
 
     _type: ($) =>
       choice(
-        $._BasicType,
         $.FunctionType,
         $.AuthorizedType,
         $.ReferenceType,
@@ -364,14 +365,18 @@ module.exports = grammar({
         $.ResourceType,
         $.RestrictedType,
         $.InstantiationType,
+        $._BasicType,
       ),
 
     _BasicType: ($) =>
-      choice(
-        $.NominalType,
-        $.VariableSizedType,
-        $.ConstantSizedType,
-        $.DictionaryType,
+      prec(
+        P.basicType,
+        choice(
+          $.NominalType,
+          $.VariableSizedType,
+          $.ConstantSizedType,
+          $.DictionaryType,
+        ),
       ),
 
     VariableKind: (_) => choice('let', 'var'),
@@ -549,7 +554,7 @@ module.exports = grammar({
     FunctionDeclaration_: ($) =>
       seq(
         optional($.Access),
-        choice('prepare', 'destroy'),
+        choice('prepare'),
         $._ParameterList,
         optional($._FunctionBlock),
       ),
@@ -635,7 +640,7 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          $.Access,
+          optional($.Access),
           field('VariableKind', optional($.VariableKind)),
           field('Identifier', $.Identifier),
           ':',
@@ -874,7 +879,7 @@ module.exports = grammar({
       ),
 
     _TypeHintOpen: (_) => '<',
-    _TypeHintClose: (_) => '>',
+    _TypeHintClose: (_) => token.immediate('>'),
 
     _TypeArguments: ($) =>
       seq($._TypeHintOpen, commaSep1($._type), $._TypeHintClose),
@@ -965,12 +970,6 @@ module.exports = grammar({
         ),
       ),
 
-    DestroyExpression: ($) =>
-      prec(
-        P.precedenceUnaryPrefix,
-        seq($._Destroy, field('Expression', $.expression)),
-      ),
-
     // TODO: check
     ReferenceExpression: ($) =>
       prec(
@@ -983,15 +982,15 @@ module.exports = grammar({
         ),
       ),
 
-    castingOp: ($) => choice($.Casting, $.FailableCasting, $.ForceCasting),
+    _castingOp: ($) => choice($.Casting, $.FailableCasting, $.ForceCasting),
 
     // Cast precedence: as, as?, as!
     CastingExpression: ($) =>
       prec(
         P.precedenceCasting,
         seq(
-          field('Expression', $.expression),
-          field('Operation', $.castingOp),
+          field('expression', $.expression),
+          field('operation', $._castingOp),
           field('type', $._type),
         ),
       ),
@@ -1260,7 +1259,6 @@ module.exports = grammar({
         $.UnaryMoveExpression,
         $.NegateExpression,
         $.CreateExpression,
-        $.DestroyExpression,
         $.ReferenceExpression,
         $.CastingExpression,
         $.MultiplicativeExpression,
@@ -1277,7 +1275,7 @@ module.exports = grammar({
         $.ConditionalExpression,
       ),
 
-    Auth: (_) => 'auth',
+    Auth: (_) => token.immediate('auth'),
     _ReferenceAnnotation: (_) => '&',
 
     _Negate: (_) => '!',
@@ -1297,7 +1295,6 @@ module.exports = grammar({
     _Else: (_) => 'else',
     True: (_) => 'true',
     False: (_) => 'false',
-    _Destroy: (_) => 'destroy ',
 
     SwitchCase: ($) =>
       seq(

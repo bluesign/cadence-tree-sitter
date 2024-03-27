@@ -86,3 +86,46 @@ fun f() {
                     (Plus))
                   (IntegerExpression
                     (IntegerLiteral)))))))))
+
+
+==================
+Force cast generic
+==================
+
+access(all)
+fun f() {
+   let tokenManagerCapability = tokenManagerCapabilityController.capability as! Capability<auth(FungibleToken.Withdraw) &LockedTokens.LockedTokenManager>
+}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Block
+          (VariableDeclaration
+            (VariableKind)
+            (Identifier)
+            (Transfer
+              (TransferOperationCopy))
+            (CastingExpression
+              (MemberExpression
+                (IdentifierExpression
+                  (Identifier))
+                (Identifier))
+              (ForceCasting)
+              (InstantiationType
+                (NominalType
+                  (TypeIdentifier))
+                (AuthorizedType
+                  (Entitlements
+                    (EntitlementQualifiedIdentifier
+                      (TypeIdentifier)
+                      (EntitlementIdentifier)))
+                  (ReferenceType
+                    (NominalType
+                      (TypeIdentifier)
+                      (TypeIdentifier))))))))))

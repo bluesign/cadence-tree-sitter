@@ -733,25 +733,29 @@
       ]
     },
     "InstantiationType": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "InstantiatedType",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_type"
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "InstantiatedType",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_type"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "TypeArguments",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_TypeArguments"
+            }
           }
-        },
-        {
-          "type": "FIELD",
-          "name": "TypeArguments",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_TypeArguments"
-          }
-        }
-      ]
+        ]
+      }
     },
     "RestrictedType": {
       "type": "SEQ",
@@ -825,10 +829,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_BasicType"
-        },
-        {
-          "type": "SYMBOL",
           "name": "FunctionType"
         },
         {
@@ -854,29 +854,37 @@
         {
           "type": "SYMBOL",
           "name": "InstantiationType"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_BasicType"
         }
       ]
     },
     "_BasicType": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "NominalType"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "VariableSizedType"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "ConstantSizedType"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "DictionaryType"
-        }
-      ]
+      "type": "PREC",
+      "value": 21,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "NominalType"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "VariableSizedType"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "ConstantSizedType"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "DictionaryType"
+          }
+        ]
+      }
     },
     "VariableKind": {
       "type": "CHOICE",
@@ -1692,10 +1700,6 @@
             {
               "type": "STRING",
               "value": "prepare"
-            },
-            {
-              "type": "STRING",
-              "value": "destroy"
             }
           ]
         },
@@ -2081,8 +2085,16 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "Access"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "Access"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "FIELD",
@@ -3232,8 +3244,11 @@
       "value": "<"
     },
     "_TypeHintClose": {
-      "type": "STRING",
-      "value": ">"
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": ">"
+      }
     },
     "_TypeArguments": {
       "type": "SEQ",
@@ -3567,27 +3582,6 @@
         ]
       }
     },
-    "DestroyExpression": {
-      "type": "PREC",
-      "value": 14,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_Destroy"
-          },
-          {
-            "type": "FIELD",
-            "name": "Expression",
-            "content": {
-              "type": "SYMBOL",
-              "name": "expression"
-            }
-          }
-        ]
-      }
-    },
     "ReferenceExpression": {
       "type": "PREC",
       "value": 14,
@@ -3634,7 +3628,7 @@
         ]
       }
     },
-    "castingOp": {
+    "_castingOp": {
       "type": "CHOICE",
       "members": [
         {
@@ -3659,7 +3653,7 @@
         "members": [
           {
             "type": "FIELD",
-            "name": "Expression",
+            "name": "expression",
             "content": {
               "type": "SYMBOL",
               "name": "expression"
@@ -3667,10 +3661,10 @@
           },
           {
             "type": "FIELD",
-            "name": "Operation",
+            "name": "operation",
             "content": {
               "type": "SYMBOL",
-              "name": "castingOp"
+              "name": "_castingOp"
             }
           },
           {
@@ -4674,10 +4668,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "DestroyExpression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "ReferenceExpression"
         },
         {
@@ -4735,8 +4725,11 @@
       ]
     },
     "Auth": {
-      "type": "STRING",
-      "value": "auth"
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "auth"
+      }
     },
     "_ReferenceAnnotation": {
       "type": "STRING",
@@ -4811,10 +4804,6 @@
     "False": {
       "type": "STRING",
       "value": "false"
-    },
-    "_Destroy": {
-      "type": "STRING",
-      "value": "destroy "
     },
     "SwitchCase": {
       "type": "SEQ",
@@ -4931,16 +4920,6 @@
     [
       "InvocationExpression",
       "NegateExpression",
-      "BinaryExpressionRelational"
-    ],
-    [
-      "MemberExpression",
-      "DestroyExpression",
-      "ConditionalExpression"
-    ],
-    [
-      "InvocationExpression",
-      "DestroyExpression",
       "BinaryExpressionRelational"
     ],
     [

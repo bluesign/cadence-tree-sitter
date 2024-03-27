@@ -110,10 +110,6 @@
         "named": true
       },
       {
-        "type": "DestroyExpression",
-        "named": true
-      },
-      {
         "type": "DictionaryExpression",
         "named": true
       },
@@ -861,7 +857,7 @@
     "type": "CastingExpression",
     "named": true,
     "fields": {
-      "Expression": {
+      "expression": {
         "multiple": false,
         "required": true,
         "types": [
@@ -871,12 +867,20 @@
           }
         ]
       },
-      "Operation": {
+      "operation": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "castingOp",
+            "type": "Casting",
+            "named": true
+          },
+          {
+            "type": "FailableCasting",
+            "named": true
+          },
+          {
+            "type": "ForceCasting",
             "named": true
           }
         ]
@@ -1204,22 +1208,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "DestroyExpression",
-    "named": true,
-    "fields": {
-      "Expression": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -1758,7 +1746,7 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "Access",
@@ -2221,11 +2209,6 @@
     }
   },
   {
-    "type": "Greater",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "HexadecimalLiteral",
     "named": true,
     "fields": {}
@@ -2500,10 +2483,6 @@
             "named": false
           },
           {
-            "type": ">",
-            "named": false
-          },
-          {
             "type": "AuthorizedType",
             "named": true
           },
@@ -2658,10 +2637,6 @@
           },
           {
             "type": "<",
-            "named": false
-          },
-          {
-            "type": ">",
             "named": false
           },
           {
@@ -3530,10 +3505,6 @@
             "named": false
           },
           {
-            "type": ">",
-            "named": false
-          },
-          {
             "type": "AuthorizedType",
             "named": true
           },
@@ -4053,29 +4024,6 @@
     }
   },
   {
-    "type": "castingOp",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "Casting",
-          "named": true
-        },
-        {
-          "type": "FailableCasting",
-          "named": true
-        },
-        {
-          "type": "ForceCasting",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "dictionaryEntry",
     "named": true,
     "fields": {},
@@ -4414,10 +4362,6 @@
     "named": false
   },
   {
-    "type": ">",
-    "named": false
-  },
-  {
     "type": "?",
     "named": false
   },
@@ -4483,6 +4427,10 @@
   },
   {
     "type": "ForceCasting",
+    "named": true
+  },
+  {
+    "type": "Greater",
     "named": true
   },
   {
@@ -4707,10 +4655,6 @@
   },
   {
     "type": "default",
-    "named": false
-  },
-  {
-    "type": "destroy",
     "named": false
   },
   {

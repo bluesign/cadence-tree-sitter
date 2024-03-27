@@ -57,6 +57,27 @@
     "]"
 ] @punctuation.bracket
 
-"." @punctuation.delimiter
+[
+    "."
+    ","
+    ";"
+    "?"
+    ":"
+] @punctuation.delimiter
+
+(MultiplicativeOp) @operator
+(AdditiveOp) @operator
+(BitwiseShiftOp) @operator
+(BitwiseAnd) @operator
+(BitwiseXor) @operator
+(BitwiseOr) @operator
+(RelationalOP) @operator
+(NilCoalescing) @operator
+(EqualityOp) @operator
+(LogicalAnd) @operator
+(LogicalOr) @operator
+(Transfer) @operator
+(SwapStatement) @operator
+(Move) @operator
 
 (Comment) @comment
