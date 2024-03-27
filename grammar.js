@@ -475,6 +475,7 @@ module.exports = grammar({
     _CompositeKind: (_) => choice('struct', 'resource', 'contract'),
 
     Conformances: ($) => commaSep1($.NominalType),
+    InterfaceMarker: (_) => token('interface'),
 
     CompositeDeclaration: ($) =>
       prec(
@@ -482,23 +483,10 @@ module.exports = grammar({
         seq(
           $.Access,
           field('compositeKind', $._CompositeKind),
+          optional($.InterfaceMarker),
           field('type', $.TypeIdentifier),
           optional(':'),
           field('conformances', optional($.Conformances)),
-          '{',
-          field('members', optional($.Members)),
-          '}',
-        ),
-      ),
-
-    InterfaceDeclaration: ($) =>
-      prec(
-        P.precedenceDeclaration,
-        seq(
-          $.Access,
-          field('compositeKind', $._CompositeKind),
-          'interface',
-          field('type', $.TypeIdentifier),
           '{',
           field('members', optional($.Members)),
           '}',
@@ -628,7 +616,6 @@ module.exports = grammar({
         $.FunctionDeclaration,
         $.ImportDeclaration,
         $.CompositeDeclaration,
-        $.InterfaceDeclaration,
         $.EventDeclaration,
         $.EntitlementDeclaration,
         $.transactionDeclaration,
@@ -660,7 +647,6 @@ module.exports = grammar({
             $.SpecialFunctionDeclaration,
             $.InitDeclaration,
             $.FunctionDeclaration,
-            $.InterfaceDeclaration,
             $.CompositeDeclaration,
             $.EventDeclaration,
             $.EntitlementDeclaration,

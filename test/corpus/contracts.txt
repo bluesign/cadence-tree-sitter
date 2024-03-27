@@ -296,3 +296,23 @@ contract SomeContract {
             (Access
               (Entitlements
                 (EntitlementIdentifier)))))))
+
+==================
+Contract interface
+==================
+
+access(all) contract interface NonFungibleToken: ViewResolver {
+}
+
+-----
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (InterfaceMarker)
+        (TypeIdentifier)
+        (Conformances
+          (NominalType
+            (TypeIdentifier)))))

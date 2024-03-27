@@ -29,11 +29,11 @@
 (transactionDeclaration) @keyword
 (EntitlementIdentifier) @label
 
+(InterfaceMarker) @keyword
 (CompositeDeclaration) @keyword
 
 [
     "event"
-    "interface"
     "enum"
     "fun"
     "pre"

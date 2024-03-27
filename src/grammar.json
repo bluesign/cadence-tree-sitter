@@ -1381,6 +1381,13 @@
         }
       ]
     },
+    "InterfaceMarker": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "interface"
+      }
+    },
     "CompositeDeclaration": {
       "type": "PREC",
       "value": 1,
@@ -1398,6 +1405,18 @@
               "type": "SYMBOL",
               "name": "_CompositeKind"
             }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "InterfaceMarker"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "FIELD",
@@ -1433,63 +1452,6 @@
                   "type": "BLANK"
                 }
               ]
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "FIELD",
-            "name": "members",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "Members"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "}"
-          }
-        ]
-      }
-    },
-    "InterfaceDeclaration": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "Access"
-          },
-          {
-            "type": "FIELD",
-            "name": "compositeKind",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_CompositeKind"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "interface"
-          },
-          {
-            "type": "FIELD",
-            "name": "type",
-            "content": {
-              "type": "SYMBOL",
-              "name": "TypeIdentifier"
             }
           },
           {
@@ -2054,10 +2016,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "InterfaceDeclaration"
-        },
-        {
-          "type": "SYMBOL",
           "name": "EventDeclaration"
         },
         {
@@ -2199,10 +2157,6 @@
               {
                 "type": "SYMBOL",
                 "name": "FunctionDeclaration"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "InterfaceDeclaration"
               },
               {
                 "type": "SYMBOL",

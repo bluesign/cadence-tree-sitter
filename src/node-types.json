@@ -28,10 +28,6 @@
         "named": true
       },
       {
-        "type": "InterfaceDeclaration",
-        "named": true
-      },
-      {
         "type": "VariableDeclaration",
         "named": true
       },
@@ -991,11 +987,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "Access",
+          "named": true
+        },
+        {
+          "type": "InterfaceMarker",
           "named": true
         }
       ]
@@ -2570,60 +2570,6 @@
     }
   },
   {
-    "type": "InterfaceDeclaration",
-    "named": true,
-    "fields": {
-      "compositeKind": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "contract",
-            "named": false
-          },
-          {
-            "type": "resource",
-            "named": false
-          },
-          {
-            "type": "struct",
-            "named": false
-          }
-        ]
-      },
-      "members": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "Members",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "TypeIdentifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "Access",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "InvocationExpression",
     "named": true,
     "fields": {
@@ -2786,10 +2732,6 @@
           },
           {
             "type": "InitDeclaration",
-            "named": true
-          },
-          {
-            "type": "InterfaceDeclaration",
             "named": true
           },
           {
@@ -4466,6 +4408,10 @@
     "named": false
   },
   {
+    "type": "InterfaceMarker",
+    "named": true
+  },
+  {
     "type": "LessEqual",
     "named": true
   },
@@ -4711,10 +4657,6 @@
   },
   {
     "type": "init",
-    "named": false
-  },
-  {
-    "type": "interface",
     "named": false
   },
   {
