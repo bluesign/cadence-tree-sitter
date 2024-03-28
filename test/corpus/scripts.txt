@@ -1,0 +1,29 @@
+==================
+Script
+==================
+
+access(all)
+fun main(account: Address): UFix64 {
+    return 1.0
+}
+
+-----
+
+(Program
+    (FunctionDeclaration
+    (Access)
+    (Identifier)
+    (ParameterList
+        (Parameter
+        (Identifier)
+        (TypeAnnotation
+            (NominalType
+            (Identifier)))))
+    (TypeAnnotation
+        (NominalType
+        (Identifier)))
+    (FunctionBlock
+        (Block
+        (ReturnStatement
+            (FixedPointExpression
+            (FixedPointLiteral)))))))

@@ -2,18 +2,57 @@
   "name": "tree-sitter-cadence",
   "version": "1.0.0",
   "description": "",
-  "main": "bindings/node",
+  "main": "index.js",
+  "types": "bindings/node",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tree-sitter test",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip",
+    "lint": "eslint grammar.js",
+    "lint-fix": "eslint grammar.js --fix",
+    "build-wasm": "tree-sitter build --wasm"
+  },
+  "keywords": ["parser", "cadence"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluesign/cadence-tree-sitter.git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@onflow/cadence-parser": "^0.26.0",
     "cadence-parser": "^1.0.1",
-    "nan": "^2.17.0"
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.7"
-  }
+    "eslint": "^8.47.0",
+    "eslint-config-google": "^0.14.0",
+    "tree-sitter-cli": "^0.22.2",
+    "prebuildify": "^6.0.0"
+  },
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
+  "tree-sitter": [
+    {
+      "scope": "source.cadence",
+      "injection-regex": "cadence",
+      "file-types": ["cdc"],
+      "highlights": ["queries/cadence/highlights.scm"]
+    }
+  ]
 }

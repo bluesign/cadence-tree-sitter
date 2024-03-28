@@ -1,0 +1,56 @@
+==================
+Import from address
+==================
+
+import HelloWorld from 0x42
+
+-----
+
+(Program
+    (ImportDeclaration
+    (Identifier)
+    (AddressLocation
+        (HexadecimalLiteral))))
+
+
+==================
+Import from address
+==================
+
+import 0x42
+
+-----
+
+(Program
+    (ImportDeclaration
+    (AddressLocation
+        (HexadecimalLiteral))))
+
+
+==================
+Import from name
+==================
+
+import HelloWorld from "test"
+
+-----
+
+(Program
+    (ImportDeclaration
+    (Identifier)
+    (stringLocation
+        (StringLiteral))))
+
+
+==================
+Import  name
+==================
+
+import "test"
+
+-----
+
+(Program
+    (ImportDeclaration
+    (stringLocation
+        (StringLiteral))))

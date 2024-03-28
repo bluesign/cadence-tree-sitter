@@ -1,24 +1,23 @@
 [
  (blockComment)
- (lineComment)
+ (LineComment)
 ] @comment @spell
 
-(compositeDeclaration) @type 
-(importDeclaration) @include
-(identifier) @variable
-(addressLocation) @variable
-(field) @field
+(CompositeDeclaration) @type
+(ImportDeclaration) @include
+(Identifier) @variable
+(AddressLocation) @variable
 
-(stringLiteral) @string
-(typeAnnotation) @type 
+(StringLiteral) @string
+(TypeAnnotation) @type
 
-(parameter identifier: (identifier) @parameter)
+(Parameter Identifier: (Identifier) @parameter)
 [
     "var"
     "let"
 ] @type.qualifier
 
-(access) @keyword
+(Access) @keyword
 
 [
   "contract"
@@ -29,9 +28,8 @@
   "enum"
 ] @keyword
 
-(invokeExpression target: (identifierExpression) @function.call) ; foo()
-(invokeExpression target: (memberAccessExpression) @function.call) ; foo()
+; (InvocationExpression Identifier: (IdentifierExpression) @function.call) ; foo()
+; (InvocationExpression Identifier: (MemberExpression) @function.call) ; foo()
 
 
-(integerLiteral) @number
-
+(IntegerLiteral) @number

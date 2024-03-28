@@ -1,13 +1,13 @@
-(importDeclaration (identifier) @definition.import)
-(functionDeclaration identifier: (identifier) @definition.function)
-(compositeDeclaration identifier: (identifier) @definition.namespace)
+(ImportDeclaration (Identifier) @definition.import)
+(FunctionDeclaration Identifier: (Identifier) @definition.function)
+(CompositeDeclaration Identifier: (Identifier) @definition.namespace)
 
 ; Scopes
 [
- (compositeDeclaration)
- (forStatement)
- (ifStatement)
- (switchStatement)
- (functionDeclaration)
- (compositeDeclaration)
+ (CompositeDeclaration)
+ (ForStatement)
+ (IfStatement)
+ (SwitchStatement)
+ (FunctionDeclaration)
+ (CompositeDeclaration)
 ] @scope

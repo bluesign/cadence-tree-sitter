@@ -1,0 +1,166 @@
+==================
+Transaction
+==================
+
+transaction {}
+
+---
+
+(Program
+  (transactionDeclaration))
+
+==================
+Transaction Arguments
+==================
+
+transaction(amount: UFix64) {}
+
+---
+
+(Program
+    (transactionDeclaration
+    (ParameterList
+        (Parameter
+        (Identifier)
+        (TypeAnnotation
+            (NominalType
+            (Identifier)))))))
+
+==================
+Transaction Phases (TODO: fix me)
+:error
+==================
+
+transaction {
+    prepare() {
+    }
+
+    pre {
+    }
+
+    execute {
+    }
+
+    post {
+    }
+}
+
+---
+
+(Program
+    (transactionDeclaration
+    (prepare
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (ParameterList)
+            (FunctionBlock))))
+    (PreConditions
+        (Condition
+        (FixedPointExpression
+            (FixedPointLiteral
+            (MISSING "_positiveFixedPointLiteral_token1")))))
+    (execute
+        (Identifier)
+        (Block
+        (ExpressionStatement
+            (FixedPointExpression
+            (FixedPointLiteral
+                (MISSING "_positiveFixedPointLiteral_token1"))))))))))(Condition
+(FixedPointExpression
+(FixedPointLiteral
+    (MISSING "_positiveFixedPointLiteral_token1"))))
+
+==================
+Transaction Prepare Phase
+==================
+
+transaction {
+    prepare(signer1: &Account, signer2: &Account) {
+    }
+}
+
+---
+
+(Program
+    (transactionDeclaration
+    (prepare
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (ParameterList
+            (Parameter
+                (Identifier)
+                (TypeAnnotation
+                (ReferenceType
+                    (NominalType
+                    (Identifier)))))
+            (Parameter
+                (Identifier)
+                (TypeAnnotation
+                (ReferenceType
+                    (NominalType
+                    (Identifier))))))
+            (FunctionBlock))))))
+
+==================
+Transaction Prepare: authorized reference (TODO: fix me)
+:error
+==================
+
+transaction {
+    prepare(signer: auth(Storage) &Account) {
+    }
+}
+
+---
+
+(Program
+    (transactionDeclaration
+    (prepare
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (ParameterList
+            (Parameter
+                (Identifier)
+                (TypeAnnotation
+                (NominalType
+                    (Identifier))))
+            (ERROR
+                (UNEXPECTED 'S')
+                (UNEXPECTED 'g'))))))))))(ERROR
+(UNEXPECTED 'o'))(FunctionBlock)
+
+
+==================
+Transaction post condition
+==================
+
+transaction {
+    prepare() {
+    }
+
+    post {
+        signer.balance == 30.0: "Balance after transaction is incorrect!"
+    }
+}
+
+---
+
+(Program
+    (transactionDeclaration
+    (prepare
+        (SpecialFunctionDeclaration
+        (FunctionDeclaration_
+            (ParameterList)
+            (FunctionBlock))))
+    (Condition
+        (BinaryExpressionEquality
+        (MemberExpression
+            (IdentifierExpression
+            (Identifier))
+            (Identifier))
+        (EqualityOp
+            (Equal))
+        (FixedPointExpression
+            (FixedPointLiteral)))
+        (StringExpression
+        (StringLiteral)))))
