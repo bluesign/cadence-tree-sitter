@@ -1,0 +1,50 @@
+==================
+Emit event
+==================
+
+access(account) fun emitEvtFn() {
+    emit HelloEvent (
+        prop1: HelloWorld2.prop1,
+        prop2: HelloWorld2.fn1(),
+        prop3: HelloWorld2.prop1 + HelloWorld2.fn1(),
+    )
+}
+
+------
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Block
+          (EmitStatement
+            (TypeIdentifier)
+            (Argument
+              (Identifier)
+              (MemberExpression
+                (IdentifierExpression
+                  (Identifier))
+                (Identifier)))
+            (Argument
+              (Identifier)
+              (InvocationExpression
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))))
+            (Argument
+              (Identifier)
+              (AdditiveExpression
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))
+                (AdditiveOp
+                  (Plus))
+                (InvocationExpression
+                  (MemberExpression
+                    (IdentifierExpression
+                      (Identifier))
+                    (Identifier)))))))))

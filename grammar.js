@@ -52,7 +52,6 @@ const P = {
   // precedenceUnaryPrefix is the precedence of
   // - UnaryExpression
   // - CreateExpression
-  // - DestroyExpression
   // - ReferenceExpression
   precedenceUnaryPrefix: 14,
   // precedenceUnaryPostfix is the precedence of
@@ -75,7 +74,17 @@ const P = {
   // - FunctionExpression
   // - PathExpression
   // - AttachExpression
+  // - CastExpression
   precedenceLiteral: 17,
+
+  instantiationType: 17,
+  optionalType: 18,
+  resourceType: 19,
+  otherType: 20,
+  basicType: 21,
+
+  precedenceEntitlementOr: 1,
+  precedenceEntitlementAnd: 2,
 
   precedenceDeclaration: 1,
 };
@@ -84,8 +93,7 @@ module.exports = grammar({
   name: 'cadence',
 
   extras: ($) => [
-    $.LineComment,
-    $.blockComment,
+    $.Comment,
     /[\s\uFEFF\u2060\u200B]/, // TODO:@bluesign check me
     /\n\t/,
   ],
@@ -94,8 +102,6 @@ module.exports = grammar({
   conflicts: ($) => [
     [$.ConditionalExpression, $.MemberExpression, $.NegateExpression],
     [$.InvocationExpression, $.NegateExpression, $.BinaryExpressionRelational],
-    [$.MemberExpression, $.DestroyExpression, $.ConditionalExpression],
-    [$.InvocationExpression, $.DestroyExpression, $.BinaryExpressionRelational],
     [$.MemberExpression, $.UnaryMoveExpression, $.ConditionalExpression],
     [
       $.InvocationExpression,
@@ -109,17 +115,16 @@ module.exports = grammar({
     ],
 
     [$._TypeHintOpen, $.Less],
+    [$.TypeIdentifier, $.Identifier],
+
 
     [$.FunctionExpression],
-    [$.TypeAnnotation],
+
     [$.BinaryExpressionRelational],
     [$.VariableDeclaration],
     [$.FunctionDeclaration],
     [$.ExpressionStatement, $.AssignmentStatement],
 
-    [$.RestrictedType, $.TypeAnnotation],
-    [$.EmitStatement, $.expression],
-    [$._Restrictions, $._BasicType],
     [$.nestedFunctionDeclaration, $.FunctionDeclaration],
 
     [$.MemberExpression, $.BitwiseExpressionXor, $.ConditionalExpression],
@@ -173,14 +178,18 @@ module.exports = grammar({
     [$.MemberExpression, $.BinaryExpressionRelational, $.ConditionalExpression],
   ],
   rules: {
-    Program: ($) => field('Declarations', $._Declarations),
+    Program: ($) => optional($._Declarations),
 
     _eos: (_) => repeat1(choice(';')),
 
-    // blockComment: _ => /\/[*]+([^*]|([*][^/]))*[*]+\//,
-    LineComment: ($) => /\/\/.*[\n\r]/,
-
-    blockComment: ($) => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
+    Comment: (_) => token(choice(
+      seq('//', /.*/),
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/',
+      ),
+    )),
 
     _positiveFixedPointLiteral: (_) =>
       prec(2, /([0-9_]*[0-9])\.[0-9]([0-9_]*[0-9])?/),
@@ -215,19 +224,81 @@ module.exports = grammar({
 
     _Declarations: ($) => repeat1(seq($.declaration, optional($._eos))),
 
-    // Identifier
-    Identifier: ($) => /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+    Identifier: ($) => token(/[a-zA-Z_]([0-9a-zA-Z_]*)?/),
+    TypeBuiltin: ($) => choice(
+      'Bool',
+      'String',
+      'Address',
+      'AnyStruct',
+      'AnyResource',
+      'Never',
+      'Character',
+      'Void',
+      'Int', 'Int8', 'Int16', 'Int32', 'Int64', 'Int128', 'Int256',
+      'UInt', 'UInt8', 'UInt16', 'UInt32', 'UInt64', 'UInt128', 'UInt256',
+      'Word8', 'Word16', 'Word32', 'Word64', 'Word128', 'Word256',
+      'Fix64', 'UFix64',
+    ),
+    TypeIdentifier: ($) => choice($.TypeBuiltin, /[a-zA-Z_]([0-9a-zA-Z_]*)?/),
+
+    EntitlementIdentifier: ($) => seq(
+      optional('mapping'),
+      choice(
+        /[a-zA-Z_]([0-9a-zA-Z_]*)?/,
+        $._EntitlementIdentifierBuiltin,
+      ),
+    ),
+    _EntitlementIdentifierBuiltin: (_) => choice(
+      'self',
+      'contract',
+      'account',
+      'all',
+    ),
+
+    EntitlementQualifiedIdentifier: ($) => seq(
+      optional('mapping'),
+      $.TypeIdentifier,
+      optional(repeat(seq('.', $.TypeIdentifier))),
+      '.',
+      $.EntitlementIdentifier,
+    ),
+    _EntitlementExpression: ($) => choice(
+      $.EntitlementIdentifier,
+      $.EntitlementQualifiedIdentifier,
+      $.EntitlementExpressionOr,
+      $.EntitlementExpressionAnd,
+    ),
+
+    EntitlementExpressionOr: ($) =>
+      prec.left(
+        P.precedenceEntitlementOr,
+        seq(
+          field('left', $._EntitlementExpression),
+          '|',
+          field('right', $._EntitlementExpression),
+        ),
+      ),
+
+    EntitlementExpressionAnd: ($) =>
+      prec.left(
+        P.precedenceEntitlementAnd,
+        seq(
+          field('left', $._EntitlementExpression),
+          ',',
+          field('right', $._EntitlementExpression),
+        ),
+      ),
+
+    Entitlements: ($) => $._EntitlementExpression,
 
     // Access
     Access: ($) =>
       choice(
-        'priv',
-        seq('pub', optional(seq($._OpenParen, 'set', $._CloseParen))),
         seq(
           'access',
-          $._OpenParen,
-          choice('self', 'contract', 'account', 'all'),
-          $._CloseParen,
+          '(',
+          $.Entitlements,
+          ')',
         ),
       ),
 
@@ -243,17 +314,22 @@ module.exports = grammar({
         ),
       ),
 
+    AuthorizedType: ($) => seq('auth', '(', $.Entitlements, ')', $.ReferenceType),
+
     _Restrictions: ($) =>
       seq(
-        $._OpenCurly,
+        '{',
         choice(commaSep1($.NominalType), $.NominalType),
-        $._CloseCurly,
+        '}',
       ),
 
     InstantiationType: ($) =>
-      seq(
-        field('InstantiatedType', $.TypeAnnotation),
-        field('TypeArguments', $._TypeArguments),
+      prec(
+        P.instantiationType,
+        seq(
+          field('InstantiatedType', $._type),
+          field('TypeArguments', $._TypeArguments),
+        ),
       ),
 
     RestrictedType: ($) =>
@@ -262,35 +338,45 @@ module.exports = grammar({
         field('Restrictions', $._Restrictions),
       ),
 
+    ResourceType: ($) =>
+      prec(
+        P.resourceType,
+        seq(
+          '@',
+          $._type,
+        ),
+      ),
+
     OptionalType: ($) =>
-      seq(field('ElementType', $._type), $.OptionalOperator_Immediate),
+      prec(
+        P.optionalType,
+        seq(
+          field('ElementType', $._type),
+          $._OptionalOperator_Immediate,
+        ),
+      ),
 
     _type: ($) =>
       choice(
-        $._BasicType,
         $.FunctionType,
+        $.AuthorizedType,
         $.ReferenceType,
         $.OptionalType,
+        $.ResourceType,
         $.RestrictedType,
         $.InstantiationType,
+        $._BasicType,
       ),
 
     _BasicType: ($) =>
-      choice(
-        $.NominalType,
-        $.VariableSizedType,
-        $.ConstantSizedType,
-        $.DictionaryType,
-      ),
-
-    // type annotation
-    TypeAnnotation: ($) =>
-      choice(
-        seq(
-          field('IsResource', $.ResourceAnnotation),
-          field('AnnotatedType', commaSep1($._type)),
+      prec(
+        P.basicType,
+        choice(
+          $.NominalType,
+          $.VariableSizedType,
+          $.ConstantSizedType,
+          $.DictionaryType,
         ),
-        seq(field('AnnotatedType', commaSep1($._type))),
       ),
 
     VariableKind: (_) => choice('let', 'var'),
@@ -316,7 +402,7 @@ module.exports = grammar({
           field('VariableKind', $.VariableKind),
           field('Identifier', $.Identifier),
           optional(
-            seq($._SemiColon, field('TypeAnnotation', $.TypeAnnotation)),
+            seq(':', field('type', $._type)),
           ),
           field('Transfer', $.Transfer),
           field('Value', $.expression),
@@ -336,21 +422,18 @@ module.exports = grammar({
         seq(
           field('Label', optional($.Identifier)),
           field('Identifier', $.Identifier),
-          $._SemiColon,
-          field('TypeAnnotation', $.TypeAnnotation),
+          ':',
+          field('type', $._type),
         ),
       ),
 
     _hiddenComma: (_) => ',',
     // @bluesign: trailing comma is valid in parameter list
-    _Parameters: ($) =>
-      prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma))),
-
-    ParameterList: ($) =>
+    _ParameterList: ($) =>
       seq(
-        $._OpenParen,
-        field('Parameters', seq(optional($._Parameters))),
-        $._CloseParen,
+        '(',
+        seq(optional(prec.left(seq(commaSep1($.Parameter), optional($._hiddenComma))))),
+        ')',
       ),
 
     nestedFunctionDeclaration: ($) =>
@@ -358,63 +441,55 @@ module.exports = grammar({
         P.precedenceDeclaration,
         seq(
           field('Access', optional($.Access)),
-          $._Fun,
+          'fun',
           field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          $._ParameterList,
           field(
-            'ReturnTypeAnnotation',
-            optional(seq($._SemiColon, $.TypeAnnotation)),
+            'type',
+            optional(seq(':', $._type)),
           ),
-          field('FunctionBlock', $.FunctionBlock),
+          $._FunctionBlock,
         ),
       ),
 
-    stringLocation: ($) => $.StringLiteral,
-    AddressLocation: ($) => seq(field('Address', $.HexadecimalLiteral)),
+    Address: ($) => seq(field('Address', $.HexadecimalLiteral)),
 
     ImportDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          $._Import,
-          field('Identifiers', optional(seq(commaSep1($.Identifier), $._From))),
+          'import',
+          optional(
+            field(
+              'type',
+              seq(commaSep1($.TypeIdentifier), 'from'),
+            ),
+          ),
           field(
-            'Location',
-            choice($.stringLocation, $.AddressLocation, $.Identifier),
+            'location',
+            choice($.StringLiteral, $.Address, $.TypeIdentifier),
           ),
         ),
       ),
 
-    CompositeKind: (_) => choice('struct', 'resource', 'contract'),
+    _CompositeKind: (_) => choice('struct', 'resource', 'contract'),
 
-    _Conformances: ($) => commaSep1($.NominalType),
+    Conformances: ($) => commaSep1($.NominalType),
+    InterfaceMarker: (_) => token('interface'),
 
     CompositeDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
-          field('CompositeKind', $.CompositeKind),
-          field('Identifier', $.Identifier),
-          optional($._SemiColon),
-          field('Conformances', optional($._Conformances)),
-          $._OpenCurly,
-          field('Members', optional($.Members)),
-          $._CloseCurly,
-        ),
-      ),
-
-    InterfaceDeclaration: ($) =>
-      prec(
-        P.precedenceDeclaration,
-        seq(
-          field('Access', $.Access),
-          field('CompositeKind', $.CompositeKind),
-          'interface',
-          field('Identifier', $.Identifier),
-          $._OpenCurly,
-          field('Members', optional($.Members)),
-          $._CloseCurly,
+          $.Access,
+          field('compositeKind', $._CompositeKind),
+          optional($.InterfaceMarker),
+          field('type', $.TypeIdentifier),
+          optional(':'),
+          field('conformances', optional($.Conformances)),
+          '{',
+          field('members', optional($.Members)),
+          '}',
         ),
       ),
 
@@ -422,10 +497,20 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           'event',
           field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          $._ParameterList,
+        ),
+      ),
+
+    EntitlementDeclaration: ($) =>
+      prec(
+        P.precedenceDeclaration,
+        seq(
+          $.Access,
+          'entitlement',
+          $.EntitlementIdentifier,
         ),
       ),
 
@@ -433,51 +518,64 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          $.Access,
           'enum',
           field('Identifier', $.Identifier),
-          $._SemiColon,
+          ':',
           field('typeAnnotation', $.NominalType),
-          $._OpenCurly,
+          '{',
           field('Declarations', repeat($.EnumCaseDeclaration)),
-          $._CloseCurly,
+          '}',
         ),
       ),
 
     EnumCaseDeclaration: ($) =>
-      seq(field('Access', $.Access), 'case', field('Identifier', $.Identifier)),
+      seq(
+        $.Access,
+        'case',
+        field('Identifier', $.Identifier),
+      ),
 
     prepare: ($) => $.SpecialFunctionDeclaration,
-    execute: ($) => seq($.Identifier, $._OpenCurly, $.Block, $._CloseCurly),
+    execute: ($) => seq('execute', '{', optional($.Block), '}'),
 
     FunctionDeclaration_: ($) =>
       seq(
-        field('Access', optional($.Access)),
-        field('Identifier', choice('prepare', 'init', 'destroy')),
-        field('ParameterList', $.ParameterList),
-        field('FunctionBlock', optional($.FunctionBlock)),
+        optional($.Access),
+        choice('prepare'),
+        $._ParameterList,
+        optional($._FunctionBlock),
+      ),
+
+    InitDeclaration: ($) =>
+      seq(
+        optional($.Access),
+        optional('view'),
+        'init',
+        $._ParameterList,
+        optional($._FunctionBlock),
       ),
 
     SpecialFunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
-        seq(field('FunctionDeclaration', $.FunctionDeclaration_)),
+        $.FunctionDeclaration_,
       ),
 
     FunctionDeclaration: ($) =>
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
-          field('View', optional('view')),
-          $._Fun,
-          field('Identifier', $.Identifier),
-          field('ParameterList', $.ParameterList),
+          $.Access,
+          optional('view'),
+          'fun',
+          field('name', $.Identifier),
+          $._ParameterList,
           optional(
-            seq($._SemiColon, field('ReturnTypeAnnotation', $.TypeAnnotation)),
+            seq(':', field('type', $._type)),
           ),
           optional('\n'),
-          field('FunctionBlock', optional($.FunctionBlock)),
+          optional($._FunctionBlock),
         ),
       ),
 
@@ -486,8 +584,8 @@ module.exports = grammar({
         P.precedenceDeclaration,
         seq(
           'transaction',
-          field('ParameterList', optional($.ParameterList)),
-          $._OpenCurly,
+          optional($._ParameterList),
+          '{',
           field('Fields', optional($.Fields)),
           field('prepare', optional($.prepare)),
           field('PreConditions', optional($.PreConditions)),
@@ -505,7 +603,7 @@ module.exports = grammar({
               ),
             ),
           ),
-          $._CloseCurly,
+          '}',
         ),
       ),
 
@@ -518,8 +616,8 @@ module.exports = grammar({
         $.FunctionDeclaration,
         $.ImportDeclaration,
         $.CompositeDeclaration,
-        $.InterfaceDeclaration,
         $.EventDeclaration,
+        $.EntitlementDeclaration,
         $.transactionDeclaration,
         $.pragmaDeclaration,
         $.EnumDeclaration,
@@ -529,11 +627,11 @@ module.exports = grammar({
       prec(
         P.precedenceDeclaration,
         seq(
-          field('Access', $.Access),
+          optional($.Access),
           field('VariableKind', optional($.VariableKind)),
           field('Identifier', $.Identifier),
-          $._SemiColon,
-          field('TypeAnnotation', $.TypeAnnotation),
+          ':',
+          field('type', $._type),
         ),
       ),
 
@@ -547,10 +645,11 @@ module.exports = grammar({
           choice(
             $.FieldDeclaration,
             $.SpecialFunctionDeclaration,
+            $.InitDeclaration,
             $.FunctionDeclaration,
-            $.InterfaceDeclaration,
             $.CompositeDeclaration,
             $.EventDeclaration,
+            $.EntitlementDeclaration,
             $.pragmaDeclaration,
             $.EnumDeclaration,
           ),
@@ -562,9 +661,9 @@ module.exports = grammar({
       prec.right(
         seq(
           seq(
-            field('Identifier', $.Identifier),
+            field('Identifier', $.TypeIdentifier),
             optional(
-              repeat(seq('.', field('NestedIdentifiers', $.Identifier))),
+              repeat(seq('.', field('NestedIdentifiers', $.TypeIdentifier))),
             ),
           ),
         ),
@@ -572,14 +671,14 @@ module.exports = grammar({
 
     FunctionType: ($) =>
       seq(
-        $._OpenParen,
-        optional($._Fun), // TODO: @bluesign check this
-        $._OpenParen,
-        commaSep1($.TypeAnnotation),
-        $._CloseParen,
-        $._SemiColon,
-        $.TypeAnnotation,
-        $._CloseParen,
+        '(',
+        optional('fun'), // TODO: @bluesign check this
+        '(',
+        commaSep1($._type),
+        ')',
+        ':',
+        $._type,
+        ')',
       ),
 
     VariableSizedType: ($) => seq('[', field('ElementType', $._type), ']'),
@@ -595,44 +694,41 @@ module.exports = grammar({
 
     DictionaryType: ($) =>
       seq(
-        $._OpenCurly,
+        '{',
         field('KeyType', $._type),
-        $._SemiColon,
+        ':',
         field('ValueType', $._type),
-        $._CloseCurly,
+        '}',
       ),
 
     Block: ($) => seq(field('Statements', $._Statements)),
 
-    FunctionBlock: ($) =>
+    _FunctionBlock: ($) =>
       seq(
-        $._OpenCurly,
+        '{',
         field('PreConditions', optional($.PreConditions)),
         field('PostConditions', optional($._PostConditions)),
         field('Block', optional($.Block)),
-        $._CloseCurly,
+        '}',
       ),
 
     PreConditions: ($) =>
-      seq($._Pre, $._OpenCurly, $._Conditions, $._CloseCurly),
+      seq('pre', '{', optional($._Conditions), '}'),
 
     _PostConditions: ($) =>
-      seq($._Post, $._OpenCurly, $._Conditions, $._CloseCurly),
+      seq('post', '{', optional($._Conditions), '}'),
 
     _Conditions: ($) => repeat1(seq($.Condition)),
 
     Condition: ($) =>
       seq(
-        field('Test', $.expression),
+        field('test', $.expression),
         optional(
           seq(
-            optional('\n'),
-            $._SemiColon,
-            optional('\n'),
-            field('Message', choice($.expression)),
+            ':',
+            field('message', choice($.expression)),
           ),
         ),
-        optional($._eos),
       ),
 
     _Statements: ($) =>
@@ -673,24 +769,24 @@ module.exports = grammar({
 
     IfStatement: ($) =>
       seq(
-        $._If,
+        'if',
         field('Test', choice($.expression, $.VariableDeclaration)),
-        $._OpenCurly,
+        '{',
         field('Then', $.Block),
-        $._CloseCurly,
+        '}',
         optional(
           seq(
             $._Else,
             field(
               'Else',
-              choice($.IfStatement, seq($._OpenCurly, $.Block, $._CloseCurly)),
+              choice($.IfStatement, seq('{', $.Block, '}')),
             ),
           ),
         ),
       ),
 
     WhileStatement: ($) =>
-      seq('while', $.expression, $._OpenCurly, $.Block, $._CloseCurly),
+      seq('while', $.expression, '{', $.Block, '}'),
 
     ForStatement: ($) =>
       seq(
@@ -698,13 +794,19 @@ module.exports = grammar({
         field('Identifier', commaSep1($.Identifier)),
         'in',
         field('Expression', $.expression),
-        $._OpenCurly,
+        '{',
         field('Block', $.Block),
-        $._CloseCurly,
+        '}',
       ),
 
+    _Property: ($) => $.Identifier,
+
     EmitStatement: ($) =>
-      seq('emit', field('InvocationExpression', $.InvocationExpression)),
+      seq(
+        'emit',
+        field('type', $.TypeIdentifier),
+        $._Arguments,
+      ),
 
     AssignmentStatement: ($) =>
       seq(
@@ -719,26 +821,26 @@ module.exports = grammar({
       prec(
         1070,
         seq(
-          optional($._OpenParen),
-          optional($._Fun),
-          field('ParameterList', $.ParameterList),
+          optional('('),
+          optional('fun'),
+          $._ParameterList,
           field(
-            'ReturnTypeAnnotation',
-            optional(seq($._SemiColon, $.TypeAnnotation)),
+            'type',
+            optional(seq(':', $._type)),
           ),
-          $.FunctionBlock,
-          optional($._CloseParen),
+          $._FunctionBlock,
+          optional(')'),
         ),
       ),
 
     NestedExpression: ($) =>
       prec(
         P.precedenceAccess,
-        seq($._OpenParen, field('Expression', $.expression), $._CloseParen),
+        seq('(', field('Expression', $.expression), ')'),
       ),
 
     OptionalOperator: (_) => '?',
-    OptionalOperator_Immediate: (_) => token.immediate('?'),
+    _OptionalOperator_Immediate: (_) => token.immediate('?'),
 
     MemberExpression: ($) =>
       prec(
@@ -763,31 +865,61 @@ module.exports = grammar({
       ),
 
     _TypeHintOpen: (_) => '<',
-    _TypeHintClose: (_) => '>',
+    _TypeHintClose: (_) => token.immediate('>'),
 
     _TypeArguments: ($) =>
-      seq($._TypeHintOpen, commaSep1($.TypeAnnotation), $._TypeHintClose),
+      seq($._TypeHintOpen, commaSep1($._type), $._TypeHintClose),
 
-    Invocation: ($) =>
-      seq(
-        $._OpenParen,
-        field('Arguments', optional($._Arguments)),
-        optional(','),
-        $._CloseParen,
-      ),
+    Invocation: ($) => $._Arguments,
 
-    _Arguments: ($) => commaSep1($.Argument),
+    _Arguments: ($) => seq(
+      '(',
+      seq(commaSep($.Argument)),
+      optional(','),
+      ')',
+    ),
 
     //                optional(','), //TODO: check bug
     InvocationExpression: ($) =>
       prec(
         P.precedenceAccess,
         seq(
-          field('InvokedExpression', $.expression),
+          field('invoked', $.expression),
           field('TypeArguments', optional($._TypeArguments)),
-          $._OpenParen,
-          field('Arguments', optional($._Arguments)),
-          $._CloseParen,
+          $._Arguments,
+        ),
+      ),
+
+    CastExpression: ($) =>
+      prec(
+        P.precedenceLiteral,
+        seq(
+          $._type,
+          '(',
+          $.Argument,
+          ')',
+        ),
+      ),
+
+    SpecialFunctionIdentifier: (_) =>
+      choice(
+        'panic',
+        'assert',
+        'log',
+        'revertibleRandom',
+        'decodeString',
+        'decodeList',
+        'getCurrentBlock',
+        'getBlock',
+      ),
+
+    SpecialFunctionExpression: ($) =>
+      prec(
+        P.precedenceAccess,
+        seq(
+          $.SpecialFunctionIdentifier,
+          field('TypeArguments', optional($._TypeArguments)),
+          $._Arguments,
         ),
       ),
 
@@ -817,13 +949,11 @@ module.exports = grammar({
     CreateExpression: ($) =>
       prec(
         P.precedenceUnaryPrefix,
-        seq($._Create, field('InvocationExpression', $.InvocationExpression)),
-      ),
-
-    DestroyExpression: ($) =>
-      prec(
-        P.precedenceUnaryPrefix,
-        seq($._Destroy, field('Expression', $.expression)),
+        seq(
+          'create',
+          field('type', $._type),
+          $._Arguments,
+        ),
       ),
 
     // TODO: check
@@ -838,16 +968,16 @@ module.exports = grammar({
         ),
       ),
 
-    castingOp: ($) => choice($.Casting, $.FailableCasting, $.ForceCasting),
+    _castingOp: ($) => choice($.Casting, $.FailableCasting, $.ForceCasting),
 
     // Cast precedence: as, as?, as!
     CastingExpression: ($) =>
       prec(
         P.precedenceCasting,
         seq(
-          field('Expression', $.expression),
-          field('Operation', $.castingOp),
-          field('TypeAnnotation', $.TypeAnnotation),
+          field('expression', $.expression),
+          field('operation', $._castingOp),
+          field('type', $._type),
         ),
       ),
 
@@ -1018,7 +1148,7 @@ module.exports = grammar({
           field('Test', $.expression),
           '?',
           field('Then', $.expression),
-          $._SemiColon,
+          ':',
           field('Else', $.expression),
         ),
       ),
@@ -1087,10 +1217,10 @@ module.exports = grammar({
     DictionaryExpression: ($) =>
       prec(
         P.precedenceLiteral,
-        seq($._OpenCurly, commaSep($.dictionaryEntry), $._CloseCurly),
+        seq('{', commaSep($.dictionaryEntry), '}'),
       ),
 
-    dictionaryEntry: ($) => seq($.expression, $._SemiColon, $.expression),
+    dictionaryEntry: ($) => seq($.expression, ':', $.expression),
 
     expression: ($) =>
       choice(
@@ -1108,12 +1238,13 @@ module.exports = grammar({
         // TODO: AttachExpression
         $.IndexExpression,
         $.InvocationExpression,
+        $.CastExpression,
+        $.SpecialFunctionExpression,
         $.MemberExpression,
         $.ForceExpression,
         $.UnaryMoveExpression,
         $.NegateExpression,
         $.CreateExpression,
-        $.DestroyExpression,
         $.ReferenceExpression,
         $.CastingExpression,
         $.MultiplicativeExpression,
@@ -1130,12 +1261,10 @@ module.exports = grammar({
         $.ConditionalExpression,
       ),
 
-    Auth: (_) => 'auth',
+    Auth: (_) => token.immediate('auth'),
     _ReferenceAnnotation: (_) => '&',
 
     _Negate: (_) => '!',
-
-    _Optional: (_) => '?',
 
     NilCoalescing: (_) => '??',
 
@@ -1143,53 +1272,15 @@ module.exports = grammar({
     FailableCasting: (_) => 'as?',
     ForceCasting: (_) => 'as!',
 
-    ResourceAnnotation: (_) => '@',
-
     Argument: ($) =>
       seq(
-        optional(seq(field('Label', $.Identifier), $._SemiColon)),
+        optional(seq(field('Label', $.Identifier), ':')),
         field('Expression', $.expression),
       ),
 
-    _OpenCurly: (_) => '{',
-    _OpenCurly_Immidiate: (_) => token.immediate('{'),
-    _CloseCurly: (_) => '}',
-
-    _OpenParen: (_) => '(',
-    _CloseParen: (_) => ')',
-    _Struct: (_) => token('struct '),
-    _Resource: (_) => token('resource '),
-    _Contract: (_) => token('contract '),
-    _Interface: (_) => token('interface '),
-    _Fun: (_) => token('fun'),
-    _Event: (_) => 'event ',
-    _Emit: (_) => 'emit ',
-    _Pre: (_) => 'pre',
-    _Post: (_) => 'post',
-    _Priv: (_) => 'priv',
-    _Pub: (_) => 'pub ',
-    _Set: (_) => 'set',
-    _Access: (_) => 'access',
-    _All: (_) => 'all',
-    _Account: (_) => 'account',
-    _Return: (_) => 'return',
-    _Break: (_) => 'break',
-    _Continue: (_) => 'continue',
-    _Let: (_) => 'let ',
-    _Var: (_) => 'var ',
-    _If: (_) => 'if',
     _Else: (_) => 'else',
-    _While: (_) => 'while',
-    _For: (_) => 'for',
-    _In: (_) => 'in ',
     True: (_) => 'true',
     False: (_) => 'false',
-    _Nil: (_) => 'nil',
-    _Import: (_) => 'import ',
-    _From: (_) => 'from ',
-    _Create: (_) => 'create ',
-    _Destroy: (_) => 'destroy ',
-    _SemiColon: (_) => ':',
 
     SwitchCase: ($) =>
       seq(

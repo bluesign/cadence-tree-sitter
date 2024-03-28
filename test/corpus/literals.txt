@@ -1,0 +1,42 @@
+==================
+Literals
+==================
+
+access(all) fun main() {
+    0x42
+    "test"
+    0.0
+    0
+    true
+    false
+}
+
+-----
+
+(Program
+    (FunctionDeclaration
+      (Access
+          (Entitlements
+              (EntitlementIdentifier)))
+    (Identifier)
+    (Block
+    (ExpressionStatement
+        (IntegerExpression
+            (HexadecimalLiteral)))
+    (ExpressionStatement
+        (StringExpression
+            (StringLiteral)))
+    (ExpressionStatement
+        (FixedPointExpression
+            (FixedPointLiteral)))
+    (ExpressionStatement
+        (IntegerExpression
+            (IntegerLiteral)))
+    (ExpressionStatement
+        (BooleanExpression
+            (BooleanLiteral
+            (True))))
+    (ExpressionStatement
+        (BooleanExpression
+            (BooleanLiteral
+            (False)))))))

@@ -1,4 +1,16 @@
 ==================
+Import builtin
+==================
+
+import Crypto
+
+-----
+
+(Program
+    (ImportDeclaration
+        (TypeIdentifier)))
+
+==================
 Import from address
 ==================
 
@@ -8,10 +20,9 @@ import HelloWorld from 0x42
 
 (Program
     (ImportDeclaration
-    (Identifier)
-    (AddressLocation
-        (HexadecimalLiteral))))
-
+        (TypeIdentifier)
+        (Address
+            (HexadecimalLiteral))))
 
 ==================
 Import from address
@@ -23,9 +34,8 @@ import 0x42
 
 (Program
     (ImportDeclaration
-    (AddressLocation
+    (Address
         (HexadecimalLiteral))))
-
 
 ==================
 Import from name
@@ -37,9 +47,8 @@ import HelloWorld from "test"
 
 (Program
     (ImportDeclaration
-    (Identifier)
-    (stringLocation
-        (StringLiteral))))
+    (TypeIdentifier)
+    (StringLiteral)))
 
 
 ==================
@@ -52,5 +61,4 @@ import "test"
 
 (Program
     (ImportDeclaration
-    (stringLocation
-        (StringLiteral))))
+    (StringLiteral)))

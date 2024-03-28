@@ -19,16 +19,16 @@ transaction(amount: UFix64) {}
 
 (Program
     (transactionDeclaration
-    (ParameterList
-        (Parameter
+    (Parameter
         (Identifier)
-        (TypeAnnotation
-            (NominalType
-            (Identifier)))))))
+        (NominalType
+            (TypeIdentifier
+            (TypeBuiltin))))))
+
+
 
 ==================
-Transaction Phases (TODO: fix me)
-:error
+Transaction Phases
 ==================
 
 transaction {
@@ -47,28 +47,14 @@ transaction {
 
 ---
 
-(Program
-    (transactionDeclaration
-    (prepare
-        (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (ParameterList)
-            (FunctionBlock))))
-    (PreConditions
-        (Condition
-        (FixedPointExpression
-            (FixedPointLiteral
-            (MISSING "_positiveFixedPointLiteral_token1")))))
-    (execute
-        (Identifier)
-        (Block
-        (ExpressionStatement
-            (FixedPointExpression
-            (FixedPointLiteral
-                (MISSING "_positiveFixedPointLiteral_token1"))))))))))(Condition
-(FixedPointExpression
-(FixedPointLiteral
-    (MISSING "_positiveFixedPointLiteral_token1"))))
+    (Program
+      (transactionDeclaration
+        (prepare
+          (SpecialFunctionDeclaration
+            (FunctionDeclaration_)))
+        (PreConditions)
+        (execute)))
+
 
 ==================
 Transaction Prepare Phase
@@ -86,24 +72,20 @@ transaction {
     (prepare
         (SpecialFunctionDeclaration
         (FunctionDeclaration_
-            (ParameterList
-            (Parameter
+              (Parameter
                 (Identifier)
-                (TypeAnnotation
-                (ReferenceType
+                  (ReferenceType
                     (NominalType
-                    (Identifier)))))
-            (Parameter
+                      (TypeIdentifier))))
+              (Parameter
                 (Identifier)
-                (TypeAnnotation
-                (ReferenceType
+                  (ReferenceType
                     (NominalType
-                    (Identifier))))))
-            (FunctionBlock))))))
+                      (TypeIdentifier)))))))))
+
 
 ==================
-Transaction Prepare: authorized reference (TODO: fix me)
-:error
+Transaction Prepare: authorized reference
 ==================
 
 transaction {
@@ -118,16 +100,15 @@ transaction {
     (prepare
         (SpecialFunctionDeclaration
         (FunctionDeclaration_
-            (ParameterList
             (Parameter
                 (Identifier)
-                (TypeAnnotation
-                (NominalType
-                    (Identifier))))
-            (ERROR
-                (UNEXPECTED 'S')
-                (UNEXPECTED 'g'))))))))))(ERROR
-(UNEXPECTED 'o'))(FunctionBlock)
+                (AuthorizedType
+                  (Entitlements
+                    (EntitlementIdentifier))
+                  (ReferenceType
+                    (NominalType
+                      (TypeIdentifier))))))))))
+
 
 
 ==================
@@ -149,9 +130,7 @@ transaction {
     (transactionDeclaration
     (prepare
         (SpecialFunctionDeclaration
-        (FunctionDeclaration_
-            (ParameterList)
-            (FunctionBlock))))
+        (FunctionDeclaration_)))
     (Condition
         (BinaryExpressionEquality
         (MemberExpression
@@ -164,3 +143,41 @@ transaction {
             (FixedPointLiteral)))
         (StringExpression
         (StringLiteral)))))
+
+
+==================
+Transaction pre condition
+==================
+
+transaction {
+    prepare() {
+    }
+
+    pre {
+        self.nodeInfo[nodeInfo.id] == nil
+    }
+}
+
+---
+
+    (Program
+      (transactionDeclaration
+        (prepare
+          (SpecialFunctionDeclaration
+            (FunctionDeclaration_)))
+        (PreConditions
+          (Condition
+            (BinaryExpressionEquality
+              (IndexExpression
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier)))
+              (EqualityOp
+                (Equal))
+              (NilExpression
+                (NilLiteral)))))))

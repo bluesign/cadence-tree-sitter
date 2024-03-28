@@ -3,16 +3,16 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: "google",
+  extends: 'google',
   overrides: [],
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
   rules: {
-    indent: ["error", 2, { SwitchCase: 1 }],
-    "max-len": [
-      "error",
+    'indent': ['error', 2, {SwitchCase: 1}],
+    'max-len': [
+      'error',
       {
         code: 120,
         ignoreComments: true,
@@ -20,6 +20,6 @@ module.exports = {
         ignoreStrings: true,
       },
     ],
-    "require-jsdoc": 1,
+    'require-jsdoc': 1,
   },
 };

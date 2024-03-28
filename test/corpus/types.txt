@@ -1,0 +1,163 @@
+==================
+Paramter type Int
+==================
+
+access(all) fun main(
+a1: Int,
+) {}
+
+-----
+
+(Program
+    (FunctionDeclaration
+      (Access
+          (Entitlements
+             (EntitlementIdentifier)))
+    (Identifier)
+    (Parameter
+        (Identifier)
+        (NominalType
+            (TypeIdentifier
+            (TypeBuiltin))))))
+
+==================
+Paramter type Int?
+==================
+
+access(all) fun main(
+a1: Int?,
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+            (OptionalType
+              (NominalType
+                (TypeIdentifier
+                  (TypeBuiltin)))))))
+
+==================
+Paramter type external struct
+==================
+
+access(all) fun main(
+    a1: SomeContract.StructA,
+    a2: SomeContract.StructB?,
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (NominalType
+            (TypeIdentifier)
+            (TypeIdentifier)))
+        (Parameter
+          (Identifier)
+          (OptionalType
+            (NominalType
+              (TypeIdentifier)
+              (TypeIdentifier))))))
+
+
+==================
+Paramter type external resource
+==================
+
+access(all) fun main(
+    a1: @SomeContract.ResourceA,
+    a2: @SomeContract.ResourceB?,
+) {}
+
+-----
+    (Program
+      (FunctionDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (ResourceType
+            (NominalType
+              (TypeIdentifier)
+              (TypeIdentifier))))
+        (Parameter
+          (Identifier)
+          (OptionalType
+            (ResourceType
+              (NominalType
+                (TypeIdentifier)
+                (TypeIdentifier)))))))
+
+==================
+Paramter type two entitlements
+==================
+
+access(all) fun initDefaultToken(
+    _ acct: auth(SaveValue, Capabilities) &Account
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (Identifier)
+          (AuthorizedType
+            (Entitlements
+              (EntitlementExpressionAnd
+                (EntitlementIdentifier)
+                (EntitlementIdentifier)))
+            (ReferenceType
+              (NominalType
+                (TypeIdentifier)))))))
+
+
+==================
+Paramter type three entitlements
+==================
+
+access(all) fun initDefaultToken(
+    _ acct: auth(SaveValue, Capabilities1 | Capabilities2) &Account
+) {}
+
+-----
+
+    (Program
+      (FunctionDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+          (Identifier)
+          (Identifier)
+          (AuthorizedType
+            (Entitlements
+              (EntitlementExpressionOr
+                (EntitlementExpressionAnd
+                  (EntitlementIdentifier)
+                  (EntitlementIdentifier))
+                (EntitlementIdentifier)))
+            (ReferenceType
+              (NominalType
+                (TypeIdentifier)))))))

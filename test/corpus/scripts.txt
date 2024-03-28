@@ -8,22 +8,21 @@ fun main(account: Address): UFix64 {
 }
 
 -----
-
-(Program
-    (FunctionDeclaration
-    (Access)
-    (Identifier)
-    (ParameterList
-        (Parameter
+    (Program
+      (FunctionDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
         (Identifier)
-        (TypeAnnotation
+        (Parameter
+          (Identifier)
             (NominalType
-            (Identifier)))))
-    (TypeAnnotation
-        (NominalType
-        (Identifier)))
-    (FunctionBlock
-        (Block
-        (ReturnStatement
-            (FixedPointExpression
-            (FixedPointLiteral)))))))
+              (TypeIdentifier
+                (TypeBuiltin))))
+          (NominalType
+            (TypeIdentifier
+              (TypeBuiltin)))
+          (Block
+            (ReturnStatement
+              (FixedPointExpression
+                (FixedPointLiteral))))))

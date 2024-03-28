@@ -1,35 +1,83 @@
-[
- (blockComment)
- (LineComment)
-] @comment @spell
 
-(CompositeDeclaration) @type
-(ImportDeclaration) @include
+
+(TypeIdentifier) @type
+(TypeBuiltin) @type.builtin
 (Identifier) @variable
-(AddressLocation) @variable
+((Identifier) @variable.builtin
+  (#eq? @variable.builtin "self"))
+
+(InitDeclaration) @constructor
+(SpecialFunctionDeclaration) @function.builtin
+(SpecialFunctionIdentifier) @function.builtin
+(FunctionDeclaration name: (Identifier) @function)
 
 (StringLiteral) @string
-(TypeAnnotation) @type
+(PathExpression) @string
+(PathExpression (Identifier) @string)
+(Address) @number
+(IntegerLiteral) @number
+(FixedPointLiteral) @number
+(BooleanLiteral) @boolean
 
-(Parameter Identifier: (Identifier) @parameter)
+(Parameter Identifier: (Identifier) @variable.parameter)
 [
     "var"
     "let"
 ] @type.qualifier
 
 (Access) @keyword
+(transactionDeclaration) @keyword
+(EntitlementIdentifier) @label
+
+(InterfaceMarker) @keyword
+(CompositeDeclaration) @keyword
 
 [
-  "contract"
-  "event"
-  "struct"
-  "resource"
-  "interface"
-  "enum"
+    "event"
+    "enum"
+    "fun"
+    "pre"
+    "post"
+    "execute"
+    "return"
+    "import"
+    "from"
+    "view"
+    "create"
+    "if"
+    "mapping"
 ] @keyword
 
-; (InvocationExpression Identifier: (IdentifierExpression) @function.call) ; foo()
-; (InvocationExpression Identifier: (MemberExpression) @function.call) ; foo()
+[
+    "("
+    ")"
+    "}"
+    "{"
+    "["
+    "]"
+] @punctuation.bracket
 
+[
+    "."
+    ","
+    ";"
+    "?"
+    ":"
+] @punctuation.delimiter
 
-(IntegerLiteral) @number
+(MultiplicativeOp) @operator
+(AdditiveOp) @operator
+(BitwiseShiftOp) @operator
+(BitwiseAnd) @operator
+(BitwiseXor) @operator
+(BitwiseOr) @operator
+(RelationalOP) @operator
+(NilCoalescing) @operator
+(EqualityOp) @operator
+(LogicalAnd) @operator
+(LogicalOr) @operator
+(Transfer) @operator
+(SwapStatement) @operator
+(Move) @operator
+
+(Comment) @comment

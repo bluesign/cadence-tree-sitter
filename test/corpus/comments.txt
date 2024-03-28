@@ -1,0 +1,51 @@
+==================
+Comments
+==================
+
+// comment
+
+----
+
+(Program
+    (Comment))
+
+==================
+Doc Comments
+==================
+
+/// main
+access(all) fun main() {}
+
+----
+
+(Program
+    (Comment)
+    (FunctionDeclaration
+        (Access
+            (Entitlements
+                (EntitlementIdentifier)))
+    (Identifier)))
+
+==================
+Resource mixed comments
+==================
+
+/* --- Hearbeat --- */
+//
+/// The Heartbeat resource containing each blocks source of randomness in sequence
+///
+access(all) resource Heartbeat {
+}
+
+---------
+
+(Program
+    (Comment)
+    (Comment)
+    (Comment)
+    (Comment)
+    (CompositeDeclaration
+    (Access
+        (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)))

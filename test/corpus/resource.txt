@@ -1,0 +1,97 @@
+==================
+Resource
+==================
+
+access(all) resource SomeResource {}
+
+-----
+
+(Program
+    (CompositeDeclaration
+      (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)))
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+      (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)
+    (Members
+        (InitDeclaration))))
+
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    access(all) var someField: UFix64
+
+    init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+      (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)
+    (Members
+        (FieldDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (VariableKind)
+        (Identifier)
+            (NominalType
+                (TypeIdentifier
+                  (TypeBuiltin))))
+        (InitDeclaration))))
+
+==================
+Resource init
+==================
+
+access(all) resource SomeResource {
+    access(all) var someField: UFix64
+
+    view init() {
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+      (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)
+    (Members
+        (FieldDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (VariableKind)
+        (Identifier)
+            (NominalType
+                (TypeIdentifier
+                  (TypeBuiltin))))
+        (InitDeclaration))))

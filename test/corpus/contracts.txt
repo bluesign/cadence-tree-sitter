@@ -9,7 +9,310 @@ contract SomeContract {
 -----
 
 (Program
+    (CompositeDeclaration
+        (Access
+            (Entitlements
+                (EntitlementIdentifier)))
+        (TypeIdentifier)))
+
+==================
+Contract with doc
+==================
+
+/// Some contract
+access(all)
+contract SomeContract {
+}
+
+-----
+
+(Program
+    (Comment)
+    (CompositeDeclaration
+        (Access
+            (Entitlements
+                (EntitlementIdentifier)))
+        (TypeIdentifier)))
+
+==================
+Contract with inheritance
+==================
+
+access(all)
+contract SomeContract: SomeContract2, SomeContract2.B {
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+        (Access
+            (Entitlements
+                (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Conformances
+            (NominalType
+                (TypeIdentifier))
+            (NominalType
+                (TypeIdentifier)
+                (TypeIdentifier)))))
+
+==================
+Contract init empty
+==================
+
+access(all)
+contract SomeContract {
+    init() {}
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+        (Access
+            (Entitlements
+                (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+            (InitDeclaration))))
+
+
+==================
+Contract init
+==================
+
+access(all)
+contract SomeContract {
+    init(greeting: String) {
+        self.greeting = greeting
+    }
+}
+
+-----
+
+(Program
+    (CompositeDeclaration
+    (Access
+        (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)
+    (Members
+    (InitDeclaration
+        (Parameter
+            (Identifier)
+            (NominalType
+                (TypeIdentifier
+                    (TypeBuiltin))))
+        (Block
+            (AssignmentStatement
+                (MemberExpression
+                    (IdentifierExpression
+                        (Identifier))
+                (Identifier))
+            (Transfer
+                (TransferOperationCopy))
+            (IdentifierExpression
+                (Identifier))))))))
+
+
+==================
+Contract function
+==================
+
+access(all)
+contract SomeContract {
+    access(all)
+    fun hello(add: String) {
+        self.greeting =  self.greeting + add
+    }
+}
+
+-------
+
+(Program
+    (CompositeDeclaration
+      (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+    (TypeIdentifier)
+    (Members
+        (FunctionDeclaration
+          (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (Identifier)
+        (Parameter
+            (Identifier)
+            (NominalType
+                (TypeIdentifier
+                (TypeBuiltin))))
+        (Block
+            (AssignmentStatement
+                (MemberExpression
+                (IdentifierExpression
+                    (Identifier))
+                (Identifier))
+                (Transfer
+                (TransferOperationCopy))
+                (AdditiveExpression
+                (MemberExpression
+                    (IdentifierExpression
+                    (Identifier))
+                    (Identifier))
+                (AdditiveOp
+                    (Plus))
+                (IdentifierExpression
+                    (Identifier)))))))))
+
+==================
+Contract init with path
+==================
+
+access(all)
+contract SomeContract {
+    init() {
+        self.MinterStoragePath = /storage/cadenceExampleNFTMinter
+    }
+}
+
+-------
+
+    (Program
       (CompositeDeclaration
-        (Access)
-        (CompositeKind)
-        (Identifier)))
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Block
+              (AssignmentStatement
+                (MemberExpression
+                  (IdentifierExpression
+                    (Identifier))
+                  (Identifier))
+                (Transfer
+                  (TransferOperationCopy))
+                (PathExpression
+                  (Identifier)
+                  (Identifier))))))))
+
+
+==================
+Contract init with create
+==================
+
+access(all)
+contract SomeContract {
+    init() {
+        self.account.storage.save(<-create Heartbeat(label: "test"), to: self.HeartbeatStoragePath)
+    }
+}
+
+-------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Block
+              (ExpressionStatement
+                (InvocationExpression
+                  (MemberExpression
+                    (MemberExpression
+                      (MemberExpression
+                        (IdentifierExpression
+                          (Identifier))
+                        (Identifier))
+                      (Identifier))
+                    (Identifier))
+                  (Argument
+                    (UnaryMoveExpression
+                      (Move)
+                      (CreateExpression
+                        (NominalType
+                          (TypeIdentifier))
+                        (Argument
+                          (Identifier)
+                          (StringExpression
+                            (StringLiteral))))))
+                  (Argument
+                    (Identifier)
+                    (MemberExpression
+                      (IdentifierExpression
+                        (Identifier))
+                      (Identifier))))))))))
+
+
+==================
+Contract define entitlement
+==================
+
+access(all)
+contract SomeContract {
+    access(all) entitlement NodeOperator
+}
+
+------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (EntitlementDeclaration
+            (Access
+              (Entitlements
+                (EntitlementIdentifier)))
+            (EntitlementIdentifier)))))
+
+==================
+Contract init can have access
+==================
+
+access(all)
+contract SomeContract {
+    access(all) init() {
+    }
+}
+
+------
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (TypeIdentifier)
+        (Members
+          (InitDeclaration
+            (Access
+              (Entitlements
+                (EntitlementIdentifier)))))))
+
+==================
+Contract interface
+==================
+
+access(all) contract interface NonFungibleToken: ViewResolver {
+}
+
+-----
+
+    (Program
+      (CompositeDeclaration
+        (Access
+          (Entitlements
+            (EntitlementIdentifier)))
+        (InterfaceMarker)
+        (TypeIdentifier)
+        (Conformances
+          (NominalType
+            (TypeIdentifier)))))
