@@ -23,7 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@onflow/cadence-parser": "^0.26.0",
+    "@onflow/cadence-parser": "^0.42.1",
     "cadence-parser": "^1.0.1",
     "node-addon-api": "^7.1.0",
     "node-gyp-build": "^4.8.0"
