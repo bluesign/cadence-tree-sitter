@@ -12,7 +12,10 @@
     "lint-fix": "eslint grammar.js --fix",
     "build-wasm": "tree-sitter build --wasm"
   },
-  "keywords": ["parser", "cadence"],
+  "keywords": [
+    "parser",
+    "cadence"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bluesign/cadence-tree-sitter.git"
@@ -20,13 +23,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@onflow/cadence-parser": "^0.26.0",
+    "@onflow/cadence-parser": "^0.42.1",
     "cadence-parser": "^1.0.1",
     "node-addon-api": "^7.1.0",
     "node-gyp-build": "^4.8.0"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.21.0"
+    "tree-sitter": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "tree_sitter": {
@@ -51,8 +54,12 @@
     {
       "scope": "source.cadence",
       "injection-regex": "cadence",
-      "file-types": ["cdc"],
-      "highlights": ["queries/cadence/highlights.scm"]
+      "file-types": [
+        "cdc"
+      ],
+      "highlights": [
+        "queries/cadence/highlights.scm"
+      ]
     }
   ]
 }
